@@ -13,7 +13,13 @@ if [ ! -f "$MASTER" ]; then echo "❌ Master introuvable :"; echo "   $MASTER"; 
 cp "$MASTER" "$REPO/index.html"
 echo "✓ index.html resynchronisé depuis le master"
 
-# 2) Init git si besoin
+# 2) Init / réparation git
+#    (nettoie d'éventuels verrous laissés par une copie/synchro, puis vérifie l'intégrité)
+find .git -name '*.lock' -delete 2>/dev/null || true
+find .git/objects -name 'tmp_obj_*' -delete 2>/dev/null || true
+if [ -d .git ] && ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "ℹ dépôt git incomplet → réinitialisation propre"; rm -rf .git
+fi
 if [ ! -d .git ]; then git init -b main >/dev/null; echo "✓ dépôt git initialisé"; fi
 
 # 3) Remote origin
