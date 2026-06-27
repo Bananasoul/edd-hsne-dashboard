@@ -215,7 +215,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26d</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26e</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -250,6 +250,12 @@
         <button onclick="newPatient()" style="border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer">🗑 Nouveau patient</button>
       </div>
     </div>
+    <div id="dl-hopital-card" style="display:none;background:#f4f8fb;border:1px solid var(--line);border-radius:12px;padding:16px 20px;max-width:520px;margin:14px auto 8px;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:var(--navy)">💻 Installer sur le poste de l'hôpital</div>
+      <div style="font-size:12px;color:var(--mut);margin:5px 0 12px">Version hors-ligne (Windows + Microsoft Edge) — fichier unique, polices incluses, aucune donnée envoyée. Décompresse puis double-clic sur <code>Lancer-Ecole-du-Dos.cmd</code>.</div>
+      <a href="Ecole-du-Dos-EDD.zip" download style="display:inline-block;background:var(--teal);color:#fff;border-radius:9px;padding:10px 18px;font-weight:800;font-size:13px;text-decoration:none">⬇ Télécharger le ZIP hôpital</a>
+    </div>
+    <script>if(location.protocol.indexOf('http')===0){var _dl=document.getElementById('dl-hopital-card');if(_dl)_dl.style.display='block';}</script>
   </section>
   <!-- ============ MODULE 1 : ANAMNÈSE GUIDÉE (écran scindé) ============ -->
   <section id="view-anam" class="hide">

@@ -31,6 +31,18 @@ if ! git remote get-url origin >/dev/null 2>&1; then
   if [ -n "${URL:-}" ]; then git remote add origin "$URL"; echo "✓ origin = $URL"; else echo "❌ Pas d'URL, abandon."; read -r -p "Entrée pour fermer."; exit 1; fi
 fi
 
+# 3b) Régénère le ZIP hôpital téléchargeable (toujours = build courant)
+if [ -f outils/modele/Lancer-Ecole-du-Dos.cmd ]; then
+  ZTMP="$(mktemp -d)"; ZS="$ZTMP/Ecole-du-Dos-EDD"; mkdir -p "$ZS"
+  cp index.html "$ZS/Ecole-du-Dos.html"
+  cp outils/modele/Lancer-Ecole-du-Dos.cmd "$ZS/"
+  cp outils/modele/LISEZ-MOI.txt "$ZS/"
+  rm -f "$REPO/Ecole-du-Dos-EDD.zip"
+  ( cd "$ZTMP" && zip -rqX "$REPO/Ecole-du-Dos-EDD.zip" "Ecole-du-Dos-EDD" )
+  rm -rf "$ZTMP"
+  echo "✓ ZIP hôpital régénéré (téléchargeable sur le site)"
+fi
+
 # 4) Commit
 git add -A
 if git diff --cached --quiet; then

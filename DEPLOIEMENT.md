@@ -43,6 +43,14 @@ le message, tu valides, ça part.
 
 ## C. Version hôpital (hors-ligne Windows + Edge)
 
+> **Le plus simple** : le ZIP est **téléchargeable depuis le site lui-même**.
+> Sur le poste de l'hôpital, ouvre `https://edd-hsne-dashboard.vercel.app`, écran **Accueil** →
+> bouton **« ⬇ Télécharger le ZIP hôpital »** (visible uniquement en ligne) → décompresse →
+> double-clic sur `Lancer-Ecole-du-Dos.cmd`. `deploy.command` régénère ce ZIP à chaque push,
+> donc le téléchargement est toujours au build courant.
+
+Variante manuelle (clé USB) :
+
 1. Double-clic sur **`outils/faire-zip-hopital.command`** → crée `Ecole-du-Dos-EDD.zip`.
 2. Copie le ZIP sur le poste de l'hôpital (clé USB / réseau).
 3. Décompresse, puis double-clic sur **`Lancer-Ecole-du-Dos.cmd`** (ouvre dans Edge),

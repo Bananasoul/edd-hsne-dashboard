@@ -3,3 +3,4 @@ node_modules/
 .vercel
 _zip_build/
 *.zip
+!Ecole-du-Dos-EDD.zip
