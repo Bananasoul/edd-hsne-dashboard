@@ -17,6 +17,7 @@ if [ -f outils/modele/Lancer-Ecole-du-Dos.cmd ]; then
   rm -rf "$ZTMP"; echo "✓ ZIP régénéré"
 fi
 
+echo "deploy $(date '+%Y-%m-%d %H:%M:%S')" >> .deploy-log
 find .git -name '*.lock' -delete 2>/dev/null
 if [ ! -d .git ]; then git init -b main >/dev/null; fi
 git add -A
