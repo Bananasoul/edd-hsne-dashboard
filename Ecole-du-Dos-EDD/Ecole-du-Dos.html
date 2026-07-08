@@ -120,31 +120,6 @@
   .edu .key::before{content:"✓ "}
   /* ---- Module Body chart ---- */
   .bc-wrap{display:grid;grid-template-columns:1fr 1fr 330px;gap:16px;align-items:start}
-  /* ---- Anamnèse façon formulaire officiel (pages 2-3) ---- */
-  #view-anam .obox{border:1px solid #24314d;border-radius:8px;padding:8px 10px;background:#fff}
-  #view-anam .oblab{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:6px}
-  #view-anam .oblab.alert{color:#c0392b}
-  #view-anam .obq{font-size:11px;color:var(--teal);cursor:help}
-  #view-anam .obin textarea{width:100%;min-height:40px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:13px}
-  #view-anam .ogrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
-  #view-anam .ogrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0}
-  #view-anam .ogrid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:8px 0}
-  @media(max-width:860px){#view-anam .ogrid2,#view-anam .ogrid3,#view-anam .ogrid4{grid-template-columns:1fr}}
-  #view-anam .osec{font-size:14px;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:5px;margin:18px 0 6px}
-  #view-anam .obc-wrap{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;align-items:flex-start}
-  #view-anam .obc-chart{flex:2;min-width:320px}
-  #view-anam .obc-rom{flex:1;min-width:230px;border:1px solid #24314d;border-radius:8px;padding:8px 10px;text-align:center}
-  #view-anam .oyf{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  @media(max-width:860px){#view-anam .oyf{grid-template-columns:1fr}}
-  table.ztbl{border-collapse:collapse;width:100%;margin:4px 0}
-  table.ztbl th,table.ztbl td{border:1px solid #24314d;padding:4px 7px;font-size:12.5px;text-align:left}
-  table.ztbl th{background:#eef4f9;color:var(--navy);font-weight:800;font-size:12px}
-  table.ztbl td.k{background:#f4f8fb;font-weight:800;color:var(--navy);white-space:nowrap;width:70px}
-  table.ztbl input{width:100%;border:none;background:transparent;font:inherit;font-size:12.5px;outline:none}
-  .anam-tip{position:fixed;z-index:9999;max-width:340px;background:#0f213f;color:#eaf2fb;border:1px solid var(--teal);border-radius:10px;padding:11px 13px;box-shadow:0 8px 26px rgba(0,0,0,.30);font-size:12.5px;line-height:1.45;pointer-events:none}
-  .anam-tip h5{margin:0 0 5px;color:var(--sky);font-size:12.5px;font-weight:800}
-  .anam-tip .q{margin-bottom:5px}
-  .anam-tip ul{margin:0;padding-left:16px} .anam-tip li{margin:2px 0;color:#bcd3ea}
   .bc-fig{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center}
   .bc-fig h4{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
   .bc-fig .cap{font-size:10.5px;color:#9aa3af;margin-top:4px}
@@ -240,7 +215,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26h</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26g</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -282,8 +257,28 @@
   </section>
   <!-- ============ MODULE 1 : ANAMNÈSE GUIDÉE (écran scindé) ============ -->
   <section id="view-anam" class="hide">
-    <div class="intro">Fiche d'anamnèse — structure du formulaire officiel (Prestation 558994). Survole une case (<b>🛈</b>) pour voir la question à poser et les relances.</div>
+    <div class="intro">À <b>gauche</b> : la question à poser (🗣) + des relances pour préciser (↳). À <b>droite</b> : le questionnaire vierge — remplissez au clavier pendant l'entretien, puis imprimez.</div>
+    <details id="ref-panel" open style="position:sticky;top:54px;z-index:12;margin-bottom:14px;border:1px solid var(--line);border-radius:9px;background:#fff" ontoggle="if(this.open)renderRefPanel()">
+      <summary style="cursor:pointer;padding:10px 14px;font-weight:700;color:var(--teal)">🪐 Repères cliniques — modèle planétaire pondéré (Danneels) + CIF du patient</summary>
+      <div style="padding:0 14px 14px">
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1;min-width:300px">
+            <div style="font-size:11px;color:var(--mut);font-weight:700;margin-bottom:4px">Modèle de raisonnement clinique — <b>taille = importance</b> de la sphère</div>
+            <div id="ref-planet"></div>
+            <div id="planet-questions" style="margin-top:6px;background:#f4f8fb;border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:48px">Survole une planète (ou les Red Flags) pour voir les questions clés à poser.</div>
+            <div style="margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--teal);margin-bottom:2px">Sphères impliquées & arguments</div><div id="ref-planet-args"></div></div>
+            <details style="margin-top:8px"><summary style="cursor:pointer;font-size:11px;color:var(--teal);font-weight:700">⚙ Pondérer les sphères (0–3) + arguments</summary><div id="ref-planet-editor" style="margin-top:6px"></div></details>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <div style="font-size:11px;color:var(--mut);font-weight:700;margin-bottom:4px">CIF — adaptée au patient (auto) <button type="button" onclick="renderRefPanel()" style="border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;font-size:11px;padding:1px 7px">↻ rafraîchir</button></div>
+            <div id="ref-cif"></div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--mut);margin-top:8px">Modèle planétaire : Danneels et coll., trad. Demoulin et coll., Rev Med Liège 2017;72(3):126-131 (Fig. 1) — pondéré selon l'importance clinique. Pré-rempli par l'import PLAUD, ajustable, exporté dans le document T0.</div>
+      </div>
+    </details>
     <div class="toolbar">
+      <input type="search" id="search-anam" placeholder="Rechercher une question, un champ…" oninput="filterAnam(this.value)">
       <button onclick="toggleImport()">⇪ Importer transcript PLAUD</button>
       
       <button onclick="newPatient()">↺ Réinitialiser</button>
@@ -303,9 +298,9 @@
         <span id="import-report" style="font-size:12.5px;font-weight:700"></span>
       </div>
     </div>
-    <div class="sec-nav" id="sec-nav" style="display:none"></div>
+    <div class="sec-nav" id="sec-nav"></div>
+    <div class="colhead"><div>Anamnèse guidée — ce que je demande</div><div class="ch-form">Fiche à remplir</div></div>
     <div id="anam-body"></div>
-    <div id="anam-tip" class="anam-tip" style="display:none"></div>
   </section>
 
   <!-- ============ MODULE CONDITION PHYSIQUE ============ -->
@@ -714,17 +709,6 @@ const ANAMNESE = [
    {key:"yf_W", f:"W — Travail", in:"flag", q:"Votre rapport au travail en ce moment ?", r:["Satisfaction, conflit, peur de ne pas reprendre ?"]},
    {key:"yf_S", f:"S — Stress / sommeil", in:"flag", q:"Niveau de stress global ? Le sommeil ?", r:["Sources de stress (perso, pro) ?","Le stress influence-t-il la douleur ?"]},
  ]},
- {sec:"📄 Fiche officielle — compléments", de:"Offizielles Blatt", items:[
-   {key:"hobbies", f:"Hobbies", in:"text", q:"Quels loisirs / hobbies ? Lesquels sont limités par le dos ?", r:["À quelle fréquence ?","Lesquels aimeriez-vous reprendre ?"]},
-   {key:"attentes", f:"Attentes p/r au traitement", in:"text", q:"Qu'attendez-vous de l'École du dos ? Qu'espérez-vous obtenir ?", r:["Attente réaliste ou à recadrer ?","Votre priorité n°1 ?"]},
-   {key:"cours", f:"Cours / évolution", in:"radio", q:"Depuis le début, ça évolue comment ?", r:["Stable, s'améliore, s'aggrave, en dents de scie ?"], opt:["Amélioration","Stable","Aggravation","Fluctuant"]},
-   {key:"evitement", f:"Évitement", in:"text", q:"Des mouvements/activités que vous évitez ?", r:["Par peur ou par douleur ?","Depuis quand ?"]},
-   {key:"examens", f:"Examens cliniques", in:"text", q:"Observations de l'examen clinique (mobilité, tests, palpation).", r:["Tests positifs ?","Reproduction du symptôme ?"]},
-   {key:"charge", f:"Charge (métier, famille, hobby)", in:"text", q:"Charge globale actuelle : travail, famille, loisirs ?", r:["Surcharge ou sous-charge ?","Équilibre de vie ?"]},
-   {key:"mecanisme", f:"Hypothèse — mécanisme de la douleur", in:"radio", q:"Mécanisme dominant présumé ?", r:["Nociceptif : mécanique, proportionnel.","Neuropathique : trajet, brûlure, déficit.","Central : diffus, hypersensibilité, disproportion."], opt:["Nociceptif","Neuropathique","Central","Mixte"]},
-   {key:"processing", f:"INPUT / OUTPUT / PROCESSING", in:"radio", q:"Traitement de l'information douleur : adapté ou non-adapté ?", r:["Réponse proportionnée au stimulus ?","Comportement / croyances adaptés ?"], opt:["Adapté","Non-adapté"]},
-   {key:"schema_clinique", f:"Schéma clinique / synthèse", in:"text", q:"Synthèse du raisonnement : hypothèse principale, plan.", r:["Drapeaux notables ?","Orientation EDD ?"]},
- ]},
 ];
 
 /* ====================== DONNÉES MODULE 2 : ÉDUCATION ====================== */
@@ -983,78 +967,28 @@ function inputHTML(it,key){
   if(t==='flag') return `<div class="opts"><label class="opt"><input type="checkbox">Présent</label></div><input type="text" class="fnote" placeholder="Note…">`;
   return `<textarea rows="${it.big?4:2}" placeholder="Réponse…"></textarea>`;
 }
-var _KMAP={};
-function _kmapBuild(){ _KMAP={}; ANAMNESE.forEach(function(sec,si){ sec.items.forEach(function(it,ii){ if(it.key){ ANAMBYKEY[it.key]=it; _KMAP[it.key]={si:si,ii:ii,it:it}; } }); }); }
-function anamField(key,label){
-  var m=_KMAP[key]; var q=String.fromCharCode(39);
-  if(!m)return '<div class="obox"><div class="oblab">'+esc(label||key)+'</div><div class="muted2">(champ absent)</div></div>';
-  var it=m.it, k='f'+m.si+'_'+m.ii, lab=label||it.f;
-  var dt=(it.f+' '+it.q+' '+(it.r||[]).join(' ')).toLowerCase().replace(/"/g,'');
-  return '<div class="obox row" data-key="'+key+'" data-t="'+dt+'" onmouseenter="anamTip(event,'+q+key+q+')" onmouseleave="hideAnamTip()">'
-    +'<div class="oblab '+(it.alert?'alert':'')+'">'+esc(lab)+' <span class="obq" title="Question à poser">🛈</span></div>'
-    +'<div class="obin">'+inputHTML(it,k)+'</div></div>';
-}
-function anamTip(evt,key){
-  var it=ANAMBYKEY[key], el=document.getElementById('anam-tip'); if(!it||!el)return;
-  var r=(it.r||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
-  el.innerHTML='<h5>🗣 '+esc(it.f)+'</h5><div class="q">'+esc(it.q)+'</div>'+(r?'<ul>'+r+'</ul>':'');
-  el.style.display='block';
-  var w=el.offsetWidth||320,h=el.offsetHeight||160,x=evt.clientX+16,y=evt.clientY+8;
-  if(x+w>window.innerWidth-10)x=evt.clientX-w-16; if(y+h>window.innerHeight-10)y=window.innerHeight-h-10;
-  el.style.left=Math.max(6,x)+'px'; el.style.top=Math.max(6,y)+'px';
-}
-function hideAnamTip(){ var e=document.getElementById('anam-tip'); if(e)e.style.display='none'; }
-var ROM_DIRS=[['F','Flexion'],['E','Extension'],['LFL','Incl. G'],['LFR','Incl. D'],['RL','Rot. G'],['RR','Rot. D']];
-var ROM_STATES=['','lim','dol'];
-function romNext(k){ if(!extraT0.rom)extraT0.rom={}; var i=ROM_STATES.indexOf(extraT0.rom[k]||''); extraT0.rom[k]=ROM_STATES[(i+1)%3]; renderROM(); if(window._ready)autosaveDeb(); }
-function _romCol(x){ return x==='dol'?'#c0392b':(x==='lim'?'#d98a1f':'#5b6b7f'); }
-function _romLbl(x){ return x==='dol'?'douloureux':(x==='lim'?'limité':'normal'); }
-function renderROM(){
-  var el=document.getElementById('rom-star'); if(!el)return; var rom=extraT0.rom||{}, q=String.fromCharCode(39);
-  var pos={F:[100,22],E:[100,184],RL:[16,104],RR:[184,104],LFL:[42,40],LFR:[158,40]};
-  var svg='<svg viewBox="0 0 200 200" style="width:100%;max-width:220px"><g stroke="#c8d6e6" stroke-width="2">'
-    +'<line x1="100" y1="100" x2="100" y2="34"/><line x1="100" y1="100" x2="100" y2="172"/>'
-    +'<line x1="100" y1="100" x2="30" y2="100"/><line x1="100" y1="100" x2="170" y2="100"/>'
-    +'<line x1="100" y1="100" x2="52" y2="50"/><line x1="100" y1="100" x2="148" y2="50"/></g>';
-  ROM_DIRS.forEach(function(d){var p=pos[d[0]],st=rom[d[0]]||''; svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="'+_romCol(st)+'"/><text x="'+p[0]+'" y="'+(p[1]+3)+'" font-size="8" fill="#fff" text-anchor="middle" font-weight="700">'+d[0]+'</text>';});
-  svg+='</svg>';
-  var btns=ROM_DIRS.map(function(d){var st=rom[d[0]]||''; return '<button type="button" onclick="romNext('+q+d[0]+q+')" style="border:1px solid var(--line);border-left:4px solid '+_romCol(st)+';background:#fff;border-radius:7px;padding:4px 8px;margin:3px;cursor:pointer;font-size:11.5px"><b>'+d[0]+'</b> '+d[1]+' — <span style="color:'+_romCol(st)+';font-weight:700">'+_romLbl(st)+'</span></button>';}).join('');
-  el.innerHTML=svg+'<div style="margin-top:4px">'+btns+'</div><div class="muted2" style="margin-top:3px">Clic : normal → limité → douloureux.</div>';
-}
-function zoneSet(i,f,v){ if(!extraT0.zones)extraT0.zones=[]; if(!extraT0.zones[i])extraT0.zones[i]={}; extraT0.zones[i][f]=v; if(window._ready)autosaveDeb(); }
-function renderZones(){
-  var el=document.getElementById('zones-tbl'); if(!el)return; var z=extraT0.zones||[], q=String.fromCharCode(39);
-  var h='<table class="ztbl"><tr><th>Zone</th><th>Type de plainte</th><th>Commentaires</th><th>EVA</th></tr>';
-  for(var i=0;i<5;i++){var r=z[i]||{};
-    h+='<tr><td class="k">ZONE '+(i+1)+'</td>'
-      +'<td><input value="'+esc(r.type||'')+'" oninput="zoneSet('+i+','+q+'type'+q+',this.value)"></td>'
-      +'<td><input value="'+esc(r.com||'')+'" oninput="zoneSet('+i+','+q+'com'+q+',this.value)"></td>'
-      +'<td><input type="number" min="0" max="10" style="width:52px" value="'+esc(r.eva!=null?r.eva:'')+'" oninput="zoneSet('+i+','+q+'eva'+q+',this.value)"></td></tr>';
-  }
-  el.innerHTML=h+'</table>';
-}
 function renderAnam(){
-  _kmapBuild();
-  var body=document.getElementById('anam-body'); if(!body)return;
-  var nav=document.getElementById('sec-nav'); if(nav)nav.innerHTML='';
-  var h='';
-  h+='<div class="ogrid2">'+anamField('metier')+anamField('statut','Statut (AT / Reha / actif)')
-    +anamField('hobbies')+anamField('sport','Sport (type / fréquence)')
-    +anamField('probleme','Problème principal')+anamField('diagnostic','Diagnostic')
-    +anamField('objectifs','Objectifs')+anamField('attentes')+'</div>';
-  h+='<div class="obc-wrap"><div class="obc-chart">'+buildBodyChartBlock()+'</div>'
-    +'<div class="obc-rom"><div class="oblab" style="justify-content:center">Bilan Fonctionnel Vertébral</div><div id="rom-star"></div></div></div>';
-  h+='<div class="oblab" style="margin-top:10px">Zones — type de plainte · commentaires · EVA (0–10)</div><div id="zones-tbl"></div>';
-  h+='<h2 class="osec">🧠 Raisonnement clinique</h2>';
-  h+='<div class="ogrid2">'+anamField('debut','Début')+anamField('cours')+'</div>';
-  h+='<div class="ogrid4">'+anamField('provocation','Provocation')+anamField('soulagement','Diminution')+anamField('schema24h','Schéma 24h')+anamField('evitement')+'</div>';
-  h+='<div class="ogrid4">'+anamField('examens')+anamField('antecedents','Santé')+anamField('medication','Médication')+anamField('red_flags','Red Flags')+'</div>';
-  h+='<div class="ogrid2"><div class="obox"><div class="oblab">🟡 Yellow Flags</div><div class="oyf">'
-    +['yf_A','yf_B','yf_D','yf_E','yf_F','yf_W','yf_S'].map(function(k){return anamField(k);}).join('')+'</div></div>'
-    +anamField('charge')+'</div>';
-  h+='<div class="ogrid3">'+anamField('mecanisme')+anamField('processing')+anamField('schema_clinique')+'</div>';
-  body.innerHTML=h;
-  renderROM(); renderZones();
+  const body=document.getElementById('anam-body'); const nav=document.getElementById('sec-nav');
+  body.innerHTML=''; nav.innerHTML='';
+  ANAMNESE.forEach((s,si)=>{
+    const id='sec'+si;
+    nav.appendChild(el(`<a href="#${id}">${s.sec}</a>`));
+    body.appendChild(el(`<h2 class="sec" id="${id}">${s.sec}<span style="font-weight:400;color:#9db6d2"> / ${s.de||''}</span></h2>`));
+    s.items.forEach((it,ii)=>{
+      const key='f'+si+'_'+ii;
+      if(it.key)ANAMBYKEY[it.key]=it;
+      const rel=(it.r||[]).map(x=>`<li>${x}</li>`).join('');
+      body.appendChild(el(`<div class="row" data-key="${it.key||''}" data-t="${(it.f+' '+it.q+' '+(it.r||[]).join(' ')).toLowerCase().replace(/"/g,'')}">
+        <div class="qcell ${it.alert?'alert':''}">
+          <div class="label">${it.f}</div>
+          <div class="ask">${it.q}</div>
+          ${rel?`<ul class="relances">${rel}</ul>`:''}
+        </div>
+        <div class="fcell"><span class="flab">${it.f}</span>${inputHTML(it,key)}</div>
+      </div>`));
+    });
+    if(si===1){ nav.appendChild(el(`<a href="#sec-body">Schéma corporel</a>`)); body.appendChild(el(buildBodyChartBlock())); }
+  });
 }
 function filterAnam(v){
   v=(v||'').toLowerCase().trim();
@@ -1934,7 +1868,7 @@ function restoreState(s){
   if(s.q&&typeof QRESP!=='undefined'){QDEFS.forEach(dq=>{if(Array.isArray(s.q[dq.id]))QRESP[dq.id]=s.q[dq.id];}); renderQ();}
   if(s.fin){setv('pat-nom',s.fin.nom);setv('pat-prenom',s.fin.prenom);setv('pat-dossier',s.fin.dossier);setv('med-email',s.fin.email);}
   if(s.planetes&&typeof s.planetes==='object'){planetData=s.planetes; const e=document.getElementById('ref-planet-editor'); if(e)e.innerHTML=planetEditorHTML(); refreshPlanet();}
-  if(s.extra&&typeof s.extra==='object')extraT0=s.extra; try{renderROM();renderZones();}catch(_e){}
+  if(s.extra&&typeof s.extra==='object')extraT0=s.extra;
 }
 let _saveTimer=null;
 function autosave(){ if(!window._ready)return;
