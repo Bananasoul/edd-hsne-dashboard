@@ -21,7 +21,7 @@ echo "deploy $(date '+%Y-%m-%d %H:%M:%S')" >> .deploy-log
 find .git -name '*.lock' -delete 2>/dev/null
 if [ ! -d .git ]; then git init -b main >/dev/null; fi
 git add -A
-git commit -m "deploy $(date '+%Y-%m-%d %H:%M') — build 26e + bouton téléchargement ZIP hôpital" || echo "ℹ rien de nouveau à committer"
+git commit -m "deploy $(date '+%Y-%m-%d %H:%M')" || echo "ℹ rien de nouveau à committer"
 BR="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
 echo "→ push origin $BR …"
 git push origin "$BR"

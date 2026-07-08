@@ -120,30 +120,6 @@
   .edu .key::before{content:"✓ "}
   /* ---- Module Body chart ---- */
   .bc-wrap{display:grid;grid-template-columns:1fr 1fr 330px;gap:16px;align-items:start}
-  /* ---- Fiche officielle 558994 (accueil bilingue) ---- */
-  .fiche-toolbar{display:flex;align-items:center;gap:12px;max-width:760px;margin:2px auto 10px;flex-wrap:wrap}
-  .fiche-langsw{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .fiche-langsw button{border:none;background:#fff;color:var(--navy);padding:6px 14px;font:inherit;font-weight:800;font-size:12.5px;cursor:pointer}
-  .fiche-langsw button.on{background:var(--navy);color:#fff}
-  .fiche-hint{font-size:12px;color:var(--mut)}
-  .fiche{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 26px}
-  .fiche-h{border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:14px}
-  .fiche-h .t{font-size:15px;font-weight:900;color:var(--navy);line-height:1.25}
-  .fiche-h .s{font-size:11px;color:var(--mut);margin-top:2px}
-  table.id-tbl,table.syn-tbl{border-collapse:collapse;width:100%;margin:8px 0}
-  table.id-tbl td,table.syn-tbl td,table.syn-tbl th{border:1px solid #24314d;padding:5px 8px;font-size:13px;text-align:left;vertical-align:middle}
-  table.id-tbl td.k,table.syn-tbl td.k{background:#f4f8fb;font-weight:800;color:var(--navy);width:36%;white-space:nowrap}
-  table.syn-tbl td.q,table.syn-tbl th.q{cursor:help}
-  table.syn-tbl td.q:hover,table.syn-tbl th.q:hover{background:#e8f6fb}
-  table.syn-tbl th{background:#eef4f9;font-weight:800;color:var(--navy);font-size:12px}
-  table.id-tbl input,table.syn-tbl input{width:100%;border:none;background:transparent;font:inherit;font-size:13px;outline:none;color:var(--ink)}
-  table.syn-tbl input[readonly]{color:var(--teal);font-weight:800}
-  .fiche-tip{position:fixed;z-index:9999;max-width:340px;background:#0f213f;color:#eaf2fb;border:1px solid var(--teal);border-radius:10px;padding:11px 13px;box-shadow:0 8px 26px rgba(0,0,0,.30);font-size:12.5px;line-height:1.45;pointer-events:none}
-  .fiche-tip h5{margin:0 0 6px;font-size:12.5px;color:var(--sky);font-weight:800}
-  .fiche-tip ul{margin:0;padding-left:16px} .fiche-tip li{margin:3px 0}
-  .fiche-actions{display:flex;gap:10px;justify-content:center;margin:16px auto;max-width:760px;flex-wrap:wrap}
-  .fiche-actions .fiche-start{border:none;background:var(--navy);color:#fff;border-radius:9px;padding:11px 20px;font-weight:800;cursor:pointer;font-size:14px;font-family:inherit}
-  .fiche-actions .fiche-new{border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer;font-family:inherit}
   .bc-fig{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center}
   .bc-fig h4{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
   .bc-fig .cap{font-size:10.5px;color:#9aa3af;margin-top:4px}
@@ -239,7 +215,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26f</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26g</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -264,18 +240,20 @@
 <main>
   <!-- ============ ACCUEIL ============ -->
   <section id="view-accueil">
-    <div class="fiche-toolbar">
-      <div class="fiche-langsw"><button id="flang-fr" class="on" onclick="setFicheLang('fr')">FR</button><button id="flang-de" onclick="setFicheLang('de')">DE</button></div>
-      <span class="fiche-hint" id="fiche-hint-txt">💡 Survole un libellé pour voir les questions à poser.</span>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 24px;max-width:460px;margin:24px auto 8px;text-align:center">
+      <div style="font-size:19px;font-weight:900;color:var(--navy)"><span style="color:var(--mauve)">École du Dos</span> — bilan d'entrée (T0)</div>
+      <div style="font-size:12.5px;color:var(--mut);margin:8px 0 18px">Navigation libre entre les étapes en haut. Commence par l'anamnèse guidée.</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button onclick="show('anam')" style="border:none;background:var(--navy);color:#fff;border-radius:9px;padding:12px 22px;font-weight:800;cursor:pointer;font-size:14px">▶ Démarrer l'anamnèse</button>
+        <button onclick="newPatient()" style="border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer">🗑 Nouveau patient</button>
+      </div>
     </div>
-    <div id="fiche-body"></div>
     <div id="dl-hopital-card" style="display:none;background:#f4f8fb;border:1px solid var(--line);border-radius:12px;padding:16px 20px;max-width:520px;margin:14px auto 8px;text-align:center">
       <div style="font-size:13px;font-weight:800;color:var(--navy)">💻 Installer sur le poste de l'hôpital</div>
       <div style="font-size:12px;color:var(--mut);margin:5px 0 12px">Version hors-ligne (Windows + Microsoft Edge) — fichier unique, polices incluses, aucune donnée envoyée. Décompresse puis double-clic sur <code>Lancer-Ecole-du-Dos.cmd</code>.</div>
       <a href="Ecole-du-Dos-EDD.zip" download style="display:inline-block;background:var(--teal);color:#fff;border-radius:9px;padding:10px 18px;font-weight:800;font-size:13px;text-decoration:none">⬇ Télécharger le ZIP hôpital</a>
     </div>
     <script>if(location.protocol.indexOf('http')===0){var _dl=document.getElementById('dl-hopital-card');if(_dl)_dl.style.display='block';}</script>
-    <div id="fiche-tip" class="fiche-tip" style="display:none"></div>
   </section>
   <!-- ============ MODULE 1 : ANAMNÈSE GUIDÉE (écran scindé) ============ -->
   <section id="view-anam" class="hide">
@@ -428,7 +406,7 @@
     <div class="fit-card"><h3>📄 Générer le document de bilan T0</h3>
       <div id="doc-recap" style="font-size:13px;color:var(--ink);margin-bottom:12px"></div>
       <div class="finalize" style="position:static;top:auto">
-        <span style="font-size:12px;color:var(--mut);align-self:center">👤 Identité (nom/prénom/dossier) saisie sur la <b>fiche d'accueil</b>.</span>
+        <span style="font-size:12px;color:var(--mut);align-self:center">👤 Le nom du patient s'ajoute au moment de nommer le fichier (seul endroit où il figure).</span>
         <input id="med-email" type="email" placeholder="E-mail médecin physique (interne)">
         <button class="save" onclick="saveT0Document()">📄 Document T0 (à archiver)</button>
         <button onclick="mailMedecin()">✉ Envoyer au médecin</button>
@@ -1040,7 +1018,7 @@ function updateStepNav(which){
   var pb=document.getElementById('sn-prev'); if(pb){pb.disabled=(i<=0); pb.onclick=function(){ if(i>0)show(STEPS[i-1][0]); };}
   var nb=document.getElementById('sn-next'); if(nb){nb.disabled=(i>=STEPS.length-1); nb.textContent=(i<STEPS.length-1?('Suivant : '+STEPS[i+1][1]+' ▶'):'Fin'); nb.onclick=function(){ if(i<STEPS.length-1)show(STEPS[i+1][0]); };}
 }
-function stepDone(st){ if(st==='accueil')return !!gv('pat-dossier'); if(st==='anam')return !!readField('probleme'); if(st==='fitness')return !!(gv('fW')&&gv('fPoids')); if(st==='quest')return !!(gv('sODI')||gv('sHADa')||gv('sTSK')); return null; }
+function stepDone(st){ if(st==='accueil')return null; if(st==='anam')return !!readField('probleme'); if(st==='fitness')return !!(gv('fW')&&gv('fPoids')); if(st==='quest')return !!(gv('sODI')||gv('sHADa')||gv('sTSK')); return null; }
 function updateStepDots(){ if(typeof STEPS==='undefined')return; STEPS.forEach(function(sp,i){ var done=stepDone(sp[0]); var n=document.querySelector('#tab-'+sp[0]+' .num'); if(!n)return; if(done===true){n.textContent='✓';n.style.background='#1a6b45';n.style.color='#fff';} else if(done===false){n.textContent=(i<6?(i+1):'🏁');n.style.background='';n.style.color='';} }); }
 function showToast(msg){ var t=document.getElementById('toast'); if(!t)return; t.textContent=msg; t.style.opacity='1'; t.style.transform='translateY(0)'; clearTimeout(window._toastT); window._toastT=setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(10px)';},2600); }
 function curStepIndex(){ for(var i=0;i<STEPS.length;i++){var v=document.getElementById('view-'+STEPS[i][0]); if(v&&!v.classList.contains('hide'))return i;} return -1; }
@@ -1048,96 +1026,9 @@ function eduPresent(){ var el=document.getElementById('view-edu'); if(!el)return
 function eduExit(){ var el=document.getElementById('view-edu'); if(el)el.classList.remove('presenting'); try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen();}catch(e){} }
 function renderDocStep(){ var el=document.getElementById('doc-recap'); if(!el)return;
   var pl=false; try{ for(var k in planetData){ if(planetData[k]&&planetData[k].poids>0)pl=true; } }catch(e){}
-  var checks=[['N° dossier',!!gv('pat-dossier')],['Problème principal',!!readField('probleme')],['Objectifs',!!readField('objectifs')],['Limitations / provocations',!!readField('provocation')],['Body chart',marks.length>0],['Scores (ODI/HAD/TSK)',!!(gv('sODI')||gv('sHADa')||gv('sTSK'))],['Condition physique',!!(gv('fW')&&gv('fPoids'))],['Sphères planétaires',pl]];
+  var checks=[['Problème principal',!!readField('probleme')],['Objectifs',!!readField('objectifs')],['Limitations / provocations',!!readField('provocation')],['Body chart',marks.length>0],['Scores (ODI/HAD/TSK)',!!(gv('sODI')||gv('sHADa')||gv('sTSK'))],['Condition physique',!!(gv('fW')&&gv('fPoids'))],['Sphères planétaires',pl]];
   var done=checks.filter(function(c){return c[1];}).length;
   el.innerHTML='<div style="font-size:12px;color:var(--mut);margin-bottom:6px">Complétude du bilan : <b>'+done+'/'+checks.length+'</b></div>'+checks.map(function(c){return '<span style="display:inline-block;margin:2px 10px 2px 0;font-size:12.5px;font-weight:600;color:'+(c[1]?'#1a6b45':'#c0392b')+'">'+(c[1]?'✓':'○')+' '+c[0]+'</span>';}).join(''); }
-/* ===== Fiche officielle 558994 — accueil bilingue + tooltips ===== */
-var ficheLang='fr';
-var FICHE_TXT={
- fr:{title:"Rapport d'évaluation : École du dos — Prestation 558994",sub:"Hôpital Saint-Nicolas d'Eupen · Service de médecine physique",nom:"NOM",prenom:"PRÉNOM",dos:"DOS N°",dates:"DATES",debut:"DÉBUT",fin:"FIN",start:"▶ Démarrer l'anamnèse",neu:"🗑 Nouveau patient",hint:"💡 Survole un libellé pour voir les questions à poser.",lock:"🔒 Nom/prénom restent locaux (nom du fichier). Les cases bleutées se remplissent depuis les tests."},
- de:{title:"Bewertungsbericht : Rückenschule — Leistung 558994",sub:"St. Nikolaus Hospital Eupen · Abteilung für Physikalische Medizin",nom:"NAME",prenom:"VORNAME",dos:"DOS N°",dates:"DATUM",debut:"ANFANG",fin:"ENDE",start:"▶ Anamnese starten",neu:"🗑 Neuer Patient",hint:"💡 Fahre über ein Label für die zu stellenden Fragen.",lock:"🔒 Name/Vorname bleiben lokal (Dateiname). Blaue Felder werden aus den Tests befüllt."}
-};
-var FICHE_ROWS=[
- {k:'evapp',fr:'EVA (num) PP',de:'VAS (num) PP',auto:null,q:'evapp'},
- {k:'evz1',fr:'EVA (num) ZONE 1',de:'VAS (num) ZONE 1',auto:null,q:'evz'},
- {k:'evz2',fr:'EVA (num) ZONE 2',de:'VAS (num) ZONE 2',auto:null,q:'evz'},
- {k:'evz3',fr:'EVA (num) ZONE 3',de:'VAS (num) ZONE 3',auto:null,q:'evz'},
- {k:'evz4',fr:'EVA (num) ZONE 4',de:'VAS (num) ZONE 4',auto:null,q:'evz'},
- {k:'evz5',fr:'EVA (num) ZONE 5',de:'VAS (num) ZONE 5',auto:null,q:'evz'},
- {k:'eff',fr:"Test à l'effort (W/kg)",de:'Ausdauertest (W/kg)',auto:'eff',q:'eff'},
- {k:'hads',fr:'HADS-D',de:'HADS-D',auto:'hads',q:'hads'},
- {k:'odi',fr:'Oswestry (ODI)',de:'Oswestry (ODI)',auto:'odi',q:'odi'},
- {k:'tsk',fr:'Tampa (TSK-CF)',de:'Tampa (TSK-DE)',auto:'tsk',q:'tsk'},
- {k:'conn',fr:'Connaissances',de:'Wissenstest',auto:null,q:'conn'}
-];
-var FICHE_QTITLE={fr:{evapp:'Douleur principale',evz:'Zone secondaire',eff:'Condition physique',hads:'Psychosocial (HADS)',odi:'Incapacité (ODI)',tsk:'Peur-évitement (TSK)',conn:'Croyances & connaissances',dates:'Dates T0 / T1'},de:{evapp:'Hauptschmerz',evz:'Nebenzone',eff:'Kondition',hads:'Psychosozial (HADS)',odi:'Einschränkung (ODI)',tsk:'Angst-Vermeidung (TSK)',conn:'Überzeugungen & Wissen',dates:'Daten T0 / T1'}};
-var FICHE_Q={
- evapp:{fr:["0–10 : douleur principale maintenant / moyenne semaine passée / au pire / au mieux ?","Où exactement ? Montrez-moi la zone.","Depuis quand ? Début brutal (accident) ou progressif ?","Qu'est-ce qui l'aggrave ? Qu'est-ce qui la soulage ?","Rythme : mécanique (varie avec l'activité) ou permanente/nocturne (red flag) ?"],de:["0–10: Hauptschmerz jetzt / Durchschnitt letzte Woche / max / min?","Wo genau? Zeigen Sie die Stelle.","Seit wann? Plötzlich (Unfall) oder allmählich?","Was verschlimmert / was lindert?","Mechanisch (aktivitätsabhängig) oder dauerhaft/nächtlich (Red Flag)?"]},
- evz:{fr:["Localisez la zone secondaire sur le schéma.","Douleur locale ou irradiante (trajet précis) ?","Liée à la plainte principale ou indépendante ?","Intensité 0–10 de cette zone.","Signes neuro : fourmillements, engourdissement, perte de force ?"],de:["Nebenzone im Schema lokalisieren.","Lokal oder ausstrahlend (genauer Verlauf)?","Mit Hauptbeschwerde verbunden oder unabhängig?","Intensität 0–10 dieser Zone.","Neuro: Kribbeln, Taubheit, Kraftverlust?"]},
- eff:{fr:["Niveau d'activité habituel (marche, sport, sédentarité) ?","Essoufflement à l'effort ? Jusqu'où marchez-vous / montez-vous ?","Antécédents cardio-resp., tension, bêtabloquant (fausse la FC cible) ?","Peur de l'effort / du mouvement qui limite l'activité ?"],de:["Übliches Aktivitätsniveau (Gehen, Sport, Sitzen)?","Kurzatmig bei Belastung? Wie weit gehen/steigen Sie?","Herz-Lungen-Vorgeschichte, Blutdruck, Betablocker (verfälscht Ziel-HF)?","Angst vor Belastung/Bewegung, die die Aktivität einschränkt?"]},
- hads:{fr:["Comment vivez-vous cette douleur moralement au quotidien ?","Sommeil, fatigue, plaisir dans les activités ?","Inquiétudes sur l'avenir, le dos qui 's'abîmerait' ?","Stress au travail / à la maison ? (drapeaux jaunes/bleus)"],de:["Wie belastet Sie der Schmerz seelisch im Alltag?","Schlaf, Müdigkeit, Freude an Aktivitäten?","Sorgen um die Zukunft, 'kaputter' Rücken?","Stress bei Arbeit / zu Hause? (Yellow/Blue Flags)"]},
- odi:{fr:["Quelles activités sont limitées (s'habiller, porter, rester assis, marcher, dormir, vie sociale) ?","Que ne pouvez-vous plus faire qu'avant ?","Besoin d'aide d'un tiers ?","Impact sur le travail (arrêt, aménagement) ?"],de:["Welche Aktivitäten sind eingeschränkt (Anziehen, Heben, Sitzen, Gehen, Schlafen, Sozialleben)?","Was können Sie nicht mehr wie früher?","Hilfe Dritter nötig?","Auswirkung auf die Arbeit (Krankschreibung, Anpassung)?"]},
- tsk:{fr:["Pensez-vous que bouger / faire de l'exercice pourrait abîmer votre dos ?","Des mouvements que vous évitez par peur de vous faire mal ?","Croyez-vous qu'il vaut mieux se reposer que bouger ?","Selon vous, que se passe-t-il dans votre dos quand vous avez mal ?"],de:["Glauben Sie, Bewegung/Sport könnte Ihren Rücken schädigen?","Bewegungen, die Sie aus Angst vermeiden?","Glauben Sie, Ruhe sei besser als Bewegung?","Was passiert Ihrer Meinung nach im Rücken beim Schmerz?"]},
- conn:{fr:["Selon vous, d'où vient votre douleur et qu'est-ce qui l'entretient ?","Que savez-vous du rôle du mouvement / de l'activité pour le dos ?","Que vous a-t-on déjà expliqué (imagerie, diagnostic) ?","Croyances 'dos fragile', hernie, usure ? (cible l'éducation)"],de:["Woher kommt Ihr Schmerz Ihrer Meinung nach, was hält ihn aufrecht?","Was wissen Sie über die Rolle von Bewegung/Aktivität für den Rücken?","Was wurde Ihnen bereits erklärt (Bildgebung, Diagnose)?","Überzeugungen 'schwacher Rücken', Bandscheibe, Verschleiß? (Edukation)"]},
- dates:{fr:["DÉBUT = date du bilan d'entrée (T0).","FIN = date du bilan de sortie (T1), après les 36 séances."],de:["ANFANG = Datum der Eingangsbewertung (T0).","ENDE = Datum der Abschlussbewertung (T1), nach 36 Sitzungen."]}
-};
-function setFicheLang(l){ ficheLang=l; var a=document.getElementById('flang-fr'),b=document.getElementById('flang-de'); if(a)a.className=(l==='fr'?'on':''); if(b)b.className=(l==='de'?'on':''); renderFiche(); }
-function _gvv(id){var e=document.getElementById(id);return e?(e.value||''):'';}
-function renderFiche(){
-  var box=document.getElementById('fiche-body'); if(!box)return;
-  var T=FICHE_TXT[ficheLang], q=String.fromCharCode(39);
-  var keep=['pat-nom','pat-prenom','pat-dossier','syn-date-d','syn-date-f'], vals={};
-  keep.forEach(function(id){vals[id]=_gvv(id);});
-  FICHE_ROWS.forEach(function(r){vals['synd-'+r.k]=_gvv('synd-'+r.k);vals['synf-'+r.k]=_gvv('synf-'+r.k);});
-  var au='oninput="if(window._ready)autosave()"';
-  var h='<div class="fiche"><div class="fiche-h"><div class="t">'+esc(T.title)+'</div><div class="s">'+esc(T.sub)+'</div></div>';
-  h+='<table class="id-tbl"><tbody>';
-  h+='<tr><td class="k">'+T.nom+' :</td><td><input id="pat-nom" value="'+esc(vals['pat-nom'])+'" '+au+'></td></tr>';
-  h+='<tr><td class="k">'+T.prenom+' :</td><td><input id="pat-prenom" value="'+esc(vals['pat-prenom'])+'" '+au+'></td></tr>';
-  h+='<tr><td class="k">'+T.dos+' :</td><td><input id="pat-dossier" placeholder="ex. EDD-0731" value="'+esc(vals['pat-dossier'])+'" '+au+'></td></tr>';
-  h+='</tbody></table>';
-  h+='<table class="syn-tbl"><tbody>';
-  h+='<tr><th class="k q" onmouseenter="ficheTip(event,'+q+'dates'+q+')" onmouseleave="hideFicheTip()">'+esc(T.dates)+' :</th>';
-  h+='<th>'+esc(T.debut)+' : <input id="syn-date-d" value="'+esc(vals['syn-date-d'])+'" placeholder="jj/mm/aa" style="width:96px;font-weight:700" '+au+'></th>';
-  h+='<th>'+esc(T.fin)+' : <input id="syn-date-f" value="'+esc(vals['syn-date-f'])+'" placeholder="jj/mm/aa" style="width:96px;font-weight:700" '+au+'></th></tr>';
-  FICHE_ROWS.forEach(function(r){
-    var lbl=(ficheLang==='fr'?r.fr:r.de), qk=r.q;
-    h+='<tr><td class="k q" onmouseenter="ficheTip(event,'+q+qk+q+')" onmouseleave="hideFicheTip()">'+esc(lbl)+' :</td>';
-    h+='<td><input id="synd-'+r.k+'" value="'+esc(vals['synd-'+r.k])+'"'+(r.auto?' readonly':(' '+au))+'></td>';
-    h+='<td><input id="synf-'+r.k+'" value="'+esc(vals['synf-'+r.k])+'"'+(r.auto?' readonly':(' '+au))+'></td></tr>';
-  });
-  h+='</tbody></table>';
-  h+='<div style="font-size:11px;color:var(--mut);margin-top:8px">'+esc(T.lock)+'</div></div>';
-  h+='<div class="fiche-actions"><button class="fiche-start" onclick="show('+q+'anam'+q+')">'+esc(T.start)+'</button><button class="fiche-new" onclick="newPatient()">'+esc(T.neu)+'</button></div>';
-  box.innerHTML=h;
-  var hint=document.getElementById('fiche-hint-txt'); if(hint)hint.textContent=T.hint;
-  syncSynthese();
-}
-function syncSynthese(){
-  function set(id,v){var e=document.getElementById(id); if(e)e.value=(v==null?'':v);}
-  var wk=(typeof _fit!=='undefined'&&_fit&&_fit.wkg)?_fit.wkg.toFixed(2):'';
-  set('synd-eff',wk);
-  var ha=_gvv('sHADa'),hd=_gvv('sHADd'); set('synd-hads',(ha||hd)?((ha||'—')+' / '+(hd||'—')):'');
-  set('synd-odi',_gvv('sODI')?(_gvv('sODI')+' %'):'');
-  set('synd-tsk',_gvv('sTSK'));
-  var t1e=(typeof T1!=='undefined'&&T1&&T1.eff&&T1.eff.t1!=null)?T1.eff.t1.toFixed(2):'';
-  set('synf-eff',t1e);
-  var xa=_gvv('t1s-HADa'),xd=_gvv('t1s-HADd'); set('synf-hads',(xa||xd)?((xa||'—')+' / '+(xd||'—')):'');
-  set('synf-odi',_gvv('t1s-ODI')?(_gvv('t1s-ODI')+' %'):'');
-  set('synf-tsk',_gvv('t1s-TSK'));
-}
-function ficheTip(evt,key){
-  var el=document.getElementById('fiche-tip'); if(!el)return;
-  var q=(FICHE_Q[key]||{})[ficheLang]; if(!q){hideFicheTip();return;}
-  var ttl=(FICHE_QTITLE[ficheLang]||{})[key]||'';
-  el.innerHTML='<h5>'+esc(ttl)+'</h5><ul>'+q.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
-  el.style.display='block';
-  var w=el.offsetWidth||320,hh=el.offsetHeight||160,x=evt.clientX+16,y=evt.clientY+8;
-  if(x+w>window.innerWidth-10)x=evt.clientX-w-16;
-  if(y+hh>window.innerHeight-10)y=window.innerHeight-hh-10;
-  el.style.left=Math.max(6,x)+'px'; el.style.top=Math.max(6,y)+'px';
-}
-function hideFicheTip(){var e=document.getElementById('fiche-tip'); if(e)e.style.display='none';}
 function show(which){
   ['accueil','anam','edu','fitness','quest','doc','t1'].forEach(function(v){
     var vv=document.getElementById('view-'+v); if(vv)vv.classList.toggle('hide',v!==which);
@@ -1147,7 +1038,7 @@ function show(which){
   if(which==='doc')renderDocStep();
   updateStepNav(which);
   updateStepDots();
-  if(which==='accueil'){ if(typeof syncSynthese==='function')syncSynthese(); var _e=document.getElementById('pat-dossier');if(_e)setTimeout(function(){_e.focus();},60);}
+  if(which==='accueil'){ var _e=document.getElementById('pat-dossier');if(_e)setTimeout(function(){_e.focus();},60);}
   window.scrollTo(0,0);
 }
 
@@ -1727,7 +1618,7 @@ function buildT0Doc(){
   return h;
 }
 function saveT0Document(){
-  var _miss=[]; if(!gv('pat-dossier'))_miss.push('N° dossier'); if(!readField('probleme'))_miss.push('Problème principal'); if(!readField('objectifs'))_miss.push('Objectifs du patient');
+  var _miss=[]; if(!readField('probleme'))_miss.push('Problème principal'); if(!readField('objectifs'))_miss.push('Objectifs du patient');
   if(_miss.length && !confirm('Champs incomplets : '+_miss.join(', ')+'.\nGénérer le document T0 quand même ?'))return;
   var _nm=((gv('pat-nom')||'')+' '+(gv('pat-prenom')||'')).trim().replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,''); const def='EDD_T0_'+(_nm?(_nm+'_'):'')+new Date().toISOString().slice(0,10);
   let name=prompt("Nom du fichier T0 — ajoute le NOM du patient (c'est le seul endroit où il figurera) :", def);
@@ -2291,7 +2182,6 @@ function saveT1Document(){
 /* Anti-cache périmé : retire tout service worker / cache de l'origine qui servirait une vieille version (prend effet au rechargement suivant). */
 try{ if('serviceWorker' in navigator){ navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}); } if(window.caches&&caches.keys){ caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}); } }catch(e){}
 renderAnam(); renderEdu(); renderBody(); computeFitness(); computeScores(); loadQConfig(); renderQ();
-try{renderFiche();}catch(_e){}
 try{const raw=localStorage.getItem('edd_draft'); if(raw)restoreState(JSON.parse(raw));}catch(e){}
 window._ready=true; autosave(); pullSharedScores(); updateStepNav('accueil'); updateStepDots();
 document.addEventListener('input',autosaveDeb); document.addEventListener('change',autosaveDeb);
