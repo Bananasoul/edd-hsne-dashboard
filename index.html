@@ -120,6 +120,37 @@
   .edu .key::before{content:"✓ "}
   /* ---- Module Body chart ---- */
   .bc-wrap{display:grid;grid-template-columns:1fr 1fr 330px;gap:16px;align-items:start}
+  #view-anam .odchip{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:5px;color:#fff;font-size:11px;flex:0 0 auto}
+  #view-anam .anam-legend{display:flex;gap:12px;flex-wrap:wrap;margin:4px 0 10px;font-size:11.5px;padding:6px 2px;border-bottom:1px dashed var(--line)}
+  #view-anam .anam-legend span{display:inline-flex;align-items:center;gap:5px;color:var(--mut);font-weight:700}
+  #view-anam .anam-legend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+  .anam-tip .sem{margin-top:7px;padding-top:6px;border-top:1px solid #2a3d5e;color:#d3e2f2;font-size:12px}
+  .anam-tip .sem b{color:var(--sky)}
+  #view-anam .obq{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--teal);color:#fff;font-size:11px;font-weight:800;cursor:help;margin-left:3px}
+  #view-anam .romrow{display:flex;align-items:center;gap:6px;margin:3px 0;font-size:11.5px;flex-wrap:wrap}
+  #view-anam .romrow .romk{min-width:122px}
+  #view-anam .romrow input[type=range]{flex:1;min-width:90px}
+  #view-anam .romrow .romamp{width:36px;text-align:right;color:var(--mut);font-weight:700}
+  #view-anam .romrow .romq{display:flex;flex-wrap:wrap}
+  #view-anam .romctl{margin-top:6px;text-align:left}
+  #view-anam .s24row,#view-anam .ioprow{display:flex;align-items:center;gap:6px;margin:4px 0;flex-wrap:wrap}
+  #view-anam .s24tag{border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:14px;padding:3px 12px;cursor:pointer;font-size:12px;font-weight:700;min-width:74px}
+  #view-anam .s24tag.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+  #view-anam .s24row input,#view-anam .ioprow input{flex:1;min-width:150px;border:1px solid var(--line);border-radius:6px;padding:4px 7px;font:inherit;font-size:12px}
+  #view-anam .iopname{font-size:11px;color:var(--mut)}
+  #view-anam .iopad{display:inline-flex}
+  #view-anam .evoadd{display:flex;gap:6px;margin:5px 0}
+  #view-anam .evoadd input{flex:1;border:1px solid var(--line);border-radius:6px;padding:4px 7px;font:inherit;font-size:12px}
+  #view-anam .evoadd button{border:1px solid var(--teal);background:#fff;color:var(--teal);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:12px;font-weight:700}
+  #view-anam .evorow{display:flex;align-items:center;gap:6px;margin:2px 0;font-size:12px}
+  #view-anam .evodir{border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer;font-size:9px;width:20px;padding:1px 0}
+  #view-anam .evodir.up{background:#c0392b;color:#fff;border-color:#c0392b}
+  #view-anam .evodir.down{background:#1a6b45;color:#fff;border-color:#1a6b45}
+  .mksym{display:flex;flex-wrap:wrap;gap:3px;margin:2px 0}
+  .symchk{display:inline-flex;align-items:center;gap:3px;border:1px solid var(--line);border-radius:12px;padding:1px 7px;font-size:11px;cursor:pointer;color:var(--mut)}
+  .symchk.on{border-color:var(--navy);color:var(--navy);font-weight:700;background:#eef4f9}
+  .symchk input{display:none}
+  .symchk .dot{width:9px;height:9px;border-radius:50%}
   /* ---- Anamnèse façon formulaire officiel (pages 2-3) ---- */
   #view-anam .obox{border:1px solid #24314d;border-radius:8px;padding:8px 10px;background:#fff}
   #view-anam .oblab{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:6px}
@@ -133,7 +164,10 @@
   #view-anam .osec{font-size:14px;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:5px;margin:18px 0 6px}
   #view-anam .obc-wrap{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;align-items:flex-start}
   #view-anam .obc-chart{flex:2;min-width:320px}
-  #view-anam .obc-rom{flex:1;min-width:230px;border:1px solid #24314d;border-radius:8px;padding:8px 10px;text-align:center}
+  #view-anam .obc-rom{flex:1;min-width:230px;border:1px solid #24314d;border-radius:8px;padding:8px 10px;text-align:left}
+  #view-anam #rom-star svg{display:block;margin:4px auto}
+  #view-anam .oblab{justify-content:flex-start;text-align:left}
+  #view-anam .evonum{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;flex:0 0 auto}
   #view-anam .oyf{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   @media(max-width:860px){#view-anam .oyf{grid-template-columns:1fr}}
   table.ztbl{border-collapse:collapse;width:100%;margin:4px 0}
@@ -240,16 +274,15 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26h</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-06-26q</b></div>
     </div>
   </div>
   <div class="stepper">
-    <button id="tab-accueil" class="on" onclick="show('accueil')"><span class="num">1</span>Accueil</button>
-    <button id="tab-anam" onclick="show('anam')"><span class="num">2</span>🩺 Anamnèse</button>
-    <button id="tab-edu" onclick="show('edu')"><span class="num">3</span>🧠 Éducation</button>
-    <button id="tab-fitness" onclick="show('fitness')"><span class="num">4</span>🚴 Effort</button>
-    <button id="tab-quest" onclick="show('quest')"><span class="num">5</span>📋 Questionnaire</button>
-    <button id="tab-doc" onclick="show('doc')"><span class="num">6</span>📄 Document</button>
+    <button id="tab-anam" class="on" onclick="show('anam')"><span class="num">1</span>🩺 Anamnèse</button>
+    <button id="tab-edu" onclick="show('edu')"><span class="num">2</span>🧠 Éducation</button>
+    <button id="tab-fitness" onclick="show('fitness')"><span class="num">3</span>🚴 Effort</button>
+    <button id="tab-quest" onclick="show('quest')"><span class="num">4</span>📋 Questionnaire</button>
+    <button id="tab-doc" onclick="show('doc')"><span class="num">5</span>📄 Document</button>
     <button id="tab-t1" onclick="show('t1')"><span class="num">🏁</span>T1 — Sortie</button>
   </div>
 </header>
@@ -264,7 +297,7 @@
 
 <main>
   <!-- ============ ACCUEIL ============ -->
-  <section id="view-accueil">
+  <section id="view-accueil" class="hide">
     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 24px;max-width:460px;margin:24px auto 8px;text-align:center">
       <div style="font-size:19px;font-weight:900;color:var(--navy)"><span style="color:var(--mauve)">École du Dos</span> — bilan d'entrée (T0)</div>
       <div style="font-size:12.5px;color:var(--mut);margin:8px 0 18px">Navigation libre entre les étapes en haut. Commence par l'anamnèse guidée.</div>
@@ -273,21 +306,21 @@
         <button onclick="newPatient()" style="border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer">🗑 Nouveau patient</button>
       </div>
     </div>
+  </section>
+  <!-- ============ MODULE 1 : ANAMNÈSE GUIDÉE (écran scindé) ============ -->
+  <section id="view-anam">
+    <div class="intro">Fiche d'anamnèse — structure du formulaire officiel (Prestation 558994). Survole l'icône <b style="background:var(--teal);color:#fff;border-radius:50%;padding:0 5px">?</b> d'une case pour voir la question à poser et les relances.</div>
+    <div class="toolbar">
+      <button onclick="toggleImport()">⇪ Importer transcript PLAUD</button>
+      
+      <button onclick="newPatient()">↺ Réinitialiser</button>
+    </div>
     <div id="dl-hopital-card" style="display:none;background:#f4f8fb;border:1px solid var(--line);border-radius:12px;padding:16px 20px;max-width:520px;margin:14px auto 8px;text-align:center">
       <div style="font-size:13px;font-weight:800;color:var(--navy)">💻 Installer sur le poste de l'hôpital</div>
       <div style="font-size:12px;color:var(--mut);margin:5px 0 12px">Version hors-ligne (Windows + Microsoft Edge) — fichier unique, polices incluses, aucune donnée envoyée. Décompresse puis double-clic sur <code>Lancer-Ecole-du-Dos.cmd</code>.</div>
       <a href="Ecole-du-Dos-EDD.zip" download style="display:inline-block;background:var(--teal);color:#fff;border-radius:9px;padding:10px 18px;font-weight:800;font-size:13px;text-decoration:none">⬇ Télécharger le ZIP hôpital</a>
     </div>
     <script>if(location.protocol.indexOf('http')===0){var _dl=document.getElementById('dl-hopital-card');if(_dl)_dl.style.display='block';}</script>
-  </section>
-  <!-- ============ MODULE 1 : ANAMNÈSE GUIDÉE (écran scindé) ============ -->
-  <section id="view-anam" class="hide">
-    <div class="intro">Fiche d'anamnèse — structure du formulaire officiel (Prestation 558994). Survole une case (<b>🛈</b>) pour voir la question à poser et les relances.</div>
-    <div class="toolbar">
-      <button onclick="toggleImport()">⇪ Importer transcript PLAUD</button>
-      
-      <button onclick="newPatient()">↺ Réinitialiser</button>
-    </div>
     <div id="import-panel" class="hide" style="background:#fff;border:1px solid var(--line);border-radius:9px;padding:13px 15px;margin-bottom:14px">
       <div style="font-size:12.5px;color:var(--mut);margin-bottom:8px">Colle le <b>JSON</b> produit par ton template PLAUD (ou charge le .txt), puis « Remplir le formulaire ». Le traitement IA est fait par PLAUD ; ici tout reste <b>local</b>.</div>
       <div style="margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -305,26 +338,26 @@
     </div>
     <div class="sec-nav" id="sec-nav" style="display:none"></div>
     <div id="anam-body"></div>
-    <div id="anam-tip" class="anam-tip" style="display:none"></div>
+    <div id="anam-tip" class="anam-tip" role="tooltip" aria-live="polite" style="display:none"></div>
   </section>
 
   <!-- ============ MODULE CONDITION PHYSIQUE ============ -->
   <section id="view-fitness" class="hide">
-    <div class="intro">Test sous-maximal à <b>75 % de la FC max</b> (cycloergomètre). Entre l'âge, le poids et la puissance atteinte → la <b>FC cible</b>, le <b>W/kg</b> (mesure-clé à comparer T0 → T1) et la position par rapport à ta cohorte EDD.</div>
+    <div class="intro">Test sous-maximal à <b>75 % de la FC max</b> (cycloergomètre). Entre l'âge, le poids et la puissance atteinte → la <b>FC cible</b>, le <b>W/kg</b> (mesure-clé à comparer T0 → T1) puis une <b>estimation du VO₂max</b> située sur un référentiel scientifique (FRIEND, ergomètre). La <b>FC repos</b> (recommandée) individualise la cible et l'estimation.</div>
     <div class="fit-grid">
       <div class="fit-card"><h3>1 · Données patient</h3>
         <label>Âge (ans)<input id="fAge" type="number" min="10" max="100" oninput="computeFitness()"></label>
         <label>Sexe <span class="opts" style="margin-top:4px"><label class="opt"><input type="radio" name="fSex" value="H" onchange="computeFitness()">Homme</label><label class="opt"><input type="radio" name="fSex" value="F" onchange="computeFitness()">Femme</label></span></label>
         <label>Poids (kg)<input id="fPoids" type="number" min="30" max="200" oninput="computeFitness()"></label>
-        <label>FC de repos (optionnel)<input id="fRepos" type="number" min="35" max="120" oninput="computeFitness()"></label>
+        <label>FC de repos (recommandée)<input id="fRepos" type="number" min="35" max="120" oninput="computeFitness()"></label>
         <label>Puissance atteinte à 75 % FC max (W)<input id="fW" type="number" min="10" max="500" oninput="computeFitness()"></label>
       </div>
       <div class="fit-card"><h3>2 · Calculs</h3><div class="fit-out" id="fOut"></div>
-        <div class="fit-src">FC max : Tanaka 2001 (208 − 0,7 × âge), recommandée par l'ACSM, plus fiable que 220 − âge après 40 ans.</div></div>
+        <div class="fit-src">FC max : Tanaka 2001 (208 − 0,7 × âge). VO₂ à la charge : équation ACSM jambe-ergomètre (10,8 × W/kg + 7). VO₂max : extrapolation %FCR ≈ %VO₂R (Swain 1998). Référence : FRIEND registry, cycloergomètre (Kaminsky et coll. ; de Souza e Silva, EJPC 2018).</div></div>
     </div>
-    <div class="fit-card"><h3>3 · Situer le patient — cohorte École du Dos (n = 16, à l'entrée)</h3>
+    <div class="fit-card"><h3>3 · Situer le patient — VO₂max estimé vs référence FRIEND (ergomètre)</h3>
       <div id="fGauge"></div>
-      <div class="fit-note">Repère <b>interne</b> (pas une norme de population). Ce qui compte cliniquement : la <b>progression T0 → T1</b> — cohorte EDD : <b>+15 % de W/kg</b> en moyenne à la sortie — pas le classement de départ.</div>
+      <div class="fit-note">Zones : rouge = nettement sous la moyenne · orange = sous · bleu = dans la moyenne · vert = au-dessus (vs 50e percentile FRIEND). VO₂max <b>estimé</b> à partir d'un test sous-maximal (approximation). Ce qui compte cliniquement : la <b>progression T0 → T1</b>, pas le classement de départ.</div>
       <div class="toolbar" style="margin-top:8px"><button onclick="copyFitness()">⧉ Copier pour la fiche</button><span id="fCopied" style="font-size:12px;color:var(--green);font-weight:700"></span></div>
     </div>
     <div class="fit-card"><h3>Pourquoi la condition physique compte <span style="font-weight:400;color:#9aa3af;font-size:12px">(à transmettre au patient)</span></h3>
@@ -359,12 +392,20 @@
 
   <!-- ============ MODULE 2 : ÉDUCATION PATIENT ============ -->
   <section id="view-edu" class="hide">
-    <div class="intro">Le fil de la théorie : <b>les points abordés</b>, <b>les métaphores</b> utilisées, et un <b>visuel</b> pour ancrer chaque idée. « Imprimer » → planche de schémas.</div>
+    <div class="intro">Les <b>6 séances</b> de l'École du Dos (alignées sur le site patient) : points-clés, métaphore et visuel pour ancrer chaque idée. Le patient retrouve tout à la maison via le <b>QR ci-dessous</b>.</div>
     <div class="toolbar">
       <input type="search" id="search-edu" placeholder="Rechercher un thème, une métaphore…" oninput="filterEdu(this.value)">
       <button onclick="window.print()">⤓ Imprimer les schémas</button>
       <button onclick="eduPresent()">▶ Mode présentation</button>
       <button onclick="eduExit()">✕ Quitter</button>
+    </div>
+    <div class="edu-qr" style="display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="width:118px;flex:0 0 auto"><svg viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR vers le site éducation"><rect width="33" height="33" fill="#fff"/><path d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM15 2h2v1h-2zM18 2h1v1h-1zM20 2h3v1h-3zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM13 3h2v1h-2zM19 3h3v1h-3zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h2v1h-2zM15 4h4v1h-4zM20 4h1v1h-1zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h2v1h-2zM13 5h2v1h-2zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h3v1h-3zM16 6h1v1h-1zM18 6h4v1h-4zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM20 7h2v1h-2zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM10 9h1v1h-1zM14 9h4v1h-4zM19 9h1v1h-1zM21 9h2v1h-2zM3 10h2v1h-2zM6 10h1v1h-1zM8 10h2v1h-2zM12 10h3v1h-3zM16 10h2v1h-2zM19 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h5v1h-5zM3 11h4v1h-4zM9 11h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM16 11h1v1h-1zM22 11h3v1h-3zM27 11h1v1h-1zM30 11h1v1h-1zM3 12h1v1h-1zM6 12h4v1h-4zM11 12h1v1h-1zM13 12h2v1h-2zM18 12h1v1h-1zM29 12h2v1h-2zM2 13h1v1h-1zM4 13h1v1h-1zM10 13h5v1h-5zM16 13h1v1h-1zM19 13h6v1h-6zM29 13h1v1h-1zM2 14h2v1h-2zM7 14h2v1h-2zM10 14h2v1h-2zM15 14h1v1h-1zM17 14h3v1h-3zM22 14h1v1h-1zM24 14h2v1h-2zM2 15h1v1h-1zM4 15h3v1h-3zM9 15h4v1h-4zM15 15h1v1h-1zM19 15h2v1h-2zM22 15h4v1h-4zM30 15h1v1h-1zM3 16h1v1h-1zM6 16h3v1h-3zM10 16h1v1h-1zM13 16h1v1h-1zM15 16h1v1h-1zM17 16h2v1h-2zM20 16h1v1h-1zM23 16h3v1h-3zM28 16h3v1h-3zM4 17h4v1h-4zM9 17h1v1h-1zM11 17h1v1h-1zM15 17h2v1h-2zM19 17h4v1h-4zM25 17h1v1h-1zM3 18h4v1h-4zM8 18h1v1h-1zM12 18h1v1h-1zM14 18h2v1h-2zM17 18h3v1h-3zM22 18h4v1h-4zM27 18h1v1h-1zM29 18h1v1h-1zM3 19h1v1h-1zM5 19h1v1h-1zM10 19h4v1h-4zM17 19h1v1h-1zM19 19h2v1h-2zM22 19h1v1h-1zM24 19h1v1h-1zM27 19h4v1h-4zM2 20h1v1h-1zM4 20h5v1h-5zM10 20h2v1h-2zM14 20h3v1h-3zM19 20h2v1h-2zM23 20h1v1h-1zM28 20h3v1h-3zM3 21h1v1h-1zM5 21h2v1h-2zM10 21h1v1h-1zM12 21h1v1h-1zM14 21h1v1h-1zM18 21h3v1h-3zM24 21h1v1h-1zM26 21h1v1h-1zM29 21h1v1h-1zM2 22h1v1h-1zM6 22h3v1h-3zM10 22h1v1h-1zM12 22h8v1h-8zM22 22h5v1h-5zM30 22h1v1h-1zM10 23h2v1h-2zM13 23h1v1h-1zM18 23h2v1h-2zM21 23h2v1h-2zM26 23h1v1h-1zM29 23h2v1h-2zM2 24h7v1h-7zM10 24h1v1h-1zM15 24h2v1h-2zM18 24h1v1h-1zM20 24h3v1h-3zM24 24h1v1h-1zM26 24h1v1h-1zM28 24h1v1h-1zM30 24h1v1h-1zM2 25h1v1h-1zM8 25h1v1h-1zM12 25h2v1h-2zM15 25h1v1h-1zM17 25h3v1h-3zM22 25h1v1h-1zM26 25h1v1h-1zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h2v1h-2zM13 26h1v1h-1zM16 26h1v1h-1zM18 26h2v1h-2zM22 26h6v1h-6zM29 26h2v1h-2zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM12 27h1v1h-1zM15 27h2v1h-2zM20 27h1v1h-1zM22 27h2v1h-2zM26 27h1v1h-1zM28 27h3v1h-3zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM10 28h4v1h-4zM18 28h1v1h-1zM20 28h2v1h-2zM25 28h3v1h-3zM30 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM14 29h2v1h-2zM17 29h1v1h-1zM19 29h5v1h-5zM25 29h1v1h-1zM27 29h1v1h-1zM29 29h1v1h-1zM2 30h7v1h-7zM11 30h1v1h-1zM14 30h1v1h-1zM16 30h1v1h-1zM19 30h1v1h-1zM21 30h2v1h-2zM26 30h1v1h-1zM29 30h2v1h-2z" fill="#001636"/></svg></div>
+      <div style="flex:1;min-width:230px">
+        <div style="font-size:15px;font-weight:900;color:var(--navy)">📱 À lire à la maison — site École du Dos</div>
+        <div style="font-size:12.5px;color:var(--mut);margin:5px 0 8px">Le patient scanne ce QR : les 6 séances expliquées, exercices illustrés, « quand consulter », carnet à télécharger — à son rythme, en FR/DE.</div>
+        <a href="https://edd-site-rho.vercel.app/" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--teal);font-weight:800;text-decoration:none">edd-site-rho.vercel.app ↗</a>
+      </div>
     </div>
     <div class="edu-grid" id="edu-body"></div>
   </section>
@@ -494,14 +535,19 @@ LIBELLÉS AUTORISÉS (n'utilise rien d'autre pour ces champs)
 - `qualite` (liste) : "Brûlure" | "Élancement" | "Pesanteur" | "Tiraillement" | "Crampe" | "Choc élec."
 - `paresthesies` (liste) : "Absentes" | "Fourmillements" | "Engourdissement"
 - `pattern` : "Évitement" | "Sur-activité" | "Mixte"
-- `imagerie` (liste) : "Radio" | "IRM" | "CT" | "EMG" | "Aucune"
+- `imagerie` (liste) : "Radio" | "IRM" | "CT / scanner" | "EMG" | "Scintigraphie" | "Échographie" | "Aucune"
 - `traitements` (liste) : "Kiné" | "Ostéo" | "Chir. / OP" | "Autre"
 - `red_flags` (liste) : "Perte de poids" | "Fièvre" | "Douleur nocturne" | "Déficit neuro" | "Trauma récent" | "ATCD cancer" | "Corticoïdes" | "Âge"
 - `cauda` (liste) : "Rétention/incontinence urinaire" | "Incontinence fécale" | "Anesthésie en selle"
+- `avoid_persist` : "Évitant (avoider)" | "Persistant (persister)" | "Mixte" — profil comportemental face à la douleur
+- `patterns` (liste) : "Sensibilisation centrale" | "Dérangement / discal" | "Contrôle moteur" | "Articulaire (facettaire / SI)" | "Myofascial" | "Radiculaire" | "Non spécifique"
+- `cours` : "Amélioration" | "Stable" | "Aggravation" | "Fluctuant"
+- `mecanisme` : "Nociceptif" | "Neuropathique" | "Central" | "Mixte" — CLASSE selon les indices du patient : Nociceptif (douleur proportionnelle, mécanique, localisée, calme au repos) · Neuropathique (trajet nerveux, brûlure/décharge, déficit sensitivo-moteur, ATCD neuro) · Central (disproportionnée, diffuse, hypersensibilité/allodynie, nombreux drapeaux jaunes) [Nijs & Smart 2010]. Mets `null` si trop incertain.
+- `processing` : "Adapté" | "Non-adapté" — Adapté = réponse proportionnée + croyances/comportement fonctionnels ; Non-adapté = évitement, catastrophisme, hypervigilance, sur-protection.
 - `infiltrations`, `antalgiques` : `true` / `false` / `null`
 - `eva_repos`, `eva_activite`, `eva_pire` : entier 0–10 **uniquement si un chiffre est énoncé**, sinon `null`
 - `yf_*` (drapeaux jaunes) : courte **note** texte (ce que le patient a dit) si le facteur est présent, sinon `""`
-- champs libres (`metier`, `sport`, `probleme`, `diagnostic`, `debut`, `provocation`, `soulagement`, `antecedents`, `medication`, `traitements_detail`, `representations`, `objectifs`, `resume`) : texte court fidèle au patient.
+- champs libres (`metier`, `sport`, `probleme`, `diagnostic`, `debut`, `provocation`, `soulagement`, `antecedents`, `medication`, `traitements_detail`, `representations`, `objectifs`, `hobbies`, `attentes`, `evitement`, `examens`, `charge`, `schema_clinique`, `resume`) : texte court fidèle au patient.
 
 GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
 
@@ -558,6 +604,21 @@ GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
 
   "objectifs": null,
   "resume": null,
+
+  "hobbies": null,
+  "attentes": null,
+  "cours": null,
+  "evitement": null,
+  "examens": null,
+  "charge": null,
+  "mecanisme": null,
+  "processing": null,
+  "schema_clinique": null,
+  "avoid_persist": null,
+  "patterns": [],
+  "s24": { "nuit": {"on":false,"com":null}, "matin": {"on":false,"com":null}, "journee": {"on":false,"com":null}, "soir": {"on":false,"com":null} },
+  "evolution": { "events": [] },
+  "iop": { "input": {"on":false,"adapt":null,"com":null}, "output": {"on":false,"adapt":null,"com":null}, "processing": {"on":false,"adapt":null,"com":null} },
 
   "body_chart": [],
   "planetes": {
@@ -663,13 +724,13 @@ const ANAMNESE = [
  ]},
  {sec:"🗂️ Cadrage & identification", de:"Rahmen & Identifikation", items:[
    {key:"metier", f:"Métier / activité", in:"text", q:"Qu'est-ce que vous faites comme travail, ou qu'est-ce qui occupe vos journées ?", r:["Position dominante : assis, debout, port de charges ?","Si retraité : activités physiques (jardin, marche, petits-enfants) ?","Tâches qui sollicitent le dos ?"]},
-   {key:"statut", f:"Statut", in:"radio", q:"Êtes-vous au travail, en arrêt, ou retraité ?", r:["Si arrêt : depuis quand, projet de reprise ?","Démarche en cours (AT, mutuelle) ?"], opt:["Actif","AT / Reha","Retraité","Chômage"]},
+   {key:"statut", f:"Statut", in:"radio", q:"Êtes-vous au travail, en arrêt, ou retraité ?", r:["Si arrêt : depuis quand, projet de reprise ?","Démarche en cours (AT, mutuelle) ?"], opt:["Actif","AT (accident de travail)","Maladie","Invalidité","Retraité / pensionné","Chômage"]},
    {key:"contexte_vie", f:"Contexte de vie", in:"radio", q:"Vous vivez seul·e, en couple, en famille ?", r:["Du soutien au quotidien ?","Des personnes à charge ?"], opt:["Seul(e)","Couple","Famille"]},
    {key:"sport", f:"Sport / activité physique", in:"text", q:"Est-ce que vous bougez, faites du sport ? Quoi, à quelle fréquence ?", r:["Quelque chose arrêté à cause du dos ?","Ce que vous aimeriez reprendre ?"]},
  ]},
  {sec:"🩹 Anamnèse de la douleur", de:"Schmerzanamnese", items:[
-   {key:"debut", f:"Début", in:"text", q:"Depuis quand ? Comment ça a commencé ?", r:["Déclencheur précis ou progressif ?","Premier épisode ou récidive ?"]},
-   {key:"origine", f:"Origine", in:"radio", q:"À quoi associez-vous le déclenchement ?", r:["Faux mouvement, effort, charge ?","Petit à petit sans raison ?","Après une opération ?"], opt:["Traumatique","Insidieux","Post-op"]},
+   {key:"debut", f:"Début", in:"text", q:"Depuis quand, et comment ça a commencé ?", r:["Date libre : mois/année, « il y a X ans », ou date précise (accident).","Installation progressive, brutale/spontanée, ou traumatique ?","1er épisode ou récidive ? Fréquence des épisodes ?","Facteur déclenchant identifié ?"]},
+   {key:"origine", f:"Mode d'installation", in:"radio", q:"Comment est-ce arrivé ?", r:["Faux mouvement, effort, charge (traumatique) ?","Petit à petit, sans raison claire (progressif/insidieux) ?","Sans cause identifiable (spontané) ?","Après une opération (post-op) ?"], opt:["Progressif / insidieux","Spontané","Traumatique","Post-opératoire"]},
    {key:"raideur", f:"Raideur matinale", in:"radio", q:"Le matin, le dos est-il raide ? Combien de temps pour vous dérouiller ?", r:["Moins ou plus d'une demi-heure ?","Ça s'améliore en bougeant ?"], opt:["Absente","Moins de 30 min","Plus de 30 min (⚠)"]},
    {key:"schema24h", f:"Schéma sur 24h", in:"check", q:"À quel moment êtes-vous le plus gêné ?", r:["Matin, soir, nuit ?","Constant ou après l'effort (parfois le lendemain) ?"], opt:["Matin +","Soir +","Nuit","Constant","Effort différé"]},
    {key:"sommeil", f:"Sommeil", in:"check", q:"Comment dormez-vous ? Le dos vous réveille-t-il ?", r:["Difficulté à trouver une position ?","Réveils liés à la douleur ?","Heures, qualité ?"], opt:["Normal 7-8h","Fragmenté","Position douloureuse"]},
@@ -687,7 +748,7 @@ const ANAMNESE = [
  {sec:"💊 Parcours médical & médication", de:"Medizinischer Verlauf & Medikamente", items:[
    {key:"antecedents", f:"Antécédents / comorbidités", in:"text", q:"Autres soucis de santé, opérations (diabète, tension, cœur) ?", r:["Épisodes de dos passés ?","Quelque chose qui vous inquiète ?"]},
    {key:"ci_test_effort", f:"⚠ Précaution / CI test effort (vélo)", in:"text", alert:true, q:"Y a-t-il une raison de prudence pour le test d'effort sur vélo (cœur, souffle, traitement) ?", r:["Trouble du rythme, palpitations, bêtabloquant ?","Essoufflement, désaturation, problème pulmonaire ?","Anticoagulant, tension non contrôlée ?"]},
-   {key:"imagerie", f:"Imagerie", in:"check", q:"Examens passés : radio, scanner, IRM, EMG ?", r:["Quand, qu'en a-t-on dit ?","Avez-vous les comptes-rendus ?"], opt:["Radio","IRM","CT","EMG","Aucune"]},
+   {key:"imagerie", f:"Examens complémentaires", in:"check", q:"Quels examens d'imagerie ont été faits ?", r:["Radio, IRM, scanner, EMG, scintigraphie, échographie ?","Quand ? Une ou plusieurs fois ?","A-t-il les comptes-rendus ?"], opt:["Radio","IRM","CT / scanner","EMG","Scintigraphie","Échographie","Aucune"]},
    {key:"imagerie_croyance", f:"Imagerie — ce que le patient en retient (croyances)", in:"text", q:"Qu'avez-vous compris / retenu de ces examens ? Que vous a-t-on dit ?", r:["Quels mots vous ont marqué : « hernie », « usure », « arthrose », « pincement » ?","Est-ce que ça vous inquiète ou vous fait éviter des mouvements ?","Vous en déduisez quoi pour votre dos ?"]},
    {key:"infiltrations", f:"Infiltrations", in:"bool", q:"Déjà des infiltrations / piqûres pour le dos ?", r:["Quand, combien, ça a aidé ?"]},
    {key:"medication", f:"Médication actuelle", in:"text", q:"Quels médicaments en ce moment ?", r:["Pour le dos, ou autre ?","Au besoin ou systématique ?"]},
@@ -724,250 +785,57 @@ const ANAMNESE = [
    {key:"mecanisme", f:"Hypothèse — mécanisme de la douleur", in:"radio", q:"Mécanisme dominant présumé ?", r:["Nociceptif : mécanique, proportionnel.","Neuropathique : trajet, brûlure, déficit.","Central : diffus, hypersensibilité, disproportion."], opt:["Nociceptif","Neuropathique","Central","Mixte"]},
    {key:"processing", f:"INPUT / OUTPUT / PROCESSING", in:"radio", q:"Traitement de l'information douleur : adapté ou non-adapté ?", r:["Réponse proportionnée au stimulus ?","Comportement / croyances adaptés ?"], opt:["Adapté","Non-adapté"]},
    {key:"schema_clinique", f:"Schéma clinique / synthèse", in:"text", q:"Synthèse du raisonnement : hypothèse principale, plan.", r:["Drapeaux notables ?","Orientation EDD ?"]},
+   {key:"statut_com", f:"Statut — précisions", in:"text", q:"Précisions sur la situation professionnelle ?", r:["Depuis quand ?","AT / mutuelle / invalidité en cours ?","Projet de reprise ?"]},
+   {key:"sport_freq", f:"Sport — volume / fréquence", in:"text", q:"Combien d'heures et à quelle fréquence par semaine ?", r:["Régulier ou en dents de scie ?","Intensité (léger / modéré / intense) ?"]},
+   {key:"betabloquant", f:"Bêtabloquant", in:"bool", alert:true, q:"Le patient prend-il un bêtabloquant (bisoprolol, aténolol, métoprolol…) ?", r:["Si OUI : le test d'effort à 75 % FCmax n'est pas valide (fréquence cardiaque bridée) → ne pas le réaliser / interpréter avec prudence."]},
+   {key:"avoid_persist", f:"Profil comportemental", in:"radio", q:"Face à la douleur : évite, ou pousse malgré tout ?", r:["Ex. : « les vitres à nettoyer, vous faites tout d'un coup ou vous fractionnez ? »","Évitant (repos, peur) ou Persistant (boom-bust) ?"], opt:["Évitant (avoider)","Persistant (persister)","Mixte"]},
+   {key:"patterns", f:"Schéma clinique — pattern(s)", in:"check", q:"Quel(s) pattern(s) lombaire(s) se dégage(nt) ?", r:["Sensibilisation centrale : diffus, disproportionné, hypersensibilité.","Dérangement/discal : préférence directionnelle, centralisation.","Contrôle moteur : positions/mouvements spécifiques, déficit de contrôle.","Articulaire : localisé, provoqué à la mise en tension."], opt:["Sensibilisation centrale","Dérangement / discal","Contrôle moteur","Articulaire (facettaire / SI)","Myofascial","Radiculaire","Non spécifique"]},
  ]},
 ];
 
 /* ====================== DONNÉES MODULE 2 : ÉDUCATION ====================== */
 const EDUC = [
  {
-  theme:"La colonne en S",
-  points:["3 courbures : lordose cervicale, cyphose dorsale, lordose lombaire.","La forme en S répartit et amortit les chocs sur plusieurs étages.","Une colonne courbée, c'est NORMAL et solide — pas un défaut."],
-  metaphore:"La colonne = une <b>pince à linge</b> : ligaments et muscles la maintiennent stable tout en gardant du jeu pour bouger.",
-  key:"Votre dos est conçu pour bouger et encaisser.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Colonne vertébrale en S et pince à linge">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <g stroke-linecap="round">
-      <path d="M150 24 C 188 60, 120 96, 152 130 C 180 160, 122 200, 150 232" fill="none" stroke="#cfe0ee" stroke-width="20"/>
-      <path d="M150 24 C 188 60, 120 96, 152 130 C 180 160, 122 200, 150 232" fill="none" stroke="#1e6580" stroke-width="13"/>
-    </g>
-    <g stroke="#f7fafc" stroke-width="3">
-      <line x1="142" y1="40" x2="170" y2="44"/><line x1="160" y1="58" x2="188" y2="60"/>
-      <line x1="150" y1="80" x2="176" y2="74"/><line x1="128" y1="100" x2="152" y2="96"/>
-      <line x1="130" y1="120" x2="158" y2="122"/><line x1="158" y1="142" x2="182" y2="148"/>
-      <line x1="150" y1="170" x2="174" y2="176"/><line x1="124" y1="196" x2="148" y2="200"/>
-    </g>
-    <g font-size="12" fill="#5b6b7f">
-      <path d="M198 44 h16" stroke="#9db6d2" stroke-width="1.5"/><text x="218" y="48">cervicale — lordose</text>
-      <path d="M196 118 h18" stroke="#9db6d2" stroke-width="1.5"/><text x="218" y="122">dorsale — cyphose</text>
-      <path d="M192 196 h22" stroke="#9db6d2" stroke-width="1.5"/><text x="218" y="200">lombaire — lordose</text>
-    </g>
-    <text x="120" y="20" font-size="22" font-weight="800" fill="#001636">S</text>
-    <g transform="translate(322,150)">
-      <rect x="-2" y="-86" width="17" height="92" rx="8" fill="#e0a03a"/>
-      <rect x="20" y="-86" width="17" height="92" rx="8" fill="#e6ab4d"/>
-      <circle cx="17" cy="-58" r="11" fill="none" stroke="#001636" stroke-width="3.5"/>
-      <path d="M2 6 L33 6" stroke="#001636" stroke-width="3.5" stroke-linecap="round"/>
-      <text x="-12" y="30" font-size="12" fill="#5b6b7f">pince à linge</text>
-    </g>
-  </svg>`
+  theme:"1 · La douleur, c'est quoi vraiment ?",
+  points:["La douleur n'est <b>pas un capteur de dégâts</b> : c'est un signal d'alarme produit par le cerveau pour vous protéger.","Aiguë = protège une vraie blessure. Chronique (> 3 mois) = souvent une alarme devenue <b>trop sensible</b>.","Douleur ≠ lésion : avoir mal ne veut pas dire « s'abîmer »."],
+  metaphore:"Le <b>volume</b> : le système nerveux peut « monter le son » — et il peut aussi le <b>redescendre</b>.",
+  key:"Douleur ≠ dommage — le message-clé de toute l'École du Dos.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><circle cx="115" cy="92" r="50" fill="#e6f1f6" stroke="#1f96b5" stroke-width="2"/><text x="115" y="104" font-size="34" text-anchor="middle">🧠</text><text x="115" y="162" font-size="12" fill="#1f96b5" text-anchor="middle" font-weight="700">Cerveau = chef d'orchestre</text><path d="M172 92 h44" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/><g transform="translate(300,92)"><circle r="44" fill="#fff" stroke="#d35400" stroke-width="2"/><text y="10" font-size="30" text-anchor="middle">🔊</text><text y="66" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Volume ↑ ou ↓</text></g></svg>`
  },
  {
-  theme:"Le disque intervertébral",
-  points:["Anneau fibreux solide + noyau gélatineux (≈ 90% d'eau).","Rôle : amortisseur entre les vertèbres.","Il se nourrit par le MOUVEMENT (charge/décharge), comme une éponge.","Point clé : le disque n'a PAS de nerf à l'intérieur."],
-  metaphore:"Le disque = une <b>éponge</b> : on charge, elle se vide ; on relâche, elle réabsorbe eau et nutriments. Bouger = nourrir son disque.",
-  key:"« Usure » à l'IRM ≠ douleur. Le mouvement entretient le disque.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disque intervertébral comme une éponge">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <rect x="70" y="44" width="170" height="42" rx="12" fill="#d4dfeb" stroke="#aebfd2" stroke-width="1.5"/>
-    <rect x="70" y="164" width="170" height="42" rx="12" fill="#d4dfeb" stroke="#aebfd2" stroke-width="1.5"/>
-    <text x="246" y="70" font-size="11" fill="#5b6b7f">vertèbre</text>
-    <text x="246" y="190" font-size="11" fill="#5b6b7f">vertèbre</text>
-    <ellipse cx="155" cy="125" rx="88" ry="30" fill="#bfe3d2" stroke="#1a6b45" stroke-width="2.5"/>
-    <ellipse cx="155" cy="125" rx="62" ry="19" fill="#9fd4bb" stroke="#1a6b45" stroke-width="1"/>
-    <circle cx="155" cy="125" r="15" fill="#1a6b45"/>
-    <text x="155" y="129" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">noyau</text>
-    <path d="M155 18 L155 40" stroke="#001636" stroke-width="3.5" marker-end="url(#dn)"/>
-    <text x="162" y="32" font-size="10" fill="#001636">charge</text>
-    <path d="M155 232 L155 212" stroke="#1a6b45" stroke-width="3.5" marker-end="url(#dn2)"/>
-    <text x="162" y="228" font-size="10" fill="#1a6b45">relâche</text>
-    <g transform="translate(300,96)">
-      <rect x="0" y="0" width="70" height="50" rx="10" fill="#e7eef6" stroke="#1e6580" stroke-width="2"/>
-      <g fill="#1e6580"><circle cx="14" cy="13" r="3"/><circle cx="32" cy="19" r="3"/><circle cx="52" cy="11" r="3"/><circle cx="22" cy="34" r="3"/><circle cx="46" cy="36" r="3"/><circle cx="60" cy="28" r="3"/></g>
-      <circle cx="20" cy="62" r="3" fill="#1e6580"/><circle cx="40" cy="66" r="3" fill="#1e6580"/><circle cx="56" cy="61" r="3" fill="#1e6580"/>
-      <text x="35" y="86" font-size="12" fill="#5b6b7f" text-anchor="middle">éponge</text>
-    </g>
-    <defs>
-      <marker id="dn" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#001636"/></marker>
-      <marker id="dn2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#1a6b45"/></marker>
-    </defs>
-  </svg>`
+  theme:"2 · Ce qui influence ta douleur",
+  points:["Trois familles de facteurs : <b>biologiques, psychologiques, sociaux</b> (modèle biopsychosocial).","Stress, mauvais sommeil, émotions « montent le volume » de la douleur.","Cercle vicieux : douleur → peur → évitement → déconditionnement → plus de douleur. On le casse.","« Mon dos est solide et fait pour bouger » aide ; « mon dos est fragile » nuit."],
+  metaphore:"Trois cercles qui s'entremêlent : agir sur un seul soulage souvent l'ensemble.",
+  key:"Beaucoup de leviers d'action, au-delà des muscles.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><circle cx="162" cy="90" r="58" fill="#1f96b5" fill-opacity="0.18" stroke="#1f96b5" stroke-width="1.5"/><circle cx="238" cy="90" r="58" fill="#948ab5" fill-opacity="0.18" stroke="#948ab5" stroke-width="1.5"/><circle cx="200" cy="140" r="58" fill="#1a6b45" fill-opacity="0.16" stroke="#1a6b45" stroke-width="1.5"/><text x="128" y="78" font-size="12" fill="#1f96b5" font-weight="800">Bio</text><text x="252" y="78" font-size="12" fill="#948ab5" font-weight="800">Psycho</text><text x="200" y="172" font-size="12" fill="#1a6b45" font-weight="800" text-anchor="middle">Social</text></svg>`
  },
  {
-  theme:"Douleur aiguë vs chronique",
-  points:["Aiguë : cause évidente (blessure), elle est UTILE — elle protège.","Chronique : > 3 mois, sans cause claire, elle ne « protège » plus.","Touche ~20% de la population — fréquent, pas une fatalité."],
-  metaphore:"Une <b>alarme</b> : en aigu elle sonne pour un vrai feu (utile). En chronique, elle sonne encore alors qu'il n'y a plus de feu.",
-  key:"Avoir mal ne veut pas toujours dire que quelque chose s'abîme.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Douleur aiguë utile versus chronique fausse alarme">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <line x1="200" y1="34" x2="200" y2="216" stroke="#dde5ef" stroke-width="2"/>
-    <text x="100" y="34" font-size="13" font-weight="800" fill="#1a6b45" text-anchor="middle">AIGUË — utile</text>
-    <text x="300" y="34" font-size="13" font-weight="800" fill="#d35400" text-anchor="middle">CHRONIQUE</text>
-    <!-- acute bell + flame -->
-    <g transform="translate(100,118)">
-      <path d="M-26 14 a26 26 0 0 1 52 0 z" fill="#fff" stroke="#1a6b45" stroke-width="2.5"/>
-      <rect x="-30" y="14" width="60" height="7" rx="3" fill="#1a6b45"/><circle cx="0" cy="26" r="4" fill="#1a6b45"/>
-      <path d="M0 -20 v-9" stroke="#1a6b45" stroke-width="3"/>
-      <path d="M0 -2 c-12 -8 -6 -22 2 -28 c-2 10 10 12 6 24 c8 -2 8 -14 2 -20 c14 8 8 30 -10 30 z" fill="#d35400"/>
-    </g>
-    <text x="100" y="186" font-size="12" fill="#5b6b7f" text-anchor="middle">vrai danger → on agit</text>
-    <!-- chronic bell ringing no flame -->
-    <g transform="translate(300,118)">
-      <path d="M-26 14 a26 26 0 0 1 52 0 z" fill="#fff" stroke="#e0a03a" stroke-width="2.5"/>
-      <rect x="-30" y="14" width="60" height="7" rx="3" fill="#e0a03a"/><circle cx="0" cy="26" r="4" fill="#e0a03a"/>
-      <path d="M0 -20 v-9" stroke="#e0a03a" stroke-width="3"/>
-      <g stroke="#e0a03a" stroke-width="2.5" fill="none"><path d="M34 -6 q10 8 0 22"/><path d="M44 -14 q18 16 0 38"/><path d="M-34 -6 q-10 8 0 22"/><path d="M-44 -14 q-18 16 0 38"/></g>
-    </g>
-    <text x="300" y="186" font-size="12" fill="#5b6b7f" text-anchor="middle">sonne sans feu (&gt; 3 mois)</text>
-  </svg>`
+  theme:"3 · Bouger pour guérir",
+  points:["Le mouvement est le <b>traitement n°1</b> de la lombalgie chronique — devant médicaments et soins passifs.","L'immobilité aggrave ; l'effort libère des <b>antidouleurs naturels</b> (hypoalgésie).","Progressif : un effort qui « parle » sans faire reculer le lendemain.","La <b>régularité</b> prime : peu, mais souvent."],
+  metaphore:"Bouger, c'est <b>nourrir</b> le dos et « rééduquer » l'alarme.",
+  key:"Hurt ≠ harm : une gêne tolérable à l'effort n'est pas un danger.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><text x="95" y="128" font-size="66" text-anchor="middle">🚶</text><path d="M165 150 L330 62" stroke="#1a6b45" stroke-width="4" fill="none"/><path d="M330 62 l-22 3 l9 17 z" fill="#1a6b45"/><text x="255" y="150" font-size="13" fill="#1a6b45" text-anchor="middle" font-weight="800">Traitement n°1</text></svg>`
  },
  {
-  theme:"Le trajet du message",
-  points:["Des capteurs (peau, muscles) détectent : Température, Acidité, pression Mécanique.","Le nerf transporte un courant électrique vers la moelle.","Relais à la moelle (tri du courrier), puis montée vers le cerveau."],
-  metaphore:"Le nerf = un <b>câble électrique</b> ; la synapse dans la moelle = un <b>bureau de poste</b> qui trie et transmet (ou non).",
-  key:"Un « message de danger » n'est pas encore une douleur — il doit être traité.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trajet du message: capteur, câble, bureau de poste, cerveau">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <!-- sensors -->
-    <circle cx="48" cy="170" r="24" fill="#fde9e3" stroke="#d35400" stroke-width="2.5"/>
-    <text x="48" y="166" font-size="11" font-weight="800" fill="#d35400" text-anchor="middle">T·A·M</text>
-    <text x="48" y="180" font-size="8" fill="#d35400" text-anchor="middle">capteurs</text>
-    <text x="48" y="210" font-size="10" fill="#5b6b7f" text-anchor="middle">peau / muscle</text>
-    <!-- cable -->
-    <path d="M72 162 q60 -26 116 -2" fill="none" stroke="#1e6580" stroke-width="4" stroke-dasharray="3 6"/>
-    <text x="118" y="118" font-size="11" fill="#1e6580" text-anchor="middle">câble électrique</text>
-    <!-- post office -->
-    <g transform="translate(176,150)">
-      <rect x="0" y="6" width="74" height="44" rx="6" fill="#fff" stroke="#1e6580" stroke-width="2.5"/>
-      <path d="M-4 8 L37 -14 L78 8 Z" fill="#1e6580"/>
-      <rect x="30" y="26" width="14" height="24" fill="#cfe0ee"/>
-      <text x="37" y="22" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">POSTE</text>
-      <text x="37" y="66" font-size="10" fill="#5b6b7f" text-anchor="middle">moelle (synapse)</text>
-    </g>
-    <!-- to brain -->
-    <path d="M252 158 q56 -34 86 -52" fill="none" stroke="#1e6580" stroke-width="4" marker-end="url(#tb)"/>
-    <g transform="translate(340,74)">
-      <path d="M-2 8 c-22 -26 24 -40 30 -10 c16 -6 22 22 2 26 c4 18 -26 22 -30 4 c-16 4 -22 -22 -2 -22 z" fill="#dbe7f5" stroke="#001636" stroke-width="2.5"/>
-      <text x="14" y="6" font-size="10" font-weight="800" fill="#001636" text-anchor="middle">cerveau</text>
-      <text x="14" y="46" font-size="11" fill="#1a6b45" text-anchor="middle" font-weight="700">décide</text>
-    </g>
-    <defs><marker id="tb" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#1e6580"/></marker></defs>
-  </svg>`
+  theme:"4 · Comprendre ton dos",
+  points:["Le dos est <b>robuste et adaptable</b> : 24 vertèbres, disques amortisseurs, ligaments et muscles solides.","Les « anomalies » à l'imagerie (hernie, arthrose, usure) sont fréquentes chez des gens <b>sans douleur</b>.","Pas de corrélation simple entre l'image et la douleur.","La posture parfaite n'existe pas : la meilleure posture est la <b>suivante</b> (varier)."],
+  metaphore:"Les images = des <b>rides du dos</b>, comme des cheveux gris — pas un verdict.",
+  key:"Un dos solide, pas fragile.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><text x="135" y="132" font-size="72" text-anchor="middle">🦴</text><text x="290" y="120" font-size="58" text-anchor="middle">🛡️</text><text x="200" y="182" font-size="12.5" fill="#001636" text-anchor="middle" font-weight="800">Solide — les images ne disent pas tout</text></svg>`
  },
  {
-  theme:"Le cerveau décide (volume)",
-  points:["Le cerveau peut AUGMENTER ou DIMINUER le volume du signal (gate control).","Sport, plaisir, attention ailleurs → baissent le volume.","Peur, stress, fatigue → montent le volume."],
-  metaphore:"Comme le <b>bouton de volume d'une radio</b> : le cerveau règle l'intensité de la douleur, à la hausse comme à la baisse.",
-  key:"Si on peut monter le volume… on peut aussi le baisser.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bouton de volume de la douleur">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <text x="200" y="32" font-size="12" fill="#5b6b7f" text-anchor="middle">volume de la douleur</text>
-    <path d="M118 188 A 90 90 0 0 1 282 188" fill="none" stroke="#1a6b45" stroke-width="9" stroke-linecap="round"/>
-    <path d="M214 100 A 90 90 0 0 1 282 188" fill="none" stroke="#d35400" stroke-width="9" stroke-linecap="round"/>
-    <circle cx="200" cy="140" r="58" fill="#fff" stroke="#1e6580" stroke-width="3"/>
-    <circle cx="200" cy="140" r="44" fill="#f1f6fb"/>
-    <line x1="200" y1="140" x2="166" y2="106" stroke="#001636" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="200" cy="140" r="6" fill="#001636"/>
-    <text x="112" y="214" font-size="13" font-weight="800" fill="#1a6b45">– baisse</text>
-    <text x="248" y="214" font-size="13" font-weight="800" fill="#d35400">monte +</text>
-  </svg>`
+  theme:"5 · Gérer les crises et les rechutes",
+  points:["Une poussée n'est <b>pas une nouvelle blessure</b> : souvent fatigue, stress, surcharge.","Gestes immédiats : respirer (expire long), position de soulagement, mouvement doux, réduire un peu — sans tout arrêter.","Avoir un <b>plan anti-crise</b> prêt enlève la peur.","Reprendre vite le mouvement raccourcit la poussée."],
+  metaphore:"Une rechute = un <b>détour</b>, pas un retour à la case départ.",
+  key:"Un plan, pas la panique.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><polyline points="30,120 120,120 170,60 220,120 380,120" fill="none" stroke="#d35400" stroke-width="3"/><circle cx="170" cy="60" r="6" fill="#d35400"/><text x="170" y="46" font-size="12" fill="#d35400" text-anchor="middle" font-weight="800">poussée</text><text x="315" y="112" font-size="12" fill="#1a6b45" text-anchor="middle" font-weight="800">on reprend</text><text x="200" y="162" font-size="12.5" fill="#001636" text-anchor="middle" font-weight="800">Un détour, pas un retour à zéro</text></svg>`
  },
  {
-  theme:"L'alarme incendie",
-  points:["La douleur = un système de PROTECTION qui prépare à réagir.","Réactions « stress » : cœur plus rapide, muscles tendus, vigilance.","Et si l'alarme se déclenchait sans vrai incendie ?"],
-  metaphore:"La douleur = une <b>alarme incendie</b> : utile pour fuir un vrai danger, mais elle peut sonner pour un simple toast brûlé.",
-  key:"Une alarme sensible n'est pas une preuve de gravité.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alarme incendie, système de protection">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <rect x="150" y="60" width="100" height="74" rx="12" fill="#fde9e3" stroke="#d35400" stroke-width="3"/>
-    <text x="200" y="84" font-size="11" font-weight="800" fill="#d35400" text-anchor="middle">ALARME</text>
-    <circle cx="200" cy="106" r="18" fill="#d35400"/>
-    <rect x="190" y="126" width="20" height="9" rx="2" fill="#d35400"/>
-    <path d="M200 90 v-12 M188 94 l-9 -9 M212 94 l9 -9" stroke="#d35400" stroke-width="3.5" stroke-linecap="round"/>
-    <g stroke="#e0a03a" stroke-width="3" fill="none" stroke-linecap="round">
-      <path d="M120 80 q-16 17 0 34"/><path d="M104 66 q-28 31 0 62"/>
-      <path d="M280 80 q16 17 0 34"/><path d="M296 66 q28 31 0 62"/>
-    </g>
-    <g transform="translate(200,182)" font-size="11" fill="#5b6b7f" text-anchor="middle">
-      <path d="M-70 0 h140" stroke="#dde5ef"/>
-      <text x="0" y="18">prépare le corps à réagir</text>
-      <text x="0" y="36" fill="#d35400" font-weight="700">…parfois fausse alerte</text>
-    </g>
-  </svg>`
- },
- {
-  theme:"Quand l'alarme devient trop sensible",
-  points:["À force de sonner, le système se règle « trop fin » (sensibilisation).","Un petit stimulus suffit à déclencher une grosse réponse.","C'est réversible : le système peut se recalibrer."],
-  metaphore:"Comme un <b>système antivol de voiture</b> trop réglé : une feuille tombe dessus… et toute l'alarme se déclenche.",
-  key:"Plus de douleur ≠ plus de dégâts : c'est l'alarme qui est sur-réglée.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Système antivol trop sensible (sensibilisation)">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <g transform="translate(40,118)">
-      <path d="M20 70 q14 -46 56 -50 l86 0 q34 0 54 42 l30 10 q14 6 14 18 l0 14 -250 0 z" fill="#dbe7f5" stroke="#1e6580" stroke-width="2.5"/>
-      <path d="M86 22 l66 0 q22 0 36 26 l-150 0 q10 -26 48 -26 z" fill="#eef6f8"/>
-      <circle cx="78" cy="106" r="20" fill="#3a4a5e"/><circle cx="78" cy="106" r="8" fill="#aab7c6"/>
-      <circle cx="222" cy="106" r="20" fill="#3a4a5e"/><circle cx="222" cy="106" r="8" fill="#aab7c6"/>
-    </g>
-    <!-- leaf touch -->
-    <path d="M196 56 c-16 -4 -24 -18 -8 -30 c8 12 22 8 22 22 z" fill="#1a6b45"/>
-    <text x="150" y="40" font-size="11" fill="#5b6b7f">petit contact…</text>
-    <g stroke="#d35400" stroke-width="3.5" fill="none" stroke-linecap="round">
-      <path d="M70 78 q-18 6 -22 24"/><path d="M58 64 q-30 8 -36 34"/>
-      <path d="M330 78 q18 6 22 24"/><path d="M342 64 q30 8 36 34"/>
-    </g>
-    <text x="200" y="226" font-size="13" font-weight="800" fill="#d35400" text-anchor="middle">…grosse alarme</text>
-  </svg>`
- },
- {
-  theme:"La fleur du mal",
-  points:["La douleur est influencée par de nombreux facteurs biopsychosociaux.","Chaque pétale agit sur le « volume » : sommeil, stress, émotions, activité, croyances, entourage.","On ne traite pas qu'un dos — on agit sur plusieurs pétales."],
-  metaphore:"La douleur au centre d'une <b>fleur</b> : chaque pétale est un facteur qui la nourrit… ou l'apaise.",
-  key:"Plusieurs leviers, pas seulement « la structure ».",
-  svg:`<svg viewBox="0 0 400 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="La fleur du mal: facteurs influençant la douleur">
-    <rect width="400" height="290" fill="#f7fafc"/>
-    <g transform="translate(200,148)">
-      <g>
-        <ellipse cx="0" cy="-78" rx="46" ry="26" transform="rotate(0 0 -78)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-        <ellipse cx="67.5" cy="-39" rx="46" ry="26" transform="rotate(60 67.5 -39)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-        <ellipse cx="67.5" cy="39" rx="46" ry="26" transform="rotate(120 67.5 39)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-        <ellipse cx="0" cy="78" rx="46" ry="26" transform="rotate(0 0 78)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-        <ellipse cx="-67.5" cy="39" rx="46" ry="26" transform="rotate(60 -67.5 39)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-        <ellipse cx="-67.5" cy="-39" rx="46" ry="26" transform="rotate(120 -67.5 -39)" fill="#e8f0f6" stroke="#1e6580" stroke-width="1.6"/>
-      </g>
-      <g font-size="12" fill="#1e6580" text-anchor="middle" font-weight="700">
-        <text x="0" y="-74">sommeil</text>
-        <text x="67.5" y="-35">stress</text>
-        <text x="67.5" y="43">émotions</text>
-        <text x="0" y="82">activité</text>
-        <text x="-67.5" y="43">croyances</text>
-        <text x="-67.5" y="-35">entourage</text>
-      </g>
-      <circle cx="0" cy="0" r="34" fill="#d35400"/>
-      <text x="0" y="5" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">douleur</text>
-    </g>
-  </svg>`
- },
- {
-  theme:"Que faire — baisser le volume",
-  points:["Bouger / doser : l'activité progressive nourrit et désensibilise.","Sommeil & gestion du stress : ils baissent le volume de l'alarme.","Comprendre = moins de peur : faire mal ≠ s'abîmer (hurt ≠ harm).","Reprendre ses activités qui comptent, par étapes."],
-  metaphore:"On actionne plusieurs <b>leviers</b> en même temps pour tourner le bouton de volume vers le bas.",
-  key:"Le plan : bouger · dormir · gérer le stress · comprendre · reprendre.",
-  svg:`<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Que faire: leviers pour baisser le volume">
-    <rect width="400" height="250" fill="#f7fafc"/>
-    <g font-size="13" fill="#001636">
-      <g transform="translate(26,40)"><circle cx="12" cy="0" r="13" fill="#1a6b45"/><text x="12" y="5" fill="#fff" text-anchor="middle" font-weight="800">1</text><text x="34" y="5">Bouger &amp; doser l'effort</text></g>
-      <g transform="translate(26,86)"><circle cx="12" cy="0" r="13" fill="#1a6b45"/><text x="12" y="5" fill="#fff" text-anchor="middle" font-weight="800">2</text><text x="34" y="5">Sommeil &amp; gestion du stress</text></g>
-      <g transform="translate(26,132)"><circle cx="12" cy="0" r="13" fill="#1a6b45"/><text x="12" y="5" fill="#fff" text-anchor="middle" font-weight="800">3</text><text x="34" y="5">Comprendre : hurt ≠ harm</text></g>
-      <g transform="translate(26,178)"><circle cx="12" cy="0" r="13" fill="#1a6b45"/><text x="12" y="5" fill="#fff" text-anchor="middle" font-weight="800">4</text><text x="34" y="5">Reprendre par étapes</text></g>
-    </g>
-    <g transform="translate(320,118)">
-      <path d="M-52 64 A 60 60 0 0 1 52 64" fill="none" stroke="#cfe0ee" stroke-width="8" stroke-linecap="round"/>
-      <path d="M-52 64 A 60 60 0 0 1 -8 -20" fill="none" stroke="#1a6b45" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="0" cy="40" r="40" fill="#fff" stroke="#1e6580" stroke-width="3"/>
-      <line x1="0" y1="40" x2="-26" y2="16" stroke="#1a6b45" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="0" cy="40" r="5" fill="#001636"/>
-      <text x="0" y="98" font-size="12" font-weight="800" fill="#1a6b45" text-anchor="middle">volume ↓</text>
-    </g>
-  </svg>`
+  theme:"6 · Mon plan pour la vie",
+  points:["Choisir une <b>activité plaisir</b> qu'on tiendra dans la durée. Rien n'est interdit.","Objectifs <b>SMART</b> : « marcher 20 min, 3×/sem. » plutôt que « faire plus de sport ».","Un plan de self-management : au quotidien, en cas de poussée, pour progresser.","Vous n'êtes pas seul·e : kiné, médecin, équipe restent des ressources."],
+  metaphore:"L'objectif n'est pas « zéro douleur » mais une <b>vie pleine</b>.",
+  key:"Vous êtes le pilote de votre dos.",
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#f5f9fb"/><polygon points="55,162 180,58 305,162" fill="#cfe0ea"/><polygon points="180,58 212,84 166,90" fill="#001636"/><text x="250" y="76" font-size="34" text-anchor="middle">🎯</text><text x="200" y="186" font-size="12.5" fill="#001636" text-anchor="middle" font-weight="800">Une vie active choisie — tu es le pilote</text></svg>`
  },
 ];
 
@@ -983,6 +851,55 @@ function inputHTML(it,key){
   if(t==='flag') return `<div class="opts"><label class="opt"><input type="checkbox">Présent</label></div><input type="text" class="fnote" placeholder="Note…">`;
   return `<textarea rows="${it.big?4:2}" placeholder="Réponse…"></textarea>`;
 }
+var DOMAINS={
+ bio:{c:'#1f96b5',i:'🧩',lab:'Structurel / douleur'},
+ secu:{c:'#c0392b',i:'🚨',lab:'Sécurité (red flags)'},
+ psy:{c:'#948ab5',i:'🧠',lab:'Psychosocial'},
+ soc:{c:'#1a6b45',i:'👥',lab:'Contexte / activité'},
+ mesure:{c:'#b7791f',i:'📏',lab:'Mesure'},
+ raison:{c:'#001636',i:'🧭',lab:'Raisonnement'}
+};
+var DOMAIN_MAP={
+ metier:'soc',statut:'soc',hobbies:'soc',sport:'soc',contexte_vie:'soc',charge:'soc',objectifs:'soc',
+ probleme:'bio',localisation:'bio',irradiation:'bio',qualite:'bio',paresthesies:'bio',debut:'bio',origine:'bio',
+ cours:'bio',raideur:'bio',schema24h:'bio',sommeil:'bio',provocation:'bio',soulagement:'bio',evitement:'bio',pattern:'bio',
+ antecedents:'bio',medication:'bio',imagerie:'bio',infiltrations:'bio',antalgiques:'bio',traitements:'bio',traitements_detail:'bio',
+ diagnostic:'raison',examens:'raison',mecanisme:'raison',processing:'raison',schema_clinique:'raison',imagerie_croyance:'raison',
+ red_flags:'secu',cauda:'secu',ci_test_effort:'secu',
+ representations:'psy',attentes:'psy',yf_A:'psy',yf_B:'psy',yf_D:'psy',yf_E:'psy',yf_F:'psy',yf_W:'psy',yf_S:'psy',
+ eva_repos:'mesure',eva_activite:'mesure',eva_pire:'mesure',
+ avoid_persist:'psy',patterns:'raison'
+};
+var ANAM_SEM={
+ mecanisme:"Nociceptif : proportionnel, mécanique, localisé, calme au repos. Neuropathique : trajet nerveux, brûlure/décharge, déficit sensitivo-moteur, neurodynamique +. Central : disproportionné, diffus, allodynie/hypersensibilité, ↑ drapeaux jaunes (Nijs & Smart 2010).",
+ processing:"Réponse ADAPTÉE = proportionnée, croyances/comportement fonctionnels. NON-ADAPTÉE = évitement, catastrophisme, hypervigilance, sur-protection → cible éducation + exposition graduée.",
+ red_flags:"Screening sérieux : perte de poids inexpliquée, fièvre/sueurs nocturnes, douleur nocturne non mécanique, déficit neuro progressif, ATCD cancer, corticoïdes, 1er épisode < 20 / > 55 ans. Peu spécifiques isolés → combiner.",
+ cauda:"URGENCE si combinaison : rétention/incontinence, anesthésie en selle, déficit bilatéral progressif → avis chirurgical immédiat.",
+ qualite:"Brûlure/décharge → oriente neuropathique. Pesanteur/tiraillement reproductible → nociceptif mécanique. Diffus + hypersensibilité → central.",
+ paresthesies:"Distribution dermatomale (radiculaire) vs non-anatomique (sensibilisation centrale). Noter tout déficit moteur associé.",
+ provocation:"Pattern mécanique clair (charge/posture reproductible) = nociceptif. Déclencheurs multiples / non mécaniques = sensibilisation.",
+ raideur:"Raideur matinale > 30 min qui s'améliore à l'effort → drapeau inflammatoire (spondyloarthrite) à dépister.",
+ schema24h:"Douleur nocturne non liée au mouvement = red flag. Douleur différée (lendemain d'effort) = souvent tolérance/charge.",
+ pattern:"Évitement (kinésiophobie, TSK) vs sur-activité (boom-bust) → oriente la dose d'exercice et l'exposition graduée.",
+ yf_A:"Croyances peur-évitement ('dos fragile/usé') prédisent la chronicisation → restructuration + éducation à la douleur (Louw, Moseley).",
+ representations:"Modèle explicatif du patient : lever les croyances nocebo (hernie = 'cassé'), reformuler en modèle biopsychosocial actif.",
+ objectifs:"Objectif SMART, signifiant pour le patient → sert de cible thérapeutique et d'astérisque de réévaluation au T1.",
+ medication:"Repérer surtout les BÊTABLOQUANTS (bisoprolol, aténolol…) : ils brident la FC → le test d'effort 75 % FCmax n'est pas valide. Noter aussi antalgiques, anticoagulants.",
+ betabloquant:"Bêtabloquant = FC bridée : la cible 75 % FCmax devient ininterprétable → ne pas réaliser le test d'effort (ou l'interpréter avec réserve).",
+ statut:"AT = accident de travail. Distinguer actif / maladie / invalidité / retraité / chômage — impacte les drapeaux bleus (travail) et le pronostic de reprise.",
+ debut:"Onset : date libre (mois/année, « il y a X ans », ou date d'accident). Mode d'installation + récidive vs 1er épisode = clés pronostiques.",
+ origine:"Traumatique (mécanisme lésionnel clair) vs spontané/insidieux (charge cumulée, sensibilisation) vs post-op → oriente hypothèse & pronostic.",
+ imagerie:"Ce qui compte = ce que le patient a RETENU de l'imagerie (usure, hernie = « cassé »), pas le compte-rendu → cible l'éducation, désamorce le nocebo.",
+ avoid_persist:"Évitant (repos, kinésiophobie) → exposition graduée. Persistant (boom-bust) → pacing / gestion de la charge.",
+ patterns:"Patterns lombaires : sensibilisation centrale · dérangement/discal (préférence directionnelle) · contrôle moteur · articulaire (facettaire/SI) · radiculaire · non spécifique.",
+ yf_B:"Avoider (évite, kinésiophobie) vs Persister (pousse malgré la douleur, boom-bust). Repère : « les vitres à nettoyer, tout d'un coup ou fractionné ? »",
+ yf_D:"Message reçu : décoder ce que le patient comprend de « hernie discale » — souvent une lecture patho-anatomique anxiogène à recadrer.",
+ yf_E:"Émotions : écouter le vécu (proche à charge, situation pro difficile) ; anxiété/dépression modulent la douleur.",
+ yf_F:"Entourage : soutenu ou sur-protégé, à la maison / au travail ? Renforcement des comportements douloureux ?",
+ yf_W:"Travail : satisfaction, conflit, peur de ne pas reprendre (drapeau bleu/noir) — fort prédicteur d'incapacité.",
+ yf_S:"Stress & sommeil : sources de stress, qualité du sommeil ; boucle douleur-sommeil-stress à casser."
+};
+function anamLegend(){ return '<div class="anam-legend">'+Object.keys(DOMAINS).map(function(d){var D=DOMAINS[d];return '<span><i style="background:'+D.c+'"></i>'+D.i+' '+D.lab+'</span>';}).join('')+'</div>'; }
 var _KMAP={};
 function _kmapBuild(){ _KMAP={}; ANAMNESE.forEach(function(sec,si){ sec.items.forEach(function(it,ii){ if(it.key){ ANAMBYKEY[it.key]=it; _KMAP[it.key]={si:si,ii:ii,it:it}; } }); }); }
 function anamField(key,label){
@@ -990,37 +907,103 @@ function anamField(key,label){
   if(!m)return '<div class="obox"><div class="oblab">'+esc(label||key)+'</div><div class="muted2">(champ absent)</div></div>';
   var it=m.it, k='f'+m.si+'_'+m.ii, lab=label||it.f;
   var dt=(it.f+' '+it.q+' '+(it.r||[]).join(' ')).toLowerCase().replace(/"/g,'');
-  return '<div class="obox row" data-key="'+key+'" data-t="'+dt+'" onmouseenter="anamTip(event,'+q+key+q+')" onmouseleave="hideAnamTip()">'
-    +'<div class="oblab '+(it.alert?'alert':'')+'">'+esc(lab)+' <span class="obq" title="Question à poser">🛈</span></div>'
+  var dom=DOMAIN_MAP[key]||'bio', D=DOMAINS[dom]||DOMAINS.bio;
+  return '<div class="obox row" data-key="'+key+'" data-t="'+dt+'" style="border-left:4px solid '+D.c+'">'
+    +'<div class="oblab '+(it.alert?'alert':'')+'"><span class="odchip" style="background:'+D.c+'" title="'+D.lab+'" aria-label="Domaine : '+D.lab+'">'+D.i+'</span>'+esc(lab)+' <span class="obq" role="button" tabindex="0" aria-label="Question à poser" title="Question à poser" onmouseenter="anamTip(event,'+q+key+q+')" onmouseleave="hideAnamTip()" onfocus="anamTip(event,'+q+key+q+')" onblur="hideAnamTip()">?</span></div>'
     +'<div class="obin">'+inputHTML(it,k)+'</div></div>';
 }
 function anamTip(evt,key){
   var it=ANAMBYKEY[key], el=document.getElementById('anam-tip'); if(!it||!el)return;
   var r=(it.r||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
-  el.innerHTML='<h5>🗣 '+esc(it.f)+'</h5><div class="q">'+esc(it.q)+'</div>'+(r?'<ul>'+r+'</ul>':'');
+  el.innerHTML='<h5>🗣 '+esc(it.f)+'</h5><div class="q">'+esc(it.q)+'</div>'+(r?'<ul>'+r+'</ul>':'')+(ANAM_SEM[key]?('<div class="sem">⚑ <b>Repère clinique :</b> '+esc(ANAM_SEM[key])+'</div>'):'');
   el.style.display='block';
-  var w=el.offsetWidth||320,h=el.offsetHeight||160,x=evt.clientX+16,y=evt.clientY+8;
-  if(x+w>window.innerWidth-10)x=evt.clientX-w-16; if(y+h>window.innerHeight-10)y=window.innerHeight-h-10;
+  var w=el.offsetWidth||320,h=el.offsetHeight||160,x=evt.clientX+14,y=evt.clientY-h-14;
+  if(x+w>window.innerWidth-10)x=window.innerWidth-w-10; if(y<6)y=evt.clientY+20;
   el.style.left=Math.max(6,x)+'px'; el.style.top=Math.max(6,y)+'px';
 }
 function hideAnamTip(){ var e=document.getElementById('anam-tip'); if(e)e.style.display='none'; }
-var ROM_DIRS=[['F','Flexion'],['E','Extension'],['LFL','Incl. G'],['LFR','Incl. D'],['RL','Rot. G'],['RR','Rot. D']];
-var ROM_STATES=['','lim','dol'];
-function romNext(k){ if(!extraT0.rom)extraT0.rom={}; var i=ROM_STATES.indexOf(extraT0.rom[k]||''); extraT0.rom[k]=ROM_STATES[(i+1)%3]; renderROM(); if(window._ready)autosaveDeb(); }
-function _romCol(x){ return x==='dol'?'#c0392b':(x==='lim'?'#d98a1f':'#5b6b7f'); }
-function _romLbl(x){ return x==='dol'?'douloureux':(x==='lim'?'limité':'normal'); }
+var ROM_DIRS=[['F','Flexion'],['E','Extension'],['LFL','Latéroflexion G'],['LFR','Latéroflexion D'],['RL','Rotation G'],['RR','Rotation D']];
+var ROM_QUAL=[['normal','Normal','#1a6b45'],['limite','Limité','#d98a1f'],['douleur','Douleur','#c0392b'],['douleur_nl','Douleur non lim.','#7b5cc4']];
+function _romObj(k){ var v=(extraT0.rom||{})[k];
+  if(typeof v==='string'){ v = v==='lim'?{amp:60,qual:'limite'}:(v==='dol'?{amp:60,qual:'douleur'}:{amp:0,qual:'normal'}); }
+  if(!v||typeof v!=='object') v={amp:0,qual:'normal'};
+  if(typeof v.amp!=='number') v.amp=0; if(!v.qual) v.qual='normal'; return v; }
+function _romColQ(q){ for(var i=0;i<ROM_QUAL.length;i++)if(ROM_QUAL[i][0]===q)return ROM_QUAL[i][2]; return '#5b6b7f'; }
+function romSetAmp(k,v){ if(!extraT0.rom)extraT0.rom={}; var o=_romObj(k); o.amp=Math.max(0,Math.min(100,parseInt(v,10)||0)); extraT0.rom[k]=o; renderROM(); if(window._ready)autosaveDeb(); }
+function romSetQual(k,qq){ if(!extraT0.rom)extraT0.rom={}; var o=_romObj(k); o.qual=qq; extraT0.rom[k]=o; renderROM(); if(window._ready)autosaveDeb(); }
 function renderROM(){
-  var el=document.getElementById('rom-star'); if(!el)return; var rom=extraT0.rom||{}, q=String.fromCharCode(39);
-  var pos={F:[100,22],E:[100,184],RL:[16,104],RR:[184,104],LFL:[42,40],LFR:[158,40]};
-  var svg='<svg viewBox="0 0 200 200" style="width:100%;max-width:220px"><g stroke="#c8d6e6" stroke-width="2">'
-    +'<line x1="100" y1="100" x2="100" y2="34"/><line x1="100" y1="100" x2="100" y2="172"/>'
-    +'<line x1="100" y1="100" x2="30" y2="100"/><line x1="100" y1="100" x2="170" y2="100"/>'
-    +'<line x1="100" y1="100" x2="52" y2="50"/><line x1="100" y1="100" x2="148" y2="50"/></g>';
-  ROM_DIRS.forEach(function(d){var p=pos[d[0]],st=rom[d[0]]||''; svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="'+_romCol(st)+'"/><text x="'+p[0]+'" y="'+(p[1]+3)+'" font-size="8" fill="#fff" text-anchor="middle" font-weight="700">'+d[0]+'</text>';});
-  svg+='</svg>';
-  var btns=ROM_DIRS.map(function(d){var st=rom[d[0]]||''; return '<button type="button" onclick="romNext('+q+d[0]+q+')" style="border:1px solid var(--line);border-left:4px solid '+_romCol(st)+';background:#fff;border-radius:7px;padding:4px 8px;margin:3px;cursor:pointer;font-size:11.5px"><b>'+d[0]+'</b> '+d[1]+' — <span style="color:'+_romCol(st)+';font-weight:700">'+_romLbl(st)+'</span></button>';}).join('');
-  el.innerHTML=svg+'<div style="margin-top:4px">'+btns+'</div><div class="muted2" style="margin-top:3px">Clic : normal → limité → douloureux.</div>';
+  var el=document.getElementById('rom-star'); if(!el)return; var q=String.fromCharCode(39);
+  var C=[100,100], ends={F:[100,24],E:[100,176],LFL:[40,46],LFR:[160,46],RL:[22,108],RR:[178,108]};
+  var svg='<svg viewBox="0 0 200 200" style="width:100%;max-width:230px" role="img" aria-label="Bilan fonctionnel vertébral">';
+  ROM_DIRS.forEach(function(d){var e=ends[d[0]]; svg+='<line x1="100" y1="100" x2="'+e[0]+'" y2="'+e[1]+'" stroke="#d3dfec" stroke-width="2"/>';});
+  ROM_DIRS.forEach(function(d){var o=_romObj(d[0]),e=ends[d[0]],f=o.amp/100,x=C[0]+(e[0]-C[0])*f,y=C[1]+(e[1]-C[1])*f,col=_romColQ(o.qual);
+    svg+='<line x1="100" y1="100" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+col+'" stroke-width="3"/>';
+    svg+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="6" fill="'+col+'"/>';
+    svg+='<text x="'+e[0]+'" y="'+(e[1]+(e[1]<100?-6:12))+'" font-size="8.5" fill="#33475e" text-anchor="middle" font-weight="700">'+d[0]+'</text>';});
+  svg+='<circle cx="100" cy="100" r="3" fill="#9db6d2"/></svg>';
+  var rows=ROM_DIRS.map(function(d){var o=_romObj(d[0]);
+    var quals=ROM_QUAL.map(function(x){var on=o.qual===x[0]; return '<button type="button" onclick="romSetQual('+q+d[0]+q+','+q+x[0]+q+')" title="'+x[1]+'" style="border:1px solid '+(on?x[2]:'var(--line)')+';background:'+(on?x[2]:'#fff')+';color:'+(on?'#fff':'#5b6b7f')+';border-radius:6px;padding:2px 6px;margin:0 2px 2px 0;cursor:pointer;font-size:10px;font-weight:700">'+x[1]+'</button>';}).join('');
+    return '<div class="romrow"><span class="romk"><b>'+d[0]+'</b> '+d[1]+'</span>'
+      +'<input type="range" min="0" max="100" step="5" value="'+o.amp+'" aria-label="Limitation '+d[1]+'" oninput="romSetAmp('+q+d[0]+q+',this.value)">'
+      +'<span class="romamp">'+o.amp+'%</span><div class="romq">'+quals+'</div></div>';
+  }).join('');
+  el.innerHTML=svg+'<div class="romctl">'+rows+'</div><div class="muted2" style="margin-top:3px">Curseur = degré de limitation (centre → extérieur). Qualifie : normal / limité / douleur / douleur non limitante.</div>';
 }
+/* ---- Widgets 24h / évolution / IOP (stockés dans extraT0) ---- */
+var S24_MOMENTS=[['nuit','Nuit'],['matin','Matin'],['journee','Journée'],['soir','Soir']];
+function _s24(){ if(!extraT0.s24)extraT0.s24={}; return extraT0.s24; }
+function s24Toggle(k){ var o=_s24(); if(!o[k])o[k]={on:false,com:''}; o[k].on=!o[k].on; renderS24(); if(window._ready)autosaveDeb(); }
+function s24Com(k,v){ var o=_s24(); if(!o[k])o[k]={on:false,com:''}; o[k].com=v; if(window._ready)autosaveDeb(); }
+function renderS24(){ var el=document.getElementById('s24-box'); if(!el)return; var o=_s24(),q=String.fromCharCode(39);
+  el.innerHTML=S24_MOMENTS.map(function(m){var d=o[m[0]]||{on:false,com:''};
+    return '<div class="s24row"><button type="button" class="s24tag'+(d.on?' on':'')+'" onclick="s24Toggle('+q+m[0]+q+')">'+m[1]+'</button>'
+      +'<input type="text" placeholder="commentaire (ex. raideur matinale 20 min, RAS…)" value="'+esc(d.com||'')+'" oninput="s24Com('+q+m[0]+q+',this.value)"'+(d.on?'':' disabled')+'></div>';
+  }).join(''); }
+function _evo(){ if(!extraT0.evo||typeof extraT0.evo!=='object')extraT0.evo={events:[]}; if(!Array.isArray(extraT0.evo.events))extraT0.evo.events=[]; return extraT0.evo; }
+function evoAdd(){ var t=document.getElementById('evo-inp'); if(!t||!t.value.trim())return; _evo().events.push({label:t.value.trim(),dir:'+'}); t.value=''; renderEvo(); if(window._ready)autosaveDeb(); }
+function evoDir(i,dr){ var e=_evo(); if(e.events[i]){e.events[i].dir=dr; renderEvo(); if(window._ready)autosaveDeb();} }
+function evoDel(i){ _evo().events.splice(i,1); renderEvo(); if(window._ready)autosaveDeb(); }
+function _evoShape(){ var v=''; try{v=(getRowValue('cours')||'');}catch(e){} return ''+v; }
+function renderEvo(){
+  var el=document.getElementById('evo-box'); if(!el)return; var e=_evo(),q=String.fromCharCode(39),shape=_evoShape(),ev=e.events;
+  var W=360,H=152,x0=34,x1=340,y0=18,y1=118;
+  function PX(i,n){ return n<=1?((x0+x1)/2):(x0+i*(x1-x0)/(n-1)); }
+  function PY(v){ return y1-(Math.max(0,Math.min(10,v))/10)*(y1-y0); }
+  var base=/aggrav/i.test(shape)?3:(/améli/i.test(shape)?7:5);
+  var lv=[base]; ev.forEach(function(x){ var d=(x.dir==='-')?-2.2:2.2; lv.push(Math.max(0,Math.min(10,lv[lv.length-1]+d))); });
+  var n=lv.length, pts=[];
+  if(ev.length===0){
+    if(/améli/i.test(shape))pts=[[x0,PY(8)],[x1,PY(3)]];
+    else if(/aggrav/i.test(shape))pts=[[x0,PY(3)],[x1,PY(8)]];
+    else if(/fluct/i.test(shape))pts=[[x0,PY(5)],[(x0+x1)/2,PY(8)],[x1,PY(3)]];
+    else pts=[[x0,PY(5)],[x1,PY(5)]];
+  } else { for(var i2=0;i2<n;i2++)pts.push([PX(i2,n),PY(lv[i2])]); }
+  var poly=pts.map(function(p){return p[0].toFixed(0)+','+p[1].toFixed(0);}).join(' ');
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:520px">';
+  [0,5,10].forEach(function(v){var y=PY(v); svg+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#eef2f6"/><text x="'+(x0-6)+'" y="'+(y+3)+'" font-size="8" fill="#9aa3af" text-anchor="end">'+v+'</text>';});
+  svg+='<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+'" stroke="#c8d6e6"/><line x1="'+x0+'" y1="'+y1+'" x2="'+x1+'" y2="'+y1+'" stroke="#c8d6e6"/>';
+  svg+='<text x="'+x0+'" y="12" font-size="8.5" fill="#5b6b7f">douleur (0–10)</text><text x="'+x0+'" y="'+(y1+13)+'" font-size="8.5" fill="#9aa3af">début</text><text x="'+x1+'" y="'+(y1+13)+'" font-size="8.5" fill="#9aa3af" text-anchor="end">maintenant</text>';
+  svg+='<polyline points="'+poly+'" fill="none" stroke="#1f96b5" stroke-width="2.5" stroke-linejoin="round"/>';
+  if(ev.length){ ev.forEach(function(x,i3){ var px=PX(i3+1,n),py=PY(lv[i3+1]),col=(x.dir==='-')?'#1a6b45':'#c0392b'; svg+='<circle cx="'+px.toFixed(0)+'" cy="'+py.toFixed(0)+'" r="5" fill="'+col+'"/><text x="'+px.toFixed(0)+'" y="'+(py-8).toFixed(0)+'" font-size="9" fill="'+col+'" text-anchor="middle" font-weight="800">'+(i3+1)+'</text>'; }); }
+  svg+='</svg>';
+  var list=ev.map(function(x,i4){return '<div class="evorow"><span class="evonum" style="background:'+((x.dir==='-')?'#1a6b45':'#c0392b')+'">'+(i4+1)+'</span><button type="button" class="evodir'+(x.dir==='+'?' up':'')+'" onclick="evoDir('+i4+','+q+'+'+q+')" title="a aggravé">▲</button><button type="button" class="evodir'+(x.dir==='-'?' down':'')+'" onclick="evoDir('+i4+','+q+'-'+q+')" title="a soulagé">▼</button><span style="flex:1">'+esc(x.label)+'</span><a href="#" onclick="evoDel('+i4+');return false" style="color:#c0392b;text-decoration:none">✕</a></div>';}).join('');
+  el.innerHTML=svg+'<div class="muted2" style="margin-top:2px">Coche le « cours » pour la tendance ; ajoute les <b>événements</b> dans l\'ordre (▲ aggravé, ▼ soulagé) — la courbe se construit.</div>'
+    +'<div class="evoadd"><input type="text" id="evo-inp" placeholder="événement (ex. a soulevé un meuble, séance ostéo…)"><button type="button" onclick="evoAdd()">+ ajouter</button></div>'
+    +(list?('<div class="evolist">'+list+'</div>'):'');
+}
+var IOP_KEYS=[['input','INPUT — entrée / nociception'],['output','OUTPUT — réponse motrice / comportement'],['processing','PROCESSING — traitement central']];
+function _iop(){ if(!extraT0.iop)extraT0.iop={}; return extraT0.iop; }
+function iopToggle(k){ var o=_iop(); if(!o[k])o[k]={on:false,adapt:'',com:''}; o[k].on=!o[k].on; renderIOP(); if(window._ready)autosaveDeb(); }
+function iopAdapt(k,a){ var o=_iop(); if(!o[k])o[k]={on:true,adapt:'',com:''}; o[k].on=true; o[k].adapt=a; renderIOP(); if(window._ready)autosaveDeb(); }
+function iopCom(k,v){ var o=_iop(); if(!o[k])o[k]={on:false,adapt:'',com:''}; o[k].com=v; if(window._ready)autosaveDeb(); }
+function renderIOP(){ var el=document.getElementById('iop-box'); if(!el)return; var o=_iop(),q=String.fromCharCode(39);
+  el.innerHTML=IOP_KEYS.map(function(m){var d=o[m[0]]||{on:false,adapt:'',com:''};
+    function ab(x){var on=d.adapt===x[0]; return '<button type="button" onclick="iopAdapt('+q+m[0]+q+','+q+x[0]+q+')" style="border:1px solid '+(on?x[2]:'var(--line)')+';background:'+(on?x[2]:'#fff')+';color:'+(on?'#fff':'#5b6b7f')+';border-radius:6px;padding:1px 7px;margin-right:3px;cursor:pointer;font-size:10px;font-weight:700">'+x[1]+'</button>';}
+    return '<div class="ioprow"><button type="button" class="s24tag'+(d.on?' on':'')+'" onclick="iopToggle('+q+m[0]+q+')">'+m[0].toUpperCase()+'</button>'
+      +'<span class="iopname">'+m[1].split(q+'—'+q).join('—')+'</span>'
+      +(d.on?('<span class="iopad">'+ab(['adapte','Adapté','#1a6b45'])+ab(['non_adapte','Non-adapté','#c0392b'])+'</span><input type="text" placeholder="commentaire" value="'+esc(d.com||'')+'" oninput="iopCom('+q+m[0]+q+',this.value)">'):'')
+      +'</div>';
+  }).join(''); }
 function zoneSet(i,f,v){ if(!extraT0.zones)extraT0.zones=[]; if(!extraT0.zones[i])extraT0.zones[i]={}; extraT0.zones[i][f]=v; if(window._ready)autosaveDeb(); }
 function renderZones(){
   var el=document.getElementById('zones-tbl'); if(!el)return; var z=extraT0.zones||[], q=String.fromCharCode(39);
@@ -1038,23 +1021,39 @@ function renderAnam(){
   var body=document.getElementById('anam-body'); if(!body)return;
   var nav=document.getElementById('sec-nav'); if(nav)nav.innerHTML='';
   var h='';
-  h+='<div class="ogrid2">'+anamField('metier')+anamField('statut','Statut (AT / Reha / actif)')
-    +anamField('hobbies')+anamField('sport','Sport (type / fréquence)')
+  h+=anamLegend();
+  h+='<h2 class="osec">🗂️ Identité, activité &amp; plainte</h2>';
+  h+='<div class="ogrid2">'+anamField('metier')+anamField('statut','Statut professionnel')
+    +anamField('statut_com')+anamField('hobbies')
+    +anamField('sport','Sport (type)')+anamField('sport_freq')
     +anamField('probleme','Problème principal')+anamField('diagnostic','Diagnostic')
     +anamField('objectifs','Objectifs')+anamField('attentes')+'</div>';
+  h+='<h2 class="osec">🩹 Schéma corporel &amp; mobilité</h2>';
   h+='<div class="obc-wrap"><div class="obc-chart">'+buildBodyChartBlock()+'</div>'
-    +'<div class="obc-rom"><div class="oblab" style="justify-content:center">Bilan Fonctionnel Vertébral</div><div id="rom-star"></div></div></div>';
-  h+='<div class="oblab" style="margin-top:10px">Zones — type de plainte · commentaires · EVA (0–10)</div><div id="zones-tbl"></div>';
+    +'<div class="obc-rom"><div class="oblab">Bilan Fonctionnel Vertébral</div><div id="rom-star"></div></div></div>';
   h+='<h2 class="osec">🧠 Raisonnement clinique</h2>';
-  h+='<div class="ogrid2">'+anamField('debut','Début')+anamField('cours')+'</div>';
-  h+='<div class="ogrid4">'+anamField('provocation','Provocation')+anamField('soulagement','Diminution')+anamField('schema24h','Schéma 24h')+anamField('evitement')+'</div>';
-  h+='<div class="ogrid4">'+anamField('examens')+anamField('antecedents','Santé')+anamField('medication','Médication')+anamField('red_flags','Red Flags')+'</div>';
+  h+='<div class="ogrid3">'+anamField('debut','Début')+anamField('origine','Installation')+anamField('cours','Cours / évolution')+'</div>';
+  h+='<div class="obox" style="margin:8px 0"><div class="oblab">📈 Évolution de la douleur (temps → intensité)</div><div id="evo-box"></div></div>';
+  h+='<div class="ogrid3">'+anamField('provocation','Provocation')+anamField('soulagement','Diminution')+anamField('evitement')+'</div>';
+  h+='<div class="obox" style="margin:8px 0"><div class="oblab">🕛 Schéma 24 h — sélectionne un moment puis commente</div><div id="s24-box"></div></div>';
+  h+='<div class="ogrid2">'+anamField('imagerie','Examens complémentaires (imagerie)')+anamField('imagerie_croyance','Ce que le patient en a compris')+'</div>';
+  h+='<div class="ogrid3">'+anamField('examens','Examens cliniques (tests)')+anamField('antecedents','Santé')+anamField('red_flags','Red Flags')+'</div>';
+  h+='<div class="ogrid2">'+anamField('medication','Médication')+anamField('betabloquant')+'</div>';
   h+='<div class="ogrid2"><div class="obox"><div class="oblab">🟡 Yellow Flags</div><div class="oyf">'
-    +['yf_A','yf_B','yf_D','yf_E','yf_F','yf_W','yf_S'].map(function(k){return anamField(k);}).join('')+'</div></div>'
+    +['yf_A','yf_B','avoid_persist','yf_D','yf_E','yf_F','yf_W','yf_S'].map(function(k){return anamField(k);}).join('')+'</div></div>'
     +anamField('charge')+'</div>';
-  h+='<div class="ogrid3">'+anamField('mecanisme')+anamField('processing')+anamField('schema_clinique')+'</div>';
+  h+='<div class="ogrid2">'+anamField('mecanisme')+'<div class="obox"><div class="oblab">🔄 INPUT / OUTPUT / PROCESSING (multi + adapté/non-adapté)</div><div id="iop-box"></div></div>'+'</div>';
+  h+='<div class="ogrid2">'+anamField('patterns')+anamField('schema_clinique','Synthèse clinique')+'</div>';
+  h+='<h2 class="osec">🪐 Modèle de raisonnement clinique (planétaire pondéré — Danneels) + CIF</h2>';
+  h+='<div class="obox"><div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">'
+    +'<div style="flex:1;min-width:300px"><div id="ref-planet"></div>'
+    +'<div id="planet-questions" style="margin-top:6px;background:#f4f8fb;border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:44px;font-size:12px">Survole une planète (ou les Red Flags) pour voir les questions clés.</div>'
+    +'<div style="margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--teal);margin-bottom:2px">Sphères impliquées &amp; arguments</div><div id="ref-planet-args"></div></div>'
+    +'<details style="margin-top:8px"><summary style="cursor:pointer;font-size:11px;color:var(--teal);font-weight:700">⚙ Pondérer les sphères (0–3) + arguments</summary><div id="ref-planet-editor" style="margin-top:6px"></div></details></div>'
+    +'<div style="flex:1;min-width:280px"><div style="font-size:11px;color:var(--mut);font-weight:700;margin-bottom:4px">CIF — adaptée au patient (auto) <button type="button" onclick="renderRefPanel()" style="border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;font-size:11px;padding:1px 7px">↻ rafraîchir</button></div><div id="ref-cif"></div></div>'
+    +'</div><div style="font-size:10px;color:var(--mut);margin-top:8px">Danneels et coll., trad. Demoulin, Rev Med Liège 2017;72(3):126-131 — pondéré. Pré-rempli par l\'import PLAUD, exporté dans le document T0.</div></div>';
   body.innerHTML=h;
-  renderROM(); renderZones();
+  renderROM(); renderS24(); renderEvo(); renderIOP(); try{renderRefPanel();}catch(_e){}
 }
 function filterAnam(v){
   v=(v||'').toLowerCase().trim();
@@ -1076,7 +1075,7 @@ function filterEdu(v){
   v=(v||'').toLowerCase().trim();
   document.querySelectorAll('#edu-body .edu').forEach(c=>{c.style.display=(!v||c.dataset.t.includes(v))?'':'none';});
 }
-var STEPS=[['accueil','Accueil'],['anam','Anamnèse'],['edu','Éducation'],['fitness','Effort'],['quest','Questionnaire'],['doc','Document'],['t1','T1 — Sortie']];
+var STEPS=[['anam','Anamnèse'],['edu','Éducation'],['fitness','Effort'],['quest','Questionnaire'],['doc','Document'],['t1','T1 — Sortie']];
 function updateStepNav(which){
   var i=-1; for(var k=0;k<STEPS.length;k++){if(STEPS[k][0]===which)i=k;}
   if(i<0)return;
@@ -1085,7 +1084,7 @@ function updateStepNav(which){
   var nb=document.getElementById('sn-next'); if(nb){nb.disabled=(i>=STEPS.length-1); nb.textContent=(i<STEPS.length-1?('Suivant : '+STEPS[i+1][1]+' ▶'):'Fin'); nb.onclick=function(){ if(i<STEPS.length-1)show(STEPS[i+1][0]); };}
 }
 function stepDone(st){ if(st==='accueil')return null; if(st==='anam')return !!readField('probleme'); if(st==='fitness')return !!(gv('fW')&&gv('fPoids')); if(st==='quest')return !!(gv('sODI')||gv('sHADa')||gv('sTSK')); return null; }
-function updateStepDots(){ if(typeof STEPS==='undefined')return; STEPS.forEach(function(sp,i){ var done=stepDone(sp[0]); var n=document.querySelector('#tab-'+sp[0]+' .num'); if(!n)return; if(done===true){n.textContent='✓';n.style.background='#1a6b45';n.style.color='#fff';} else if(done===false){n.textContent=(i<6?(i+1):'🏁');n.style.background='';n.style.color='';} }); }
+function updateStepDots(){ if(typeof STEPS==='undefined')return; STEPS.forEach(function(sp,i){ var done=stepDone(sp[0]); var n=document.querySelector('#tab-'+sp[0]+' .num'); if(!n)return; if(done===true){n.textContent='✓';n.style.background='#1a6b45';n.style.color='#fff';} else if(done===false){n.textContent=(sp[0]==='t1'?'🏁':(i+1));n.style.background='';n.style.color='';} }); }
 function showToast(msg){ var t=document.getElementById('toast'); if(!t)return; t.textContent=msg; t.style.opacity='1'; t.style.transform='translateY(0)'; clearTimeout(window._toastT); window._toastT=setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(10px)';},2600); }
 function curStepIndex(){ for(var i=0;i<STEPS.length;i++){var v=document.getElementById('view-'+STEPS[i][0]); if(v&&!v.classList.contains('hide'))return i;} return -1; }
 function eduPresent(){ var el=document.getElementById('view-edu'); if(!el)return; el.classList.add('presenting'); var req=el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen; if(req){try{req.call(el);}catch(e){}} document.addEventListener('fullscreenchange',function h(){ if(!document.fullscreenElement){el.classList.remove('presenting');document.removeEventListener('fullscreenchange',h);} }); }
@@ -1177,8 +1176,10 @@ function renderPins(){
            <circle cx="${e[0]}" cy="${e[1]}" r="8" fill="${c}" stroke="#fff" stroke-width="1.6"/>
            <text x="${e[0]}" y="${e[1]+3}" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">${o.n}</text></g>`;
       }
+      let ring='';const _mks=(m.ks&&m.ks.length>1)?m.ks:null;
+      if(_mks){_mks.forEach((sk,j)=>{const ang=-Math.PI/2+j*(2*Math.PI/_mks.length);const rx=m.x+Math.cos(ang)*11,ry=m.y+Math.sin(ang)*11;ring+=`<circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="3" fill="${symColor(sk)}" stroke="#fff" stroke-width="0.8"/>`;});}
       return `<g class="pin" data-id="${m.id}" style="cursor:pointer" onclick="event.stopPropagation();focusMark(${m.id})">
-         <circle cx="${m.x}" cy="${m.y}" r="8" fill="${c}" stroke="#fff" stroke-width="1.6"/>
+         <circle cx="${m.x}" cy="${m.y}" r="8" fill="${c}" stroke="#fff" stroke-width="1.6"/>${ring}
          <text x="${m.x}" y="${m.y+3}" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">${o.n}</text>
        </g>`;
     }).join('');
@@ -1193,12 +1194,13 @@ function renderList(){
   const box=document.getElementById('mk-list');
   if(!marks.length){box.innerHTML='<div class="bc-empty">Aucun repère pour l\'instant.</div>';renderSummary();return;}
   box.innerHTML = marks.map((m,i)=>{
-    const opts=SYMPTOMS.map(s=>`<option value="${s.k}" ${s.k===m.k?'selected':''}>${s.label}</option>`).join('');
+    const _ks=(m.ks&&m.ks.length)?m.ks:[m.k];
+    const chk=SYMPTOMS.map(s=>`<label class="symchk ${_ks.includes(s.k)?'on':''}"><input type="checkbox" ${_ks.includes(s.k)?'checked':''} onchange="toggleSym(${m.id},'${s.k}')"><span class="dot" style="background:${s.c}"></span>${s.label}</label>`).join('');
     return `<div class="mk" id="mk-${m.id}">
       <div class="num" style="background:${symColor(m.k)}">${i+1}</div>
       <div class="mkbody">
         <span class="vw">${m.view==='front'?'face avant':'face arrière'}</span>
-        <select onchange="setK(${m.id},this.value)">${opts}</select>
+        <div class="mksym">${chk}</div>
         <input type="text" value="${m.note.replace(/"/g,'&quot;')}" placeholder="Commentaire (côté, jusqu'où, partie du pied…)" oninput="setNote(${m.id},this.value)">
       </div>
       <button class="del" onclick="delMark(${m.id})" title="Supprimer">×</button>
@@ -1207,12 +1209,13 @@ function renderList(){
   renderSummary(); if(window._ready)autosave();
 }
 function setK(id,v){const m=marks.find(x=>x.id===id);if(m){m.k=v;renderPins();renderList();}}
+function toggleSym(id,key){const m=marks.find(x=>x.id===id);if(!m)return;var ks=(m.ks&&m.ks.length)?m.ks.slice():[m.k];var i=ks.indexOf(key);if(i>=0){if(ks.length>1)ks.splice(i,1);}else ks.push(key);m.ks=ks;m.k=ks[0];renderPins();renderList();}
 function setNote(id,v){const m=marks.find(x=>x.id===id);if(m){m.note=v;renderSummary();}}
 function delMark(id){marks=marks.filter(x=>x.id!==id);renderPins();renderList();}
 function focusMark(id){const r=document.getElementById('mk-'+id);if(r){r.scrollIntoView({block:'center'});const inp=r.querySelector('input');if(inp)inp.focus();}}
 function clearMarks(){if(marks.length&&confirm('Effacer tous les repères ?')){marks=[];renderPins();renderList();}}
 function renderSummary(){
-  const t=marks.map((m,i)=>`${i+1}. [${m.view==='front'?'avant':'arrière'}] ${symLabel(m.k)}${m.note?' — '+m.note:''}`).join('\n');
+  const t=marks.map((m,i)=>`${i+1}. [${m.view==='front'?'avant':'arrière'}] ${((m.ks&&m.ks.length)?m.ks:[m.k]).map(symLabel).join(' + ')}${m.note?' — '+m.note:''}`).join('\n');
   document.getElementById('bc-summary').value=t;
 }
 function copySummary(){
@@ -1363,7 +1366,8 @@ function doImport(){
     planetData={}; Object.keys(pl).forEach(k=>{const kk=map[(''+k).toLowerCase()]; if(!kk)return; const v=pl[k]||{}; let a=v.arguments||v.args||[]; if(!Array.isArray(a))a=a?[''+a]:[]; planetData[kk]={poids:+(v.poids||v.weight||v.importance||0)||0, args:a}; nplan++;});
     const e=document.getElementById('ref-planet-editor'); if(e)e.innerHTML=planetEditorHTML(); refreshPlanet(); }
   const _arr=x=>Array.isArray(x)?x.filter(Boolean):(x?[''+x]:[]);
-  extraT0={ limitations_fn:_arr(data.limitations_fn||raw.limitations_fn), points_cles:_arr(data.points_cles||raw.points_cles), asterisques:_arr(data.asterisques||raw.asterisques) };
+  extraT0.limitations_fn=_arr(data.limitations_fn||raw.limitations_fn); extraT0.points_cles=_arr(data.points_cles||raw.points_cles); extraT0.asterisques=_arr(data.asterisques||raw.asterisques);
+  if(data.s24||raw.s24)extraT0.s24=data.s24||raw.s24; var _ev=data.evolution||raw.evolution||data.evo||raw.evo; if(_ev)extraT0.evo=_ev; if(data.iop||raw.iop)extraT0.iop=data.iop||raw.iop; try{renderS24();renderEvo();renderIOP();}catch(_e){}
   const nextra=extraT0.limitations_fn.length+extraT0.points_cles.length+extraT0.asterisques.length;
   rep.style.color='var(--green)';
   rep.textContent='✓ '+r.filled+' champ(s) rempli(s)'+(nbc?' · '+nbc+' repère(s) body chart':'')+(nplan?' · '+nplan+' sphère(s)':'')+(nextra?' · '+nextra+' élément(s) T1':'')+' — vérifie et complète.';
@@ -1496,7 +1500,7 @@ function collectAnswers(){
   });
   return out;
 }
-function bodyLines(){ return marks.map((m,i)=>(i+1)+'. ('+(m.view==='front'?'avant':'arrière')+') '+symLabel(m.k)+(m.note?(' — '+m.note):'')); }
+function bodyLines(){ return marks.map((m,i)=>(i+1)+'. ('+(m.view==='front'?'avant':'arrière')+') '+((m.ks&&m.ks.length)?m.ks:[m.k]).map(symLabel).join('+')+(m.note?(' — '+m.note):'')); }
 function ficheInner(withName){
   const nom=gv('pat-nom'), dossier=gv('pat-dossier'), date=new Date().toLocaleDateString();
   let h='<div style="font-family:system-ui,sans-serif;color:#1a1a2e;max-width:780px;margin:0 auto;font-size:13px">';
@@ -1567,10 +1571,9 @@ function _docScores(){
   if(!isNaN(o))rows+=_hbar('ODI — Incapacité',o,0,100,'odi',' %',[20,40,60]);
   if(!isNaN(t))rows+=_hbar('TSK-17 — Kinésiophobie',t,17,68,'tsk','/68',[37]);
   if(_fit&&_fit.wkg)rows+=_hbar('Effort 75% FCmax',+_fit.wkg.toFixed(2),0.4,2.4,'eff',' W/kg',(_fit.norm?[1.01,_fit.norm]:[1.01]));
-  if(_fit&&_fit.norm){ const diff=(_fit.wkg||0)-_fit.norm, col=(_fit.wkg&&diff>=0)?'#1a6b45':'#d35400';
-    rows+='<div style="font-size:11px;color:#1e6580;margin:2px 0 0 0"><b>Normale W/kg (75 % FCmax) — '+(_fit.sex==='F'?'femme':'homme')+' '+(_fit.normDecade||'')+' ans : '+_fit.norm.toFixed(2)+'</b>'+(_fit.wkg?(' — patient '+_fit.wkg.toFixed(2)+' W/kg, <b style="color:'+col+'">'+(diff>=0?'au-dessus':'en-dessous')+'</b>'):'')+'</div>'; }
+  if(_fit&&_fit.vo2max){ rows+='<div style="font-size:11px;color:#1e6580;margin:2px 0 0 0"><b>VO₂max estimé ≈ '+_fit.vo2max.toFixed(0)+' mL/kg/min</b>'+(_fit.friend?(' · réf. FRIEND '+(_fit.sex==='F'?'femme':'homme')+' '+(_fit.friendDec||'')+' : '+_fit.friend.toFixed(0)+' → <b style="color:#1e6580">'+(_fit.cat||'')+'</b>'):'')+'</div>'; }
   if(!rows)return '';
-  return '<div class="sec">📊 Scores — vue d\'ensemble</div>'+rows+'<div style="font-size:10px;color:#9aa3af;margin-top:2px">Seuils cliniques validés (pointillés) : HAD-S ≥8 limite / ≥11 cas probable (Bjelland 2002) · ODI 21 / 41 / 61 % = modérée / sévère / invalidante (Fairbank 1980) · TSK-17 ≥37 kinésiophobie élevée (Vlaeyen 1995) · effort : normale W/kg sous-max (75 % FCmax) par sexe/âge — table EDD (cf. ci-dessous).</div>';
+  return '<div class="sec">📊 Scores — vue d\'ensemble</div>'+rows+'<div style="font-size:10px;color:#9aa3af;margin-top:2px">Seuils cliniques validés (pointillés) : HAD-S ≥8 limite / ≥11 cas probable (Bjelland 2002) · ODI 21 / 41 / 61 % = modérée / sévère / invalidante (Fairbank 1980) · TSK-17 ≥37 kinésiophobie élevée (Vlaeyen 1995) · effort : VO₂max estimé (éq. ACSM cyclo + %FCR≈%VO₂R, Swain) situé vs FRIEND (Kaminsky/de Souza e Silva, ergomètre).</div>';
 }
 function _icf(){
   function box(title,items,color){ const list=items.filter(function(x){return x&&(''+x).trim()!=='';}); if(!list.length)return '<div style="border:1px solid #dde5ef;border-top:3px solid '+color+';border-radius:8px;padding:8px 10px;background:#fafcfe;opacity:.55"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:'+color+';font-weight:800">'+title+'</div><div style="font-size:11px;color:#9aa3af">—</div></div>';
@@ -1654,6 +1657,24 @@ function planetSynthesisHTML(){
   var all=items.map(function(x){return x.p.l+' '+x.d.poids+'/3';}).join(' · ');
   return '<div style="background:#eef6f8;border:1px solid #cfe7ee;border-radius:6px;padding:9px 12px;margin:4px 0 8px;font-size:12.5px"><div><b style="color:#1e6580">Hypothèse dominante :</b> '+esc(domTxt)+' (poids '+top+'/3) → mécanisme '+esc(meca)+'.</div><div style="margin-top:3px;color:#5b6b7f"><b>Pondération :</b> '+esc(all)+'.</div></div>';
 }
+function _docInterpret(){
+  var L=[];
+  var mec=readField('mecanisme');
+  if(mec)L.push('<b>Mécanisme de douleur présumé :</b> '+esc(mec)+(/central/i.test(mec)?' → priorité éducation à la douleur + exposition graduée.':(/neuropath/i.test(mec)?' → dépistage neurodynamique / radiculaire.':(/nocicept/i.test(mec)?' → approche mécanique / réactivation.':'.'))));
+  var pat=readField('patterns'); if(pat)L.push('<b>Pattern(s) clinique(s) :</b> '+esc(pat)+'.');
+  var ap=readField('avoid_persist'); if(ap)L.push('<b>Profil comportemental :</b> '+esc(ap)+(/vitant/i.test(ap)?' → exposition graduée, lever la kinésiophobie.':(/ersist/i.test(ap)?' → pacing / gestion de la charge (boom-bust).':'.')));
+  var rf=readField('red_flags'); if(rf)L.push('<b style="color:#c0392b">⚠ Red flags relevés :</b> '+esc(rf)+' — documenter / réorienter si besoin.');
+  var yf=['A','B','D','E','F','W','S'].filter(function(x){return getRowValue('yf_'+x);});
+  if(yf.length)L.push('<b>Drapeaux jaunes actifs :</b> '+yf.join(', ')+' — cibler croyances / émotions / contexte.');
+  var o=parseFloat(gv('sODI')),t=parseFloat(gv('sTSK')),a=parseFloat(gv('sHADa')),dp=parseFloat(gv('sHADd'));
+  if(!isNaN(o))L.push('<b>Incapacité (ODI) :</b> '+o+' % — '+(o<=20?'minime':(o<=40?'modérée':(o<=60?'sévère':'invalidante')))+'.');
+  if(!isNaN(t))L.push('<b>Kinésiophobie (TSK) :</b> '+t+' — '+(t>=37?'élevée (≥ 37) → composante peur-évitement à traiter.':'sous le seuil.'));
+  if((!isNaN(a)&&a>=8)||(!isNaN(dp)&&dp>=8))L.push('<b>Détresse psychologique (HADS) :</b> A '+(isNaN(a)?'—':a)+' / D '+(isNaN(dp)?'—':dp)+' — au moins un axe ≥ 8 (limite / cas probable).');
+  if(_fit&&_fit.vo2max&&_fit.cat)L.push('<b>Condition physique :</b> VO₂max estimé ≈ '+_fit.vo2max.toFixed(0)+' mL/kg/min → '+_fit.cat+' (réf. FRIEND) → réentraînement aérobie '+(/sous/i.test(_fit.cat)?'prioritaire.':'à entretenir.'));
+  if(getRowValue('betabloquant')===true)L.push('<b style="color:#c0392b">⚠ Bêtabloquant :</b> test d\'effort 75 % FCmax non valide (FC bridée) — interpréter avec réserve.');
+  if(!L.length)return '';
+  return '<div class="sec">🧠 Interprétation clinique &amp; orientation</div><div class="hl" style="border-left-color:#7b5cc4"><ul style="margin:0 0 0 16px;padding:0">'+L.map(function(x){return '<li style="margin:3px 0">'+x+'</li>';}).join('')+'</ul><div style="font-size:10px;color:#9aa3af;margin-top:6px">Synthèse générée à partir des données saisies — à valider par le thérapeute.</div></div>';
+}
 function buildT0Doc(){
   const dossier=gv('pat-dossier')||'—', date=new Date().toLocaleDateString();
   const probleme=readField('probleme'), provoc=readField('provocation'), soulag=readField('soulagement'), objectifs=readField('objectifs');
@@ -1672,6 +1693,7 @@ function buildT0Doc(){
   if(sc.length||wkg)h+='<div style="margin-top:4px"><b>📊 Scores d\'entrée :</b> '+sc.map(x=>x[0]+' '+x[1]).join(' · ')+((sc.length&&wkg)?' · ':'')+(wkg?('effort '+wkg):'')+'</div>';
   if(!probleme&&!provoc&&!objectifs&&!sc.length)h+='<i style="color:#9aa3af">Synthèse vide — complète l\'anamnèse avant de générer.</i>';
   h+='</div>';
+  h+=_docInterpret();
   h+=_docScores();
   h+=_docBodyChart();
   h+=_icf();
@@ -1725,51 +1747,65 @@ function normW(sex,age){
   let i=Math.floor(age/10)-2; if(i<0)i=0; if(i>4)i=4;
   return {v:(sex==='F'?F[i]:M[i]), decade:labels[i]};
 }
+function friendVO2(sex,age){
+  var M=[41.9,37.9,32.5,28.0,24.0,19.5], Fv=[31.0,27.4,24.0,20.6,17.5,14.8];
+  var lab=['20–29','30–39','40–49','50–59','60–69','70–79'];
+  var idx=Math.floor(age/10)-2; if(idx<0)idx=0; if(idx>5)idx=5;
+  return {v50:(sex==='F'?Fv[idx]:M[idx]), decade:lab[idx]};
+}
 function computeFitness(){
   const age=fnum('fAge'),poids=fnum('fPoids'),W=fnum('fW'),repos=fnum('fRepos');
   const out=document.getElementById('fOut'); if(!out)return;
-  if(!age){out.innerHTML='<span class="muted2">Entre au moins l’âge…</span>';renderGauge(null);_fit={};return;}
+  if(!age){out.innerHTML='<span class="muted2">Entre au moins l’âge…</span>';renderGauge(null,null);_fit={};return;}
   const fcT=Math.round(208-0.7*age), fc220=220-age, cible=Math.round(0.75*fcT);
   let html='<div class="fline"><b>FC max</b> (Tanaka) : <b>'+fcT+' bpm</b> <span class="muted2">· 220−âge : '+fc220+'</span></div>';
   html+='<div class="fline"><b>FC cible 75 %</b> : <b style="color:var(--amber)">'+cible+' bpm</b></div>';
-  if(repos){const kar=Math.round(repos+0.75*(fcT-repos)); html+='<div class="fline">FC cible 75 % de la réserve (Karvonen) : '+kar+' bpm <span class="muted2">(avec FC repos)</span></div>';}
   _fit={age:age,poids:poids,W:W,fcT:fcT,cible:cible};
-  if(W&&poids){const wkg=W/poids; const vo2=(10.8*(W/poids)+7);
+  if(repos){const kar=Math.round(repos+0.75*(fcT-repos)); html+='<div class="fline">FC cible 75 % de la <b>réserve</b> (Karvonen) : <b>'+kar+' bpm</b> <span class="muted2">(individualisée via FC repos)</span></div>'; _fit.karv=kar;}
+  if(W&&poids){
+    const wkg=W/poids, vo2=(10.8*(W/poids)+7);
     _fit.wkg=wkg; _fit.vo2=vo2;
-    html+='<div class="fline"><b>W/kg</b> : <b style="color:var(--teal);font-size:15px">'+wkg.toFixed(2)+'</b> <span class="muted2">('+W+' W / '+poids+' kg)</span></div>';
-    html+='<div class="fline">VO₂ à la charge ≈ '+vo2.toFixed(1)+' mL/kg/min <span class="muted2">(estim. ACSM, ≠ VO₂max)</span></div>';
-    renderGauge(wkg);
-  } else { html+='<div class="muted2" style="margin-top:6px">Ajoute puissance + poids pour le W/kg et la comparaison.</div>'; renderGauge(null);}
-  const sex=(document.querySelector('input[name=fSex]:checked')||{}).value||'';
-  _fit.sex=sex;
-  if(sex){ const n=normW(sex,age); _fit.norm=n.v; _fit.normDecade=n.decade;
-    html+='<div class="fline" style="margin-top:6px;padding-top:6px;border-top:1px solid #eef2f6"><b>Normale W/kg (75 % FCmax) — '+(sex==='F'?'femme':'homme')+' '+n.decade+' ans</b> : <b style="color:#1e6580;font-size:15px">'+n.v.toFixed(2)+'</b> <span class="muted2">(table EDD)</span></div>';
-    if(_fit.wkg){ const diff=_fit.wkg-n.v, col=diff>=0?'#1a6b45':'#d35400';
-      html+='<div class="fline">Patient <b>'+_fit.wkg.toFixed(2)+'</b> W/kg → <b style="color:'+col+'">'+(diff>=0?'au-dessus':'en-dessous')+' de la normale</b> ('+(diff>=0?'+':'')+diff.toFixed(2)+')</div>';
-    } else html+='<div class="muted2">Ajoute puissance + poids pour comparer à la normale.</div>';
-  } else { html+='<div class="muted2" style="margin-top:6px">↑ Coche le sexe pour afficher la normale W/kg par âge (table EDD).</div>'; }
+    html+='<div class="fline"><b>W/kg</b> : <b style="color:var(--teal);font-size:15px">'+wkg.toFixed(2)+'</b> <span class="muted2">('+W+' W / '+poids+' kg) · mesure-clé T0→T1</span></div>';
+    const hrRest=repos||70, pHRR=(cible-hrRest)/(fcT-hrRest);
+    const vo2max=(pHRR>0.15)?(3.5+(vo2-3.5)/pHRR):null;
+    _fit.vo2max=vo2max; _fit.hrRestGiven=!!repos;
+    if(vo2max){
+      html+='<div class="fline"><b>VO₂max estimé</b> ≈ <b style="color:var(--teal)">'+vo2max.toFixed(0)+'</b> mL/kg/min <span class="muted2">(éq. ACSM cyclo + %FCR≈%VO₂R, Swain)</span>'+(repos?'':' <span style="color:#d35400">— FC repos non saisie → estimation moins précise</span>')+'</div>';
+    }
+    const sex=(document.querySelector('input[name=fSex]:checked')||{}).value||''; _fit.sex=sex;
+    if(sex&&vo2max){
+      const fr=friendVO2(sex,age); _fit.friend=fr.v50; _fit.friendDec=fr.decade;
+      const ratio=vo2max/fr.v50; let cat,col;
+      if(ratio>=1.25){cat='bien au-dessus de la moyenne';col='#1a6b45';}
+      else if(ratio>=1.10){cat='au-dessus de la moyenne';col='#1a6b45';}
+      else if(ratio>=0.90){cat='dans la moyenne';col='#1e6580';}
+      else if(ratio>=0.75){cat='sous la moyenne';col='#d35400';}
+      else {cat='nettement sous la moyenne';col='#c0392b';}
+      _fit.cat=cat;
+      html+='<div class="fline" style="margin-top:6px;padding-top:6px;border-top:1px solid #eef2f6"><b>Référence FRIEND (ergomètre) — '+(sex==='F'?'femme':'homme')+' '+fr.decade+' ans</b> : 50e pct ≈ <b>'+fr.v50.toFixed(0)+'</b> mL/kg/min</div>';
+      html+='<div class="fline">Patient ≈ '+vo2max.toFixed(0)+' → <b style="color:'+col+'">'+cat+'</b> <span class="muted2">('+Math.round(ratio*100)+' % de la médiane)</span></div>';
+      renderGauge(vo2max, fr.v50);
+    } else { renderGauge(null,null); if(!sex)html+='<div class="muted2" style="margin-top:6px">↑ Coche le sexe pour la classification VO₂max (FRIEND).</div>'; }
+  } else { html+='<div class="muted2" style="margin-top:6px">Ajoute puissance + poids pour le W/kg et le VO₂max estimé.</div>'; renderGauge(null,null); }
   out.innerHTML=html;
 }
-function renderGauge(wkg){
+function renderGauge(vo2max, median){
   const g=document.getElementById('fGauge'); if(!g)return;
-  const lo=0.4,hi=2.4,Wd=560,pad=34; const X=v=>pad+(v-lo)/(hi-lo)*(Wd-2*pad);
-  let s='<svg viewBox="0 0 '+Wd+' 88" style="width:100%;max-width:600px">';
-  s+='<line x1="'+pad+'" y1="48" x2="'+(Wd-pad)+'" y2="48" stroke="#cdd9e6" stroke-width="7" stroke-linecap="round"/>';
-  s+='<line x1="'+X(COH.q1)+'" y1="48" x2="'+X(COH.q3)+'" y2="48" stroke="#bfe3d2" stroke-width="7"/>';
-  [['min',COH.min],['Q1',COH.q1],['méd',COH.med],['Q3',COH.q3],['max',COH.max]].forEach(function(m){
-    s+='<line x1="'+X(m[1])+'" y1="40" x2="'+X(m[1])+'" y2="56" stroke="#1e6580" stroke-width="1.4"/>';
-    s+='<text x="'+X(m[1])+'" y="72" font-size="10" fill="#5b6b7f" text-anchor="middle">'+m[0]+'</text>';
-    s+='<text x="'+X(m[1])+'" y="32" font-size="9" fill="#9aa3af" text-anchor="middle">'+m[1].toFixed(2)+'</text>';
-  });
-  if(wkg!=null){const x=X(Math.max(lo,Math.min(hi,wkg)));s+='<path d="M'+x+' 42 l-7 -13 l14 0 z" fill="#d35400"/><text x="'+x+'" y="20" font-size="12" font-weight="800" fill="#d35400" text-anchor="middle">'+wkg.toFixed(2)+'</text>';}
-  s+='</svg>';
-  g.innerHTML=s;
+  if(vo2max==null||median==null){ g.innerHTML='<div class="muted2">Renseigne âge, sexe, poids, puissance (et idéalement FC repos) pour situer le VO₂max.</div>'; return; }
+  const lo=Math.max(8,median*0.5), hi=median*1.6, Wd=560,pad=42; const X=v=>pad+(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(Wd-2*pad);
+  const zones=[[lo,median*0.75,'#f2c9c0'],[median*0.75,median*0.90,'#f6ddc2'],[median*0.90,median*1.10,'#cfe6ef'],[median*1.10,hi,'#cde9d8']];
+  let z='<svg viewBox="0 0 '+Wd+' 78" style="width:100%;max-width:600px">';
+  zones.forEach(function(zn){ z+='<line x1="'+X(zn[0])+'" y1="44" x2="'+X(zn[1])+'" y2="44" stroke="'+zn[2]+'" stroke-width="9"/>'; });
+  z+='<line x1="'+X(median)+'" y1="34" x2="'+X(median)+'" y2="54" stroke="#1e6580" stroke-width="2"/><text x="'+X(median)+'" y="68" font-size="10" fill="#5b6b7f" text-anchor="middle">médiane '+median.toFixed(0)+'</text>';
+  const x=X(vo2max); z+='<path d="M'+x+' 38 l-7 -13 l14 0 z" fill="#d35400"/><text x="'+x+'" y="18" font-size="12" font-weight="800" fill="#d35400" text-anchor="middle">'+vo2max.toFixed(0)+'</text>';
+  z+='<text x="'+pad+'" y="14" font-size="9" fill="#9aa3af">VO₂max (mL/kg/min)</text></svg>';
+  g.innerHTML=z;
 }
 function copyFitness(){
   if(!_fit.fcT){return;}
   let t='Test effort 75 % FC max — FC max (Tanaka) '+_fit.fcT+' bpm · FC cible 75 % '+_fit.cible+' bpm';
-  if(_fit.wkg) t+=' · '+_fit.W+' W / '+_fit.poids+' kg = '+_fit.wkg.toFixed(2)+' W/kg (VO₂ charge ~'+_fit.vo2.toFixed(1)+' mL/kg/min, estim.)';
-  t+=' · cohorte EDD entrée : méd 1,01 W/kg.';
+  if(_fit.wkg) t+=' · '+_fit.W+' W / '+_fit.poids+' kg = '+_fit.wkg.toFixed(2)+' W/kg'+(_fit.vo2max?(' · VO₂max estimé ~'+_fit.vo2max.toFixed(0)+' mL/kg/min'+(_fit.cat?(' ('+_fit.cat+' vs FRIEND '+_fit.friendDec+')'):'')):'');
+  t+='.';
   try{navigator.clipboard.writeText(t);}catch(e){}
   const c=document.getElementById('fCopied'); if(c){c.textContent='✓ copié';setTimeout(()=>{c.textContent='';},2200);}
 }
@@ -1934,7 +1970,7 @@ function restoreState(s){
   if(s.q&&typeof QRESP!=='undefined'){QDEFS.forEach(dq=>{if(Array.isArray(s.q[dq.id]))QRESP[dq.id]=s.q[dq.id];}); renderQ();}
   if(s.fin){setv('pat-nom',s.fin.nom);setv('pat-prenom',s.fin.prenom);setv('pat-dossier',s.fin.dossier);setv('med-email',s.fin.email);}
   if(s.planetes&&typeof s.planetes==='object'){planetData=s.planetes; const e=document.getElementById('ref-planet-editor'); if(e)e.innerHTML=planetEditorHTML(); refreshPlanet();}
-  if(s.extra&&typeof s.extra==='object')extraT0=s.extra; try{renderROM();renderZones();}catch(_e){}
+  if(s.extra&&typeof s.extra==='object')extraT0=s.extra; try{renderROM();renderS24();renderEvo();renderIOP();renderRefPanel();}catch(_e){}
 }
 let _saveTimer=null;
 function autosave(){ if(!window._ready)return;
@@ -2209,6 +2245,7 @@ function buildT1Doc(){
   h+='<div class="itm">'+ctx+'</div>';
   const pgic=(T1.sat&&T1.sat.pgic)||'—', note=(T1.sat&&T1.sat.note!=null)?T1.sat.note:'—', att=(T1.sat&&T1.sat.attentes)||'—';
   h+='<div class="hl"><div><b>😊 Impression globale de changement :</b> '+esc(pgic)+'</div><div style="margin-top:3px"><b>Satisfaction :</b> '+esc(''+note)+'/10 · <b>Attentes satisfaites :</b> '+esc(att)+'</div></div>';
+  var _fav=_t1InterpretLines(); h+='<div class="hl" style="border-left-color:'+(_fav.fav?'#1a6b45':'#d35400')+';font-size:14px"><b>Δ évolution T0 → T1 : '+esc(_fav.verdict)+'</b></div>';
   h+='<div class="sec">📊 Scores T0 → T1</div><table><tr><th>Questionnaire</th><th>T0</th><th>T1</th><th>Évolution</th></tr>';
   rows.forEach(function(r){ const dl=_t1delta(r[1],r[2],r[3]); h+='<tr><td>'+r[0]+'</td><td>'+((r[1]!=null&&r[1]!=='')?r[1]:'—')+'</td><td>'+((r[2]!=='')?r[2]:'—')+'</td><td style="color:'+dl.col+';font-weight:700">'+dl.txt+'</td></tr>'; });
   h+='</table>';
@@ -2249,6 +2286,7 @@ function saveT1Document(){
 try{ if('serviceWorker' in navigator){ navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}); } if(window.caches&&caches.keys){ caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}); } }catch(e){}
 renderAnam(); renderEdu(); renderBody(); computeFitness(); computeScores(); loadQConfig(); renderQ();
 try{const raw=localStorage.getItem('edd_draft'); if(raw)restoreState(JSON.parse(raw));}catch(e){}
+try{if(typeof show==='function')show('anam');}catch(_e){}
 window._ready=true; autosave(); pullSharedScores(); updateStepNav('accueil'); updateStepDots();
 document.addEventListener('input',autosaveDeb); document.addEventListener('change',autosaveDeb);
 window.addEventListener('focus',pullSharedScores);
