@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>École du Dos — mode d'emploi (Fanny · Jean-Luc · Wivine)</title>
+<style>
+:root{--navy:#001636;--teal:#1f96b5;--cyan:#7cc5d8;--mauve:#948ab5;--ink:#0f172a;--mut:#64748b;--line:#dbe4ec;--bg:#f5f9fb;--green:#1a6b45;--amber:#d35400;--red:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,-apple-system,"Segoe UI",system-ui,sans-serif;font-size:12.5px;line-height:1.4}
+.page{max-width:800px;margin:0 auto;background:#fff;padding:22px 26px}
+h1{color:var(--navy);font-size:21px;margin:0 0 2px;font-weight:900}
+.sub{color:var(--mut);font-size:12px;margin-bottom:4px}
+.hi{background:#e6f3f7;border-left:4px solid var(--teal);border-radius:8px;padding:9px 12px;margin:10px 0;font-size:12.5px}
+h2{color:var(--navy);font-size:14px;font-weight:900;margin:16px 0 6px;padding-bottom:3px;border-bottom:2px solid var(--cyan)}
+ol{margin:4px 0 4px 20px;padding:0}ol li{margin:5px 0}
+.step{display:flex;gap:10px;align-items:flex-start;margin:7px 0}
+.num{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center}
+.k{background:#fff8ec;border:1px solid #e0a03a;border-radius:6px;padding:1px 6px;font-weight:700;color:#7c3a00;white-space:nowrap}
+.warn{background:#fff8ec;border-left:4px solid var(--amber);border-radius:8px;padding:9px 12px;margin:10px 0;color:#7c3a00;font-size:12.5px}
+.bad{background:#fdecea;border-left:4px solid var(--red);border-radius:8px;padding:9px 12px;margin:10px 0;color:#8c1f13;font-size:12.5px}
+.ok{background:#e9f5ef;border-left:4px solid var(--green);border-radius:8px;padding:9px 12px;margin:10px 0;color:#0f4b30;font-size:12.5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.card{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.card h3{margin:0 0 4px;font-size:13px;color:var(--teal);font-weight:900}
+b.navy{color:var(--navy)}
+.foot{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mut)}
+@page{size:A4;margin:12mm}
+@media print{body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.page{max-width:none;padding:0}.card,.hi,.warn,.bad,.ok{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>🩺 École du Dos — mode d'emploi</h1>
+  <div class="sub">Hôpital Saint-Nicolas Eupen · prestation INAMI 558994 — pour <b>Fanny</b>, <b>Jean-Luc</b> et <b>Wivine</b></div>
+  <div class="hi">L'outil <b>ne remplace pas ton jugement clinique</b> : il enregistre les évaluations d'entrée (T0) et de sortie (T1), calcule les scores, et prépare le rapport médical. Tout se passe <b>hors-ligne</b> — aucune donnée n'est envoyée sur internet.</div>
+
+  <h2>Les 3 règles à retenir</h2>
+  <div class="grid">
+    <div class="card"><h3>1 · Le nom du fichier = la clé</h3>Nomme <b>toujours</b> chaque fichier <span class="k">Nom Prénom — étape — date</span>. C'est ce qui relie le T0, le T1 et le rapport d'un même patient. Écris le nom <b>de la même façon</b> partout.</div>
+    <div class="card"><h3>2 · Tout va dans Teams</h3>Chaque fichier généré se range dans le dossier Teams <b>« École du Dos »</b>. Un fichier oublié dans « Téléchargements » = une évaluation perdue.</div>
+    <div class="card"><h3>3 · Le patient ne voit pas ses scores</h3>En <b>mode patient</b>, il répond seul ; l'écran de fin dit juste « Merci ». Ne lui montre jamais son score brut — c'est <b>volontaire</b> (on ne veut pas l'inquiéter).</div>
+    <div class="card"><h3>+ Homonymes</h3>Deux « Dupont Marie » ? Ajoute l'année de naissance dans le nom : <span class="k">Dupont Marie 1978 — 1 T0 — …</span>, sinon l'outil les confond.</div>
+  </div>
+
+  <h2>Faire une évaluation d'ENTRÉE (T0)</h2>
+  <div class="step"><div class="num">1</div><div>Ouvre l'outil. Reste sur l'onglet <b class="navy">Anamnèse</b> et remplis avec le patient (problème, objectifs, body chart…).</div></div>
+  <div class="step"><div class="num">2</div><div>Pour les questionnaires : clique <b class="navy">👤 Mode patient</b> (onglet Questionnaire), pose l'écran devant le patient, il répond seul. Les scores se placent tout seuls.</div></div>
+  <div class="step"><div class="num">3</div><div>Fais le <b class="navy">test à l'effort</b> (âge, poids, puissance).</div></div>
+  <div class="step"><div class="num">4</div><div>Onglet <b class="navy">Document</b> → <b>Générer le document T0</b>. Une fenêtre te demande le nom : tape le <b>nom du patient</b> (le reste « — 1 T0 — date » est déjà écrit).</div></div>
+  <div class="step"><div class="num">5</div><div>Une <b>checklist</b> apparaît → vérifie, puis <b>range le fichier dans Teams « École du Dos »</b>.</div></div>
+
+  <h2>Faire une évaluation de SORTIE (T1)</h2>
+  <div class="warn">⏰ <b>Fais passer le T1 à la séance 30-32</b>, pas au tout dernier rendez-vous. La 1ʳᵉ raison pour laquelle on perd des évaluations, c'est le patient qui ne revient pas à la dernière séance.</div>
+  <div class="step"><div class="num">1</div><div>Onglet <b class="navy">T1 — Sortie</b> → <b>⇪ Charger le T0</b> → choisis le fichier <span class="k">…— 1 T0 —…</span> du patient dans Teams. Tout se pré-remplit (le nom aussi).</div></div>
+  <div class="step"><div class="num">2</div><div>Refais passer les questionnaires en <b>mode patient</b>, entre les scores, choisis un <b>motif de fin</b>.</div></div>
+  <div class="step"><div class="num">3</div><div><b>Générer le document T1</b> → nom déjà proposé → range dans Teams.</div></div>
+  <div class="step"><div class="num">4</div><div>Puis <b class="navy">Générer le rapport — FR</b> (ou <b>DE</b>). Dans le document : complète le <b>nom du patient</b> et les recommandations → <b>Valider</b> → <b>Imprimer / PDF</b>. À transmettre <b>dans les 14 jours</b>.</div></div>
+
+  <div class="bad">🚪 <b>Le patient a abandonné, ou tu n'arrives pas à le recaler ?</b> Ne le laisse pas disparaître : dans l'onglet T1, clique <b>« Clôturer SANS T1 »</b> et choisis le motif. C'est important — ça nous dit <b>pourquoi</b> on perd des patients.</div>
+
+  <h2>En cas de souci</h2>
+  <div class="ok">L'outil <b>sauvegarde tout seul</b> pendant que tu travailles (« Brouillon auto-enregistré à… » en bas). Si l'ordinateur plante, rouvre l'outil : il te propose de <b>récupérer</b> le dernier patient. Pour repartir de zéro, clique <b>« Nouveau patient »</b>.</div>
+
+  <div class="foot">
+    En cas de question ou de bug : préviens <b>Philippe</b> (note le numéro de « build » affiché sous le titre de l'outil). · École du Dos — HSNE Eupen · document interne.
+  </div>
+</div>
+</body>
+</html>

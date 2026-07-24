@@ -1,0 +1,6 @@
+KIT DE LIVRAISON — ÉCOLE DU DOS (HSNE Eupen)
+1. Kit_EDD_PowerPoint.pptx  — la présentation pas-à-pas (débuter de zéro)
+2. mode-emploi.html         — la fiche 1 page à imprimer / afficher près du poste
+3. wiki.html                — le « pourquoi » : études scientifiques, seuils, implémentation
+Ouvre les .html d'un double-clic (navigateur, hors-ligne).
+École du Dos — prestation INAMI 558994 — HSNE Eupen.

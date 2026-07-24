@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>École du Dos — Wiki : le pourquoi, les preuves, l'implémentation</title>
+<style>
+:root{--navy:#001636;--teal:#1f96b5;--cyan:#7cc5d8;--mauve:#948ab5;--ink:#0f172a;--mut:#64748b;--line:#dbe4ec;--bg:#f5f9fb;--green:#1a6b45;--amber:#d35400;--red:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14.5px;line-height:1.6}
+.wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:20px}
+nav{position:sticky;top:16px;align-self:flex-start;flex:0 0 210px;font-size:13px}
+nav a{display:block;color:var(--mut);text-decoration:none;padding:4px 8px;border-radius:6px;border-left:2px solid transparent}
+nav a:hover{background:#fff;color:var(--teal)}
+nav .grp{font-weight:900;color:var(--navy);margin:12px 0 3px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+main{flex:1;min-width:0}
+header.hero{background:linear-gradient(135deg,#001636,#1e6580);color:#fff;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+header.hero h1{margin:0 0 6px;font-size:26px;font-weight:900}
+header.hero p{margin:0;opacity:.9;font-size:14px;max-width:720px}
+section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:16px}
+h2{color:var(--navy);font-size:20px;font-weight:900;margin:0 0 4px;border-bottom:2px solid var(--cyan);padding-bottom:6px}
+h3{color:var(--teal);font-size:15.5px;font-weight:900;margin:16px 0 4px}
+.lead{color:var(--mut);font-size:14px;margin:2px 0 12px}
+.meta{background:#eef6f8;border-left:4px solid var(--teal);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+.study{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.study .q{font-weight:900;color:var(--navy)}
+.study .a{margin:4px 0}
+.study .impl{background:#e9f5ef;border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13px}
+.study .impl b{color:var(--green)}
+.tag{display:inline-block;font-size:10.5px;font-weight:900;border-radius:999px;padding:2px 9px;color:#fff;margin-right:6px}
+.src{font-size:12px;color:var(--mut);margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #eef2f6}
+th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+.warn{background:#fff8ec;border-left:4px solid var(--amber);border-radius:8px;padding:10px 14px;margin:12px 0;color:#7c3a00;font-size:13.5px}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin:18px 0 40px}
+@media(max-width:820px){.wrap{flex-direction:column}nav{position:static;flex:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="grp">Le projet</div>
+  <a href="#these">La thèse</a>
+  <a href="#verrou">Le verrou : 16/365</a>
+  <a href="#bps">Modèle biopsychosocial</a>
+  <div class="grp">Les preuves</div>
+  <a href="#exercice">L'exercice</a>
+  <a href="#education">L'éducation à la douleur</a>
+  <a href="#peur">Peur & évitement</a>
+  <a href="#imagerie">Imagerie</a>
+  <a href="#effort">Condition physique</a>
+  <div class="grp">Les mesures</div>
+  <a href="#odi">ODI</a>
+  <a href="#tsk">TSK</a>
+  <a href="#hads">HADS</a>
+  <a href="#eva">EVA</a>
+  <a href="#mcid">MCID</a>
+  <div class="grp">L'outil</div>
+  <a href="#archi">Architecture</a>
+  <a href="#rgpd">RGPD & sécurité</a>
+  <a href="#kpi">KPI & cohorte</a>
+  <a href="#legal">Cadre légal 558994</a>
+</nav>
+<main>
+<header class="hero">
+  <h1>🧠 École du Dos — le Wiki</h1>
+  <p>Pourquoi cet outil existe, sur quelles études il s'appuie, ce que ces études concluent, et comment ces conclusions sont concrètement <b>implémentées</b> dans les bilans T0 et T1. Un document vivant — École du Dos, Hôpital Saint-Nicolas Eupen (INAMI 558994).</p>
+</header>
+
+<section id="these">
+  <h2>La thèse en une phrase</h2>
+  <p class="lead">Ce qu'on soigne marche déjà. Ce qui ne suit pas, c'est la chaîne de données.</p>
+  <p>L'École du Dos est un programme de <b>rééducation active du rachis</b> qui fonctionne. Le problème n'est pas le soin — c'est qu'on <b>ne capture presque jamais la preuve</b> de son efficacité. L'outil ne cherche pas à « mieux soigner » ; il ferme la boucle <b>T0 → T1 → rapport</b> sans ressaisie, pour rendre l'efficacité <b>mesurable</b> et le rapport légal <b>automatique</b>.</p>
+  <div class="meta">Métaphore : on a une excellente recette, mais on ne note jamais si les convives se régalent. L'outil, c'est le carnet de dégustation — pas un nouveau cuisinier.</div>
+</section>
+
+<section id="verrou">
+  <h2>Le verrou : 16 évaluations complètes sur 365 inscriptions</h2>
+  <p>Depuis 2021, ~365 patients inscrits, mais seulement <b>16 dossiers</b> avec une évaluation d'entrée <i>et</i> de sortie exploitable. On a une intervention efficace dont on ne prouve presque rien. C'est <b>le</b> problème à résoudre — pas d'ajouter des fonctionnalités.</p>
+  <div class="warn"><b>Biais de survie.</b> Les 16 complétés sont probablement ceux qui allaient mieux. Tant que la complétude est basse, les résultats moyens (−22 % d'ODI) sont à manier avec prudence. L'outil mesure donc <b>la complétude d'abord</b>, la moyenne ensuite.</div>
+  <h3>Les 5 causes de perte (et ce qu'elles impliquent)</h3>
+  <table>
+    <tr><th>Cause</th><th>Nature</th><th>Correctif</th></tr>
+    <tr><td>Aggravation</td><td>Clinique 🔴</td><td>À documenter en priorité — c'est le cas qui disparaît le plus</td></tr>
+    <tr><td>Drop-out / engagement</td><td>Comportemental 🟠</td><td>Prédictible via TSK/HADS d'entrée → intervention précoce</td></tr>
+    <tr><td>Absent au dernier RDV</td><td>Logistique 🟢</td><td>Faire le T1 à la séance 30-32</td></tr>
+    <tr><td>Délai dépassé (180 j)</td><td>Administratif 🟠</td><td>Alerte à J-30</td></tr>
+    <tr><td>Agenda</td><td>Logistique 🟢</td><td>Passation autonome (mode patient)</td></tr>
+  </table>
+  <div class="meta"><b>Implémentation :</b> un champ « motif de fin de parcours » <b>obligatoire</b>, et un bouton « clôturer sans T1 » — pour qu'un patient perdu ne devienne pas un dossier <i>invisible</i>.</div>
+</section>
+
+<section id="bps">
+  <h2>Le cadre : modèle biopsychosocial</h2>
+  <p>La douleur lombaire chronique n'est pas qu'un problème mécanique : elle mêle des facteurs <b>biologiques, psychologiques et sociaux</b>. C'est le consensus des recommandations internationales (dont le rapport <b>KCE 287</b> pour la Belgique).</p>
+  <div class="study">
+    <div class="q">Pourquoi ce cadre plutôt qu'un modèle purement structurel ?</div>
+    <div class="a">Parce que la corrélation entre l'état des structures (disques, arthrose) et la douleur est faible, et que les facteurs psychosociaux (peur, humeur, croyances) prédisent mieux la chronicité.</div>
+    <div class="impl"><b>Implémenté :</b> l'anamnèse code chaque champ par domaine biopsychosocial (couleurs), intègre les <b>red flags</b> (sécurité), les <b>yellow flags</b> (peur-évitement), et un <b>modèle planétaire pondéré</b> (Danneels/Demoulin) qui répartit le poids entre les sphères.</div>
+    <div class="src">Réf. : KCE Report 287 (Low back pain, Belgique) · Danneels et coll., trad. Demoulin, Rev Med Liège 2017;72(3):126-131.</div>
+  </div>
+</section>
+
+<section id="exercice">
+  <h2>Preuve — l'exercice actif est le traitement n°1</h2>
+  <div class="study">
+    <div class="q">L'exercice réduit-il la lombalgie chronique ?</div>
+    <div class="a"><b>Oui.</b> La revue Cochrane de référence (Hayden 2021) conclut que l'exercice réduit la douleur et améliore la fonction dans la lombalgie chronique, davantage que les soins passifs ou l'absence de traitement.</div>
+    <div class="impl"><b>Implémenté :</b> tout le programme (36 séances) est bâti sur le réentraînement actif ; l'éducation patient martèle « bouger est sûr et utile », et le test à l'effort mesure objectivement le gain de condition physique.</div>
+    <div class="src">Hayden JA et al., <i>Cochrane Database Syst Rev</i> 2021 — exercise therapy for chronic low back pain.</div>
+  </div>
+</section>
+
+<section id="education">
+  <h2>Preuve — l'éducation à la neurophysiologie de la douleur (PNE)</h2>
+  <div class="study">
+    <div class="q">Expliquer la douleur au patient change-t-il quelque chose ?</div>
+    <div class="a">Oui : comprendre que « douleur ≠ lésion » réduit la peur, le catastrophisme et l'incapacité, surtout combiné à l'exercice. C'est le socle de Moseley & Butler (<i>Explain Pain</i>) et de la thérapie cognitive fonctionnelle de O'Sullivan (CFT).</div>
+    <div class="impl"><b>Implémenté :</b> le volet Éducation = 6 séances alignées sur le site patient (la douleur, ce qui l'influence, bouger pour guérir, comprendre son dos, gérer les crises, le plan de vie), avec métaphores (le « volume » de l'alarme) et un QR code pour la maison.</div>
+    <div class="src">Moseley GL, Butler DS — <i>Explain Pain</i> · O'Sullivan P et al. — Cognitive Functional Therapy.</div>
+  </div>
+</section>
+
+<section id="peur">
+  <h2>Preuve — le cercle peur-évitement</h2>
+  <div class="study">
+    <div class="q">Pourquoi mesurer la kinésiophobie (peur du mouvement) ?</div>
+    <div class="a">Le modèle peur-évitement (Vlaeyen & Linton) montre qu'une croyance « bouger est dangereux » → évitement → déconditionnement → plus de douleur. La peur est un <b>moteur</b> de la chronicité, et un levier de traitement.</div>
+    <div class="impl"><b>Implémenté :</b> score <b>TSK-17</b> (seuil ≥ 37) au T0 et T1, profil <b>avoider / persister</b> dans l'anamnèse, et suivi du <b>Δ TSK</b> pour voir si l'éducation change les croyances. Le cockpit teste même la corrélation Δ TSK ↔ Δ ODI.</div>
+    <div class="src">Vlaeyen JWS, Linton SJ — fear-avoidance model · TSK : Tampa Scale of Kinesiophobia.</div>
+  </div>
+</section>
+
+<section id="imagerie">
+  <h2>Preuve — l'imagerie et le surdiagnostic</h2>
+  <div class="study">
+    <div class="q">Faut-il se fier aux « anomalies » de l'IRM ?</div>
+    <div class="a">Avec prudence : hernies, arthrose et « usure » sont <b>très fréquentes chez des personnes sans aucune douleur</b>. L'image ne prédit pas la douleur, et une imagerie mal expliquée peut <b>aggraver</b> les croyances (effet nocebo).</div>
+    <div class="impl"><b>Implémenté :</b> l'anamnèse distingue « examens réalisés » et « ce que le patient en a compris », pour repérer et corriger une interprétation anxiogène. Message patient : les images sont des « rides du dos », pas un verdict.</div>
+  </div>
+</section>
+
+<section id="effort">
+  <h2>Preuve — la condition physique, mesurée objectivement</h2>
+  <div class="study">
+    <div class="q">Comment estimer la capacité aérobie sans test maximal ?</div>
+    <div class="a">Par un test sous-maximal à vélo (75 % de la FC max) et des équations validées. On estime la puissance relative (W/kg) et le VO₂max, qu'on situe sur un référentiel scientifique plutôt que sur une norme « maison ».</div>
+    <div class="impl"><b>Implémenté :</b> FC max par <b>Tanaka 2001</b> (208 − 0,7 × âge, plus fiable que 220−âge) ; VO₂ à la charge par l'<b>équation ACSM cyclo</b> (10,8 × W/kg + 7) ; extrapolation VO₂max via <b>%FCR ≈ %VO₂R (Swain 1998)</b> ; classement vs le <b>registre FRIEND</b> (cycloergomètre). Ce qui compte cliniquement : la <b>progression T0 → T1</b>, pas le classement de départ.</div>
+    <div class="src">Tanaka H et al., <i>J Am Coll Cardiol</i> 2001 · ACSM guidelines · Swain DP 1998 (%HRR ≈ %VO₂R) · FRIEND Registry (Kaminsky, de Souza e Silva, EJPC 2018).</div>
+  </div>
+</section>
+
+<section id="odi">
+  <h2>Mesure — ODI (incapacité fonctionnelle)</h2>
+  <p>L'<b>Oswestry Disability Index</b> quantifie l'impact de la lombalgie sur la vie quotidienne (0 = aucune gêne, 100 % = invalidité).</p>
+  <table><tr><th>Score</th><th>Interprétation</th></tr>
+  <tr><td>0–20 %</td><td>Incapacité minime</td></tr><tr><td>21–40 %</td><td>Modérée</td></tr>
+  <tr><td>41–60 %</td><td>Sévère</td></tr><tr><td>&gt; 60 %</td><td>Invalidante</td></tr></table>
+  <div class="impl" style="background:#e9f5ef;border-radius:8px;padding:8px 10px"><b>Implémenté :</b> score numérique au T0/T1, interprétation automatique dans le document et le rapport. <span class="src" style="margin:0">Réf. Fairbank JCT — Oswestry Disability Index.</span></div>
+</section>
+
+<section id="tsk">
+  <h2>Mesure — TSK-17 (kinésiophobie)</h2>
+  <p>Peur du mouvement liée à la croyance qu'il est dangereux. Seuil cliniquement significatif : <b>≥ 37</b>.</p>
+  <div class="impl" style="background:#e9f5ef;border-radius:8px;padding:8px 10px"><b>Implémenté :</b> le cockpit compte le <b>% de patients repassant sous 37</b> — c'est l'indicateur d'efficacité de l'éducation. <span class="src" style="margin:0">Réf. Vlaeyen JWS — Tampa Scale of Kinesiophobia.</span></div>
+</section>
+
+<section id="hads">
+  <h2>Mesure — HADS (anxiété & dépression)</h2>
+  <table><tr><th>Score</th><th>Interprétation</th></tr>
+  <tr><td>≤ 7</td><td>Normal</td></tr><tr><td>8–10</td><td>Limite</td></tr><tr><td>≥ 11</td><td>Cas probable</td></tr></table>
+  <div class="impl" style="background:#e9f5ef;border-radius:8px;padding:8px 10px"><b>Implémenté :</b> deux sous-échelles (A et D) au T0/T1, seuil de bascule à 8. <span class="src" style="margin:0">Réf. Zigmond & Snaith 1983 · Bjelland et al. 2002 (validité).</span></div>
+</section>
+
+<section id="eva">
+  <h2>Mesure — EVA (intensité de la douleur)</h2>
+  <p>Échelle visuelle analogique 0–10. Changement cliniquement pertinent : environ <b>−2/10</b> ou −30 %.</p>
+</section>
+
+<section id="mcid">
+  <h2>Le concept clé — le MCID (différence minimale cliniquement importante)</h2>
+  <p>Un chiffre qui baisse ne suffit pas : il faut qu'il baisse <b>assez</b> pour que le patient ressente une vraie différence. C'est le MCID. On l'utilise pour compter des <b>répondeurs</b>, pas seulement une moyenne.</p>
+  <table><tr><th>Mesure</th><th>MCID</th><th>Source</th></tr>
+  <tr><td>ODI</td><td>−10 points <i>ou</i> −30 % relatif</td><td>Ostelo et al. 2008</td></tr>
+  <tr><td>TSK</td><td>franchir le seuil 37 (≥37 → &lt;37)</td><td>Vlaeyen</td></tr>
+  <tr><td>HADS</td><td>repasser sous 8</td><td>Bjelland 2002</td></tr>
+  <tr><td>EVA</td><td>−2/10 ou −30 %</td><td>consensus</td></tr></table>
+  <div class="meta"><b>Pourquoi c'est mieux qu'une moyenne :</b> « −22 % en moyenne » peut cacher que la moitié n'a rien ressenti. « 68 % de répondeurs » est plus honnête et se défend devant un médecin. Le cockpit calcule aussi un <b>taux de répondeur global</b> (amélioration au-delà du MCID sur ≥ 2 domaines) et un <b>d de Cohen</b>.</div>
+</section>
+
+<section id="archi">
+  <h2>L'outil — architecture</h2>
+  <p>Deux fichiers HTML <b>100 % hors-ligne</b>, sans installation, sans serveur : le <b>Dashboard</b> (anamnèse, éducation, effort, questionnaires, T0, T1, rapport) et le <b>Cockpit</b> (agrégation de cohorte). Chaque document généré <b>embarque ses propres données</b> en JSON — c'est ce qui permet de rouvrir un T0 au moment du T1, et au cockpit de tout relire sans ressaisie.</p>
+  <div class="meta">Métaphore : chaque fichier T0/T1 est une <b>capsule temporelle</b> qui contient à la fois la belle page lisible (pour l'humain) et les données brutes cachées (pour la machine).</div>
+</section>
+
+<section id="rgpd">
+  <h2>L'outil — RGPD & sécurité</h2>
+  <ul>
+    <li>Le <b>nom du patient ne vit que dans le nom de fichier</b> — jamais dans les données internes ni dans un envoi.</li>
+    <li>Tout est <b>hors-ligne</b> : aucune donnée de santé ne quitte l'ordinateur. Les fichiers vivent sur le <b>Teams de l'hôpital</b> (responsable de traitement).</li>
+    <li>Le patient ne voit <b>jamais</b> ses scores bruts (anti-nocebo).</li>
+    <li>Aucun texte d'item de questionnaire (HAD-S/TSK/ODI) n'est stocké — uniquement des <b>scores numériques</b> (respect du copyright).</li>
+    <li>L'export cohorte est <b>pseudonymisé</b> (identifiants P01, P02…).</li>
+  </ul>
+</section>
+
+<section id="kpi">
+  <h2>L'outil — le cockpit KPI</h2>
+  <p>On y dépose les documents T0/T1 : il apparie chaque patient et affiche, dans l'ordre : <b>la complétude d'abord</b> (le vrai taux sur les inscrits), la décomposition <b>par motif de perte</b>, l'efficacité en <b>% de répondeurs</b>, le <b>biais de survie</b>, les analyses par <b>sous-groupe</b>, les <b>corrélations</b> (avec refus d'afficher sous n = 30), et la <b>conformité des délais</b>.</p>
+  <div class="warn"><b>Honnêteté :</b> le cockpit <b>mesure</b> le KPI, il ne le déplace pas. Ce qui fait remonter la complétude, ce sont trois décisions humaines : faire le T1 à la séance 30-32, désigner un responsable du T1, et déployer l'outil.</div>
+</section>
+
+<section id="legal">
+  <h2>Le cadre légal — prestation INAMI 558994 (K60)</h2>
+  <ul>
+    <li>Éligibilité : cervicalgies/dorsolombalgies mécaniques aspécifiques &gt; 6 semaines, ou &lt; 3 mois post-chirurgie.</li>
+    <li>Max <b>36 séances / 180 jours</b>, une seule série par assuré.</li>
+    <li><b>Évaluation d'entrée ET de sortie obligatoires</b> (douleur, incapacité, kinésiophobie, humeur, bilan fonctionnel).</li>
+    <li><b>Rapport médical sous 14 jours</b> à 3 destinataires : médecin traitant, médecin-conseil de la mutualité, médecin du travail (avec accord).</li>
+    <li>Équipe pluridisciplinaire, séances collectives ≤ 8 patients.</li>
+  </ul>
+  <div class="meta">Autrement dit : la double évaluation et le rapport ne sont pas un « plus » — ce sont des <b>obligations légales</b>. L'outil les rend automatiques.</div>
+</section>
+
+<div class="foot">Wiki École du Dos — HSNE Eupen · document interne, mis à jour au fil du projet · les affirmations cliniques renvoient à leurs sources.</div>
+</main>
+</div>
+</body>
+</html>

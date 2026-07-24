@@ -38,6 +38,18 @@
   #savedone li b{color:#1e6580}
   #savedone .sd-ok{margin-top:14px;border:none;background:#1f96b5;color:#fff;font-weight:900;border-radius:9px;padding:11px 20px;font-size:15px;cursor:pointer;width:100%;font-family:inherit}
   #savedone .sd-ok:hover{background:#17809c}
+
+  /* ===== Aide contextuelle (boutons ⓘ + popover) ===== */
+  .ihelp{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:900;cursor:help;margin-left:6px;vertical-align:middle;user-select:none;flex:0 0 auto}
+  .ihelp:hover{background:#17809c}
+  #helpPop{position:fixed;z-index:100001;max-width:340px;background:#fff;border:1px solid var(--teal);border-radius:10px;box-shadow:0 12px 34px rgba(0,22,54,.28);padding:12px 14px;font-size:12.5px;line-height:1.5;color:var(--ink)}
+  #helpPop.hide{display:none}
+  #helpPop h4{margin:0 0 5px;color:var(--navy);font-size:13.5px;font-weight:900}
+  #helpPop b{color:var(--teal)}
+  #helpPop ul{margin:5px 0 0 16px;padding:0}
+  #helpPop li{margin:3px 0}
+  #helpPop .more{margin-top:8px;font-size:11.5px}
+  #helpPop .more a{color:var(--teal);font-weight:700;text-decoration:none}
 </style>
 <style>
   :root{
@@ -125,7 +137,7 @@
   .fcell{background:#fcfdff;border:1px solid var(--line);border-radius:8px;padding:11px 14px}
   .fcell .flab{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--green);font-weight:800;display:block;margin-bottom:7px}
   .fcell textarea,.fcell input[type=text]{width:100%;border:1px solid var(--line);border-radius:6px;
-       padding:8px 10px;font:inherit;font-size:13px;resize:vertical;background:#fff}
+       padding:8px 10px;font:inherit;font-size:14.5px;resize:vertical;background:#fff;min-height:70px}
   .fcell textarea:focus,.fcell input[type=text]:focus{outline:2px solid var(--teal);border-color:var(--teal)}
   .opts{display:flex;flex-wrap:wrap;gap:6px}
   .opt{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:16px;
@@ -189,7 +201,11 @@
   #view-anam .oblab{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:6px}
   #view-anam .oblab.alert{color:#c0392b}
   #view-anam .obq{font-size:11px;color:var(--teal);cursor:help}
-  #view-anam .obin textarea{width:100%;min-height:40px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:13px}
+  #view-anam .obin textarea{width:100%;min-height:78px;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:inherit;font-size:15px;line-height:1.5}
+  #view-anam .obin input[type=text],#view-anam .obin input:not([type]){width:100%;font-size:15px;padding:8px 10px;min-height:42px}
+  #view-anam .obin input.fnote{min-height:40px}
+  #view-t1 textarea{font-size:14.5px!important;min-height:62px!important;line-height:1.45;padding:8px 10px!important}
+  #view-t1 input[type=text]{font-size:14px}
   #view-anam .ogrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
   #view-anam .ogrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0}
   #view-anam .ogrid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:8px 0}
@@ -307,7 +323,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22c</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22g</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -317,6 +333,7 @@
     <button id="tab-quest" onclick="show('quest')"><span class="num">4</span>📋 Questionnaire</button>
     <button id="tab-doc" onclick="show('doc')"><span class="num">5</span>📄 Document</button>
     <button id="tab-t1" onclick="show('t1')"><span class="num">🏁</span>T1 — Sortie</button>
+     <button id="tab-insights" onclick="show('insights')"><span class="num">📊</span>Insights</button>
   </div>
 </header>
 <div id="draftbar">
@@ -337,6 +354,9 @@
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         <button onclick="show('anam')" style="border:none;background:var(--navy);color:#fff;border-radius:9px;padding:12px 22px;font-weight:800;cursor:pointer;font-size:14px">▶ Démarrer l'anamnèse</button>
         <button onclick="newPatient()" style="border:1px solid var(--line);background:#fff;color:var(--mut);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer">🗑 Nouveau patient</button>
+        <a href="mode-emploi.html" target="_blank" rel="noopener" style="border:1px solid var(--teal);background:#fff;color:var(--teal);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center">📖 Mode d'emploi (équipe)</a>
+        <a href="wiki.html" target="_blank" rel="noopener" style="border:1px solid var(--mauve);background:#fff;color:var(--mauve);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center">📚 Wiki (le pourquoi)</a>
+        <a href="Kit-Ecole-du-Dos.zip" download style="border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center">📦 Kit de livraison (.zip)</a>
       </div>
     </div>
   </section>
@@ -492,6 +512,26 @@
     </div>
   </section>
   <!-- ============ MODULE T1 : TEST DE SORTIE ============ -->
+  <section id="view-insights" class="hide">
+    <div class="intro">📊 <b>Insights</b> — analyse de <b>tous</b> tes patients. Dépose ici les documents <b>T0 et T1</b> : tout reste sur cet ordinateur, rien n'est envoyé. Le nom n'apparaît qu'à l'écran (il vient du nom de fichier).</div>
+    <div class="fit-card">
+      <div id="ins-drop" tabindex="0" style="border:2px dashed var(--cyan);border-radius:12px;background:#fff;padding:22px;text-align:center;cursor:pointer">
+        <b style="color:var(--teal);font-size:15px">Dépose ici les fichiers T0 / T1</b><br>
+        <span class="muted2">(les .html générés par l'outil — tu peux en déposer plein d'un coup)</span><br>
+        <input type="file" id="ins-fin" multiple accept=".html,.htm" style="margin-top:10px">
+      </div>
+      <div id="ins-info" class="muted2" style="margin-top:8px"></div>
+      <div class="toolbar" style="margin-top:8px">
+        <label style="font-size:12px;color:var(--mut);font-weight:700">Mesure&nbsp;:
+          <select id="ins-meas" onchange="renderInsights()" style="border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-family:inherit;font-size:13px">
+            <option value="o">ODI (incapacité)</option><option value="t">TSK (kinésiophobie)</option>
+            <option value="a">HAD — anxiété</option><option value="d">HAD — dépression</option>
+          </select></label>
+        <button onclick="insReset()">↺ Vider</button>
+      </div>
+    </div>
+    <div id="ins-out"></div>
+  </section>
   <section id="view-t1" class="hide">
     <div class="intro" style="border-left:4px solid var(--amber);background:#fff8ec">⏰ <b>Fais passer le T1 à la séance 30-32, pas au dernier rendez-vous.</b> La 1<sup>re</sup> cause de perte de données n'est pas l'échec du traitement — c'est le patient qui ne vient pas à la dernière séance. Le <b>mode patient</b> (bouton ci-dessous) permet au patient de remplir les questionnaires seul, sur tablette, sans mobiliser un créneau.</div>
     <div class="intro">Test de sortie après les 36 séances. <b>Rouvre le fichier T0</b> — le <b>HTML</b> qu'on a généré (il porte les données, pas le PDF). L'outil ressort les points clés, te guide pour réévaluer chaque limitation, garde le body chart T0 sous les yeux et compare les scores.</div>
@@ -534,6 +574,7 @@
     <p id="k-thx2"></p>
   </div>
 </div>
+<div id="helpPop" class="hide" role="tooltip"></div>
 <div id="toast"></div>
   <div id="stepnav">
     <button id="sn-prev" class="sn-btn">◀ Précédent</button>
@@ -914,7 +955,7 @@ function inputHTML(it,key){
   if(t==='radio') return `<div class="opts">`+it.opt.map(o=>`<label class="opt"><input type="radio" name="${key}">${o}</label>`).join('')+`</div>`;
   if(t==='check') return `<div class="opts">`+it.opt.map(o=>`<label class="opt"><input type="checkbox">${o}</label>`).join('')+`</div>`;
   if(t==='flag') return `<div class="opts"><label class="opt"><input type="checkbox">Présent</label></div><input type="text" class="fnote" placeholder="Note…">`;
-  return `<textarea rows="${it.big?4:2}" placeholder="Réponse…"></textarea>`;
+  return `<textarea rows="${it.big?7:3}" placeholder="Réponse…"></textarea>`;
 }
 var DOMAINS={
  bio:{c:'#1f96b5',i:'🧩',lab:'Structurel / douleur'},
@@ -1177,13 +1218,149 @@ function renderDocStep(){ var el=document.getElementById('doc-recap'); if(!el)re
   var checks=[['Problème principal',!!readField('probleme')],['Objectifs',!!readField('objectifs')],['Limitations / provocations',!!readField('provocation')],['Body chart',marks.length>0],['Scores (ODI/HAD/TSK)',!!(gv('sODI')||gv('sHADa')||gv('sTSK'))],['Condition physique',!!(gv('fW')&&gv('fPoids'))],['Sphères planétaires',pl]];
   var done=checks.filter(function(c){return c[1];}).length;
   el.innerHTML='<div style="font-size:12px;color:var(--mut);margin-bottom:6px">Complétude du bilan : <b>'+done+'/'+checks.length+'</b></div>'+checks.map(function(c){return '<span style="display:inline-block;margin:2px 10px 2px 0;font-size:12.5px;font-weight:600;color:'+(c[1]?'#1a6b45':'#c0392b')+'">'+(c[1]?'✓':'○')+' '+c[0]+'</span>';}).join(''); }
+/* ===== INSIGHTS — analyse inter-patients (SVG maison, offline) ===== */
+var INS={pat:{}};
+var INS_MEAS={o:{lab:'ODI',min:0,max:70,mcid:'odi',unit:' %'},t:{lab:'TSK',min:17,max:60,mcid:'tsk',unit:''},a:{lab:'HAD-A',min:0,max:21,mcid:'hada',unit:''},d:{lab:'HAD-D',min:0,max:21,mcid:'hadd',unit:''}};
+var INS_ACTION={o:'Revoir la dose et l\'individualisation de l\'exercice (réentraînement).',t:'Renforcer l\'éducation à la douleur (métaphores, neurosciences, QR maison).',a:'Renforcer le lien avec le psychologue et le soutien anxiété.',d:'Renforcer le lien avec le psychologue (humeur / dépression).'};
+function _insNum(x){ var v=parseFloat(x); return isNaN(v)?null:v; }
+function _insKey(fn){ if(!fn)return ''; var n=String(fn).replace(/\.html?$/i,''); n=n.split(/\s+[—\-]\s+|_/)[0]; return n.trim().replace(/\s+/g,' '); }
+function _insNorm(l){ return String(l||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim(); }
+function _insB64(b64){ try{ return JSON.parse(decodeURIComponent(escape(atob(String(b64).trim())))); }catch(e){ try{return JSON.parse(atob(String(b64).trim()));}catch(e2){return null;} } }
+function _insExtract(html,id){ var m=String(html).match(new RegExp('id="'+id+'">([^<]*)<')); return m?_insB64(m[1]):null; }
+function insIngest(html,fname){
+  var label=_insKey(fname), key=_insNorm(label), got=false;
+  var p1=_insExtract(html,'edd-t1-data');
+  if(p1){ var k=key||_insNorm(p1.dossier); if(!k)k='(sans nom)'; if(!INS.pat[k])INS.pat[k]={}; if(label&&!INS.pat[k].label)INS.pat[k].label=label;
+    var pv=INS.pat[k].t1; if(!pv||String(p1.dateT1||'')>=String(pv.dateT1||''))INS.pat[k].t1=p1; got=true; }
+  var p0=_insExtract(html,'edd-t0-data');
+  if(p0&&p0.form){ var k0=key||_insNorm(p0.fin&&p0.fin.dossier); if(!k0)k0='(sans nom)'; if(!INS.pat[k0])INS.pat[k0]={}; if(label&&!INS.pat[k0].label)INS.pat[k0].label=label;
+    if(!INS.pat[k0].t0)INS.pat[k0].t0=p0; got=true; }
+  return got;
+}
+function insReset(){ INS={pat:{}}; renderInsights(); }
+function insHandle(list){ var fs=[].slice.call(list||[]); if(!fs.length)return; var n=fs.length,ok=0;
+  fs.forEach(function(f){ var r=new FileReader(); r.onload=function(){ if(insIngest(''+r.result,f.name))ok++; if(--n===0){ var i=document.getElementById('ins-info'); if(i)i.textContent='📥 '+ok+' document(s) reconnu(s) · '+Object.keys(INS.pat).length+' patient(s).'; renderInsights(); } };
+    r.onerror=function(){ if(--n===0)renderInsights(); }; r.readAsText(f); }); }
+function insCohort(){ var K=[]; Object.keys(INS.pat).forEach(function(k){ var e=INS.pat[k];
+  var t0s=(e.t1&&e.t1.scores&&e.t1.scores.t0)|| (e.t0&&e.t0.scores? {a:_insNum(e.t0.scores.a),d:_insNum(e.t0.scores.d),o:_insNum(e.t0.scores.o),t:_insNum(e.t0.scores.t)} : {a:null,d:null,o:null,t:null});
+  var t1s=(e.t1&&e.t1.t1done&&e.t1.scores&&e.t1.scores.t1)||{a:null,d:null,o:null,t:null};
+  var complet=!!(e.t1&&e.t1.t1done);
+  K.push({key:k,label:e.label||k,t0:t0s,t1:t1s,mcid:(e.t1&&e.t1.mcid)||{},deltas:(e.t1&&e.t1.deltas)||{},complet:complet}); });
+  return K; }
+function _insMean(a){var v=a.filter(function(x){return x!=null&&!isNaN(x);});return v.length?v.reduce(function(s,x){return s+x;},0)/v.length:null;}
+function _insPct(x,t){return t>0?Math.round(x/t*100):0;}
+
+/* --- Slope chart T0 -> T1 --- */
+function insSlope(K,mk){ var M=INS_MEAS[mk], comp=K.filter(function(r){return r.t0[mk]!=null&&r.t1[mk]!=null;});
+  var W=520,H=260,xL=110,xR=410,y0=24,y1=224;
+  function PY(v){ v=Math.max(M.min,Math.min(M.max,v)); return y1-(v-M.min)/(M.max-M.min)*(y1-y0); }
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:560px">';
+  [M.min,(M.min+M.max)/2,M.max].forEach(function(v){var y=PY(v); svg+='<line x1="'+xL+'" y1="'+y+'" x2="'+xR+'" y2="'+y+'" stroke="#eef2f6"/><text x="'+(xL-8)+'" y="'+(y+3)+'" font-size="9" fill="#9aa3af" text-anchor="end">'+Math.round(v)+'</text>';});
+  svg+='<text x="'+xL+'" y="'+(y1+16)+'" font-size="10" fill="#5b6b7f" text-anchor="middle">Entrée (T0)</text><text x="'+xR+'" y="'+(y1+16)+'" font-size="10" fill="#5b6b7f" text-anchor="middle">Sortie (T1)</text>';
+  var mcOK=0;
+  comp.forEach(function(r){ var yy0=PY(r.t0[mk]),yy1=PY(r.t1[mk]); var isR=r.mcid&&r.mcid[M.mcid]===true; if(isR)mcOK++;
+    var d=r.t1[mk]-r.t0[mk]; var col=isR?'#1a6b45':(Math.abs(d)<0.5?'#94a3b8':(d>0?'#c0392b':'#1e6580'));
+    svg+='<line x1="'+xL+'" y1="'+yy0.toFixed(1)+'" x2="'+xR+'" y2="'+yy1.toFixed(1)+'" stroke="'+col+'" stroke-width="1.8" opacity="0.85"/>';
+    svg+='<circle cx="'+xL+'" cy="'+yy0.toFixed(1)+'" r="3" fill="'+col+'"/><circle cx="'+xR+'" cy="'+yy1.toFixed(1)+'" r="3" fill="'+col+'"/>'; });
+  svg+='</svg>';
+  var note=comp.length?('<span style="color:#1a6b45;font-weight:800">'+_insPct(mcOK,comp.length)+'%</span> ont franchi le seuil clinique (MCID). Chaque ligne = un patient : <span style="color:#1a6b45">verte</span> améliorée, <span style="color:#94a3b8">grise</span> stable, <span style="color:#c0392b">rouge</span> aggravée.') : 'Aucun patient avec T0 et T1 sur cette mesure.';
+  return '<div class="fit-card"><h3>📈 Évolution T0 → T1 — '+esc(M.lab)+' <span class="muted2">(n = '+comp.length+')</span></h3>'+svg+'<div class="muted2" style="margin-top:4px">'+note+'</div></div>';
+}
+/* --- Histogramme des Δ + MCID --- */
+function insHist(K,mk){ var M=INS_MEAS[mk];
+  var ds=K.filter(function(r){return r.t0[mk]!=null&&r.t1[mk]!=null;}).map(function(r){return +(r.t1[mk]-r.t0[mk]).toFixed(1);});
+  if(!ds.length) return '<div class="fit-card"><h3>📊 Distribution des changements — '+esc(M.lab)+'</h3><div class="muted2">Pas assez de données.</div></div>';
+  var lo=Math.min.apply(null,ds), hi=Math.max.apply(null,ds); if(lo===hi){lo-=1;hi+=1;}
+  var nb=7, step=(hi-lo)/nb, bins=new Array(nb).fill(0);
+  ds.forEach(function(v){ var i=Math.min(nb-1,Math.floor((v-lo)/step)); bins[i]++; });
+  var W=520,H=200,x0=40,x1=500,y0=16,yB=170, mx=Math.max.apply(null,bins);
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:560px">';
+  var bw=(x1-x0)/nb;
+  bins.forEach(function(c,i){ var h=mx?c/mx*(yB-y0):0; var bx=x0+i*bw;
+    svg+='<rect x="'+(bx+2)+'" y="'+(yB-h).toFixed(1)+'" width="'+(bw-4)+'" height="'+h.toFixed(1)+'" fill="#1f96b5" rx="2"/>';
+    if(c)svg+='<text x="'+(bx+bw/2)+'" y="'+(yB-h-3).toFixed(1)+'" font-size="9" fill="#5b6b7f" text-anchor="middle">'+c+'</text>'; });
+  svg+='<line x1="'+x0+'" y1="'+yB+'" x2="'+x1+'" y2="'+yB+'" stroke="#c8d6e6"/>';
+  var mcid=(mk==='o')?-10:(mk==='t')?-5:-2;
+  if(mcid>=lo&&mcid<=hi){ var xm=x0+(mcid-lo)/(hi-lo)*(x1-x0); svg+='<line x1="'+xm.toFixed(1)+'" y1="'+y0+'" x2="'+xm.toFixed(1)+'" y2="'+yB+'" stroke="#1a6b45" stroke-width="1.5" stroke-dasharray="4 3"/><text x="'+xm.toFixed(1)+'" y="12" font-size="9" fill="#1a6b45" text-anchor="middle">seuil d\'amélioration</text>'; }
+  svg+='<text x="'+x0+'" y="'+(yB+15)+'" font-size="9" fill="#9aa3af">'+lo.toFixed(0)+'</text><text x="'+x1+'" y="'+(yB+15)+'" font-size="9" fill="#9aa3af" text-anchor="end">'+hi.toFixed(0)+'</text><text x="'+((x0+x1)/2)+'" y="'+(yB+15)+'" font-size="9.5" fill="#5b6b7f" text-anchor="middle">Δ '+esc(M.lab)+' (négatif = amélioration)</text>';
+  svg+='</svg>';
+  return '<div class="fit-card"><h3>📊 Distribution des changements — '+esc(M.lab)+' <span class="muted2">(n = '+ds.length+')</span></h3>'+svg+'</div>';
+}
+/* --- Nuage de points Δ TSK vs Δ ODI --- */
+function insScatter(K){
+  var pts=K.filter(function(r){return r.t0.t!=null&&r.t1.t!=null&&r.t0.o!=null&&r.t1.o!=null;}).map(function(r){return {x:r.t1.t-r.t0.t,y:r.t1.o-r.t0.o};});
+  var n=pts.length;
+  var head='<div class="fit-card"><h3>🔗 Le changement de croyances porte-t-il la fonction ? <span class="muted2">(Δ TSK vs Δ ODI · n = '+n+')</span></h3>';
+  if(n<3) return head+'<div class="muted2">Pas assez de patients complets.</div></div>';
+  var xs=pts.map(function(p){return p.x;}),ys=pts.map(function(p){return p.y;});
+  var xlo=Math.min.apply(null,xs),xhi=Math.max.apply(null,xs),ylo=Math.min.apply(null,ys),yhi=Math.max.apply(null,ys);
+  if(xlo===xhi){xlo-=1;xhi+=1;} if(ylo===yhi){ylo-=1;yhi+=1;}
+  var W=520,H=260,x0=44,x1=500,y0=16,y1=214;
+  function PX(v){return x0+(v-xlo)/(xhi-xlo)*(x1-x0);} function PY(v){return y1-(v-ylo)/(yhi-ylo)*(y1-y0);}
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:560px">';
+  if(xlo<=0&&xhi>=0){var xz=PX(0);svg+='<line x1="'+xz+'" y1="'+y0+'" x2="'+xz+'" y2="'+y1+'" stroke="#eef2f6"/>';}
+  if(ylo<=0&&yhi>=0){var yz=PY(0);svg+='<line x1="'+x0+'" y1="'+yz+'" x2="'+x1+'" y2="'+yz+'" stroke="#eef2f6"/>';}
+  pts.forEach(function(p){ svg+='<circle cx="'+PX(p.x).toFixed(1)+'" cy="'+PY(p.y).toFixed(1)+'" r="4" fill="#1f96b5" opacity="0.8"/>'; });
+  svg+='<text x="'+((x0+x1)/2)+'" y="'+(y1+16)+'" font-size="9.5" fill="#5b6b7f" text-anchor="middle">Δ TSK (kinésiophobie)</text><text x="12" y="'+((y0+y1)/2)+'" font-size="9.5" fill="#5b6b7f" transform="rotate(-90 12 '+((y0+y1)/2)+')" text-anchor="middle">Δ ODI</text>';
+  var msg;
+  if(n>=30){ var mx=_insMean(xs),my=_insMean(ys),sx=0,sy=0,sxy=0; for(var i=0;i<n;i++){var dx=xs[i]-mx,dy=ys[i]-my;sxy+=dx*dy;sx+=dx*dx;sy+=dy*dy;}
+    var r=(sx*sy)?(sxy/Math.sqrt(sx*sy)):0, b=sx?sxy/sx:0, a=my-b*mx;
+    svg+='<line x1="'+PX(xlo).toFixed(1)+'" y1="'+PY(a+b*xlo).toFixed(1)+'" x2="'+PX(xhi).toFixed(1)+'" y2="'+PY(a+b*xhi).toFixed(1)+'" stroke="#c0392b" stroke-width="2"/>';
+    var force=Math.abs(r)>=0.5?'forte':(Math.abs(r)>=0.3?'modérée':'faible');
+    msg='r = '+r.toFixed(2)+' → corrélation <b>'+force+'</b>. '+(Math.abs(r)>=0.5?'Le changement de croyances accompagne bien le gain fonctionnel → l\'éducation est un levier.':'Lien modéré/faible → le gain vient sans doute plutôt du réentraînement.');
+  } else { msg='<b>Droite de tendance non tracée</b> (n &lt; 30) : sous ce seuil, un coefficient serait de la fausse précision. Reviens quand la cohorte aura grandi.'; }
+  svg+='</svg>';
+  return head+svg+'<div class="muted2" style="margin-top:4px">'+msg+'</div></div>';
+}
+/* --- Tableau d'alertes actionnables --- */
+function insAlerts(K){
+  var rows='';
+  Object.keys(INS_MEAS).forEach(function(mk){ var M=INS_MEAS[mk];
+    var comp=K.filter(function(r){return r.t0[mk]!=null&&r.t1[mk]!=null;});
+    if(!comp.length){ rows+='<tr><td>'+esc(M.lab)+'</td><td class="muted2">—</td><td class="muted2">—</td><td class="muted2">pas de données</td></tr>'; return; }
+    var resp=comp.filter(function(r){return r.mcid&&r.mcid[M.mcid]===true;}).length;
+    var pct=_insPct(resp,comp.length);
+    var dmean=_insMean(comp.map(function(r){return r.t1[mk]-r.t0[mk];}));
+    var flag = pct<40 ? '<span style="color:#c0392b;font-weight:800">⚠ à améliorer</span>' : (pct<60?'<span style="color:#d35400;font-weight:800">à surveiller</span>':'<span style="color:#1a6b45;font-weight:800">✓ ok</span>');
+    var action = pct<60 ? esc(INS_ACTION[mk]) : '<span class="muted2">on continue ainsi</span>';
+    rows+='<tr><td><b>'+esc(M.lab)+'</b> <span class="muted2">(n='+comp.length+')</span></td><td>'+pct+'% <span class="muted2">('+resp+'/'+comp.length+')</span></td><td>'+flag+'</td><td>'+action+'</td></tr>';
+  });
+  return '<div class="fit-card"><h3>🚦 Alertes — que faut-il améliorer ?</h3><table style="width:100%;border-collapse:collapse;font-size:13px">'
+    +'<tr><th style="text-align:left;color:#64748b;font-size:11px">Mesure</th><th style="text-align:left;color:#64748b;font-size:11px">% répondeurs (MCID)</th><th style="text-align:left;color:#64748b;font-size:11px">État</th><th style="text-align:left;color:#64748b;font-size:11px">Quoi faire</th></tr>'
+    +rows+'</table><div class="muted2" style="margin-top:6px">Le « % répondeurs » = part des patients ayant franchi le seuil cliniquement pertinent (Ostelo/Vlaeyen/Bjelland), pas une simple moyenne.</div></div>';
+}
+function renderInsights(){
+  var out=document.getElementById('ins-out'); if(!out)return;
+  var K=insCohort(), comp=K.filter(function(r){return r.complet;});
+  var mk=(document.getElementById('ins-meas')||{}).value||'o';
+  if(!K.length){ out.innerHTML='<div class="fit-card"><div class="muted2">Dépose des documents T0/T1 ci-dessus pour voir les analyses. Rien n\'est envoyé sur internet.</div></div>'; return; }
+  var h='<div class="fit-card"><div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center">'
+    +'<div><div style="font-size:34px;font-weight:900;color:var(--teal);line-height:1">'+comp.length+'</div><div class="muted2">parcours complets (T0+T1)</div></div>'
+    +'<div><div style="font-size:34px;font-weight:900;color:var(--navy);line-height:1">'+K.length+'</div><div class="muted2">patients chargés</div></div></div>';
+  if(comp.length<10) h+='<div class="fit-note" style="margin-top:8px;border-left:3px solid var(--amber)">n = '+comp.length+' : effectif faible, ces graphiques décrivent tes dossiers, ils ne démontrent rien encore. Et souviens-toi du <b>biais de survie</b> (ceux qui finissent l\'éval vont souvent mieux).</div>';
+  h+='</div>';
+  h+=insSlope(K,mk);
+  h+=insHist(K,mk);
+  h+=insScatter(K);
+  h+=insAlerts(K);
+  out.innerHTML=h;
+}
+function _insWire(){ var dz=document.getElementById('ins-drop'), fi=document.getElementById('ins-fin');
+  if(fi&&!fi.getAttribute('data-w')){ fi.setAttribute('data-w','1'); fi.addEventListener('change',function(e){ insHandle(e.target.files); e.target.value=''; }); }
+  if(dz&&!dz.getAttribute('data-w')){ dz.setAttribute('data-w','1');
+    dz.addEventListener('dragover',function(e){e.preventDefault();dz.style.background='#e6f3f7';});
+    dz.addEventListener('dragleave',function(){dz.style.background='#fff';});
+    dz.addEventListener('drop',function(e){e.preventDefault();dz.style.background='#fff';insHandle(e.dataTransfer.files);}); }
+}
 function show(which){
-  ['accueil','anam','edu','fitness','quest','doc','t1'].forEach(function(v){
+  try{setTimeout(_placeHelp,30);}catch(_e){}
+  ['accueil','anam','edu','fitness','quest','doc','t1','insights'].forEach(function(v){
     var vv=document.getElementById('view-'+v); if(vv)vv.classList.toggle('hide',v!==which);
     var tt=document.getElementById('tab-'+v); if(tt)tt.classList.toggle('on',v===which);
   });
   if(which==='t1'&&T0&&!document.getElementById('t1-body').innerHTML)renderT1();
   if(which==='doc')renderDocStep();
+  if(which==='insights'){try{_insWire();renderInsights();}catch(_e){}}
   updateStepNav(which);
   updateStepDots();
   if(which==='accueil'){ var _e=document.getElementById('pat-dossier');if(_e)setTimeout(function(){_e.focus();},60);}
@@ -1991,6 +2168,61 @@ function showSaveDone(kind){
   var d=document.getElementById('savedone'); if(d)d.classList.remove('hide');
 }
 function closeSaveDone(){ var d=document.getElementById('savedone'); if(d)d.classList.add('hide'); }
+/* ===== Aide contextuelle ===== */
+var HELP={
+ process:{t:"Comment ça marche, en 30 secondes",h:"L'outil t'accompagne pour <b>évaluer un patient</b> et produire des <b>fichiers</b> que tu ranges sur Teams.<ul>"
+   +"<li><b>Entrée (T0)</b> : anamnèse + questionnaires + test à l'effort → un fichier <b>« Nom — 1 T0 — date »</b>.</li>"
+   +"<li><b>Sortie (T1)</b> : tu rouvres le T0, tu réévalues → un fichier <b>« Nom — 2 T1 — date »</b>.</li>"
+   +"<li><b>Rapport 558994</b> : généré depuis le T0+T1, pour les médecins.</li></ul>"
+   +"Rien ne part sur internet : tout reste sur cet ordinateur. Pense l'outil comme une <b>machine à écrire intelligente</b> — c'est toi qui ranges la feuille dans le classeur (Teams)."},
+ modepatient:{t:"Le mode patient",h:"Tu <b>tends l'écran au patient</b> : il répond seul aux questionnaires, comme sur une borne. Les scores se <b>calculent tout seuls</b> et reviennent dans l'outil.<ul>"
+   +"<li>Le patient ne voit <b>jamais</b> ses scores (on ne veut pas l'inquiéter).</li>"
+   +"<li>Pour ressortir : <b>maintiens</b> la croix en haut à droite 1,5 s.</li>"
+   +"<li>À chaque nouveau patient, l'écran repart <b>vierge</b>.</li></ul>"},
+ savet0:{t:"Que se passe-t-il quand je génère le T0 ?",h:"L'outil fabrique un <b>fichier HTML</b> (le bilan d'entrée) et te le fait <b>télécharger</b>.<ul>"
+   +"<li>Nomme-le <b>« Nom Prénom — 1 T0 — date »</b> (déjà pré-écrit, tape juste le nom).</li>"
+   +"<li><b>Range-le dans le dossier Teams « École du Dos »</b>.</li>"
+   +"<li>Ce fichier contient <b>toutes les données</b> : c'est lui qu'on rouvrira au T1. Ne le perds pas.</li></ul>"
+   +"Métaphore : c'est une <b>photo de départ</b>. Au T1, on prend la <b>même photo</b> et on compare."},
+ savet1:{t:"L'évaluation de sortie (T1)",h:"D'abord <b>rouvre le fichier T0</b> du patient (bouton « Charger le T0 ») : tout se pré-remplit, <b>le nom aussi</b>.<ul>"
+   +"<li>Refais passer les questionnaires (mode patient), entre les scores.</li>"
+   +"<li>Choisis un <b>motif de fin</b> — même si le patient a abandonné.</li>"
+   +"<li>Génère le T1 → range-le sur Teams.</li></ul>"
+   +"⏰ Astuce d'or : fais le T1 vers la <b>séance 30-32</b>, pas au tout dernier rendez-vous (sinon il ne revient pas)."},
+ rapport:{t:"Le rapport médical 558994",h:"Obligation légale : à transmettre <b>sous 14 jours</b> à 3 médecins (traitant, médecin-conseil, médecin du travail).<ul>"
+   +"<li>Il est <b>pré-rempli</b> depuis le T0 et le T1.</li>"
+   +"<li>Dans le document : complète le <b>nom du patient</b> + les recommandations, puis <b>Valider</b>.</li>"
+   +"<li><b>Imprimer / PDF</b>, puis envoie-le.</li></ul>"},
+ cloture:{t:"Clôturer un patient SANS T1",h:"Le patient a lâché, ou tu n'arrives pas à le recaler ? <b>Ne le laisse pas disparaître.</b><ul>"
+   +"<li>Choisis le <b>motif</b> (abandon, absent au dernier RDV, agenda…) et clique <b>Clôturer</b>.</li>"
+   +"<li>Ça nous dit <b>pourquoi</b> on perd des patients — c'est précieux pour améliorer le programme.</li></ul>"}
+};
+function _placeHelp(){
+  try{
+    var add=function(sel,key,where){ var el=document.querySelector(sel); if(el && !el.getAttribute('data-help')){ el.setAttribute('data-help','1');
+      var span=document.createElement('span'); span.outerHTML=''; el.insertAdjacentHTML(where||'afterend', _ihelp(key)); } };
+    add('#view-accueil [style*="font-size:19px"]','process','beforeend');
+    add('#view-quest button[onclick="kioskStart(\'t0\')"]','modepatient','afterend');
+    add('#view-doc h3','savet0','beforeend');
+    add('#view-t1 button[onclick="saveRapport(\'fr\')"]','rapport','afterend');
+    add('#view-t1 button[onclick="saveT1Close()"]','cloture','afterend');
+  }catch(_e){}
+}
+function _ihelp(key){ return '<span class="ihelp" role="button" tabindex="0" aria-label="Aide" onmouseenter="helpTip(event,'+String.fromCharCode(39)+key+String.fromCharCode(39)+')" onmouseleave="hideHelpTip()" onfocus="helpTip(event,'+String.fromCharCode(39)+key+String.fromCharCode(39)+')" onblur="hideHelpTip()" onclick="event.stopPropagation();helpTip(event,'+String.fromCharCode(39)+key+String.fromCharCode(39)+',true)">i</span>'; }
+function helpTip(evt,key,sticky){
+  var H=HELP[key]; if(!H)return;
+  var p=document.getElementById('helpPop'); if(!p)return;
+  p.innerHTML='<h4>'+esc(H.t)+'</h4>'+H.h+'<div class="more">Plus de détails : <a href="mode-emploi.html" target="_blank" rel="noopener">mode d\'emploi ↗</a></div>';
+  p.classList.remove('hide');
+  var r=(evt.target||evt.srcElement).getBoundingClientRect();
+  var pw=Math.min(340,window.innerWidth-20), ph=p.offsetHeight;
+  var x=Math.min(r.left, window.innerWidth-pw-10); if(x<10)x=10;
+  var y=r.bottom+8; if(y+ph>window.innerHeight-10) y=Math.max(10,r.top-ph-8);
+  p.style.left=x+'px'; p.style.top=y+'px'; p.style.maxWidth=pw+'px';
+  p._sticky=!!sticky;
+}
+function hideHelpTip(){ var p=document.getElementById('helpPop'); if(p && !p._sticky)p.classList.add('hide'); }
+document.addEventListener('click',function(e){ var p=document.getElementById('helpPop'); if(p&&p._sticky&&!p.contains(e.target)&&!(e.target.classList&&e.target.classList.contains('ihelp'))){ p._sticky=false; p.classList.add('hide'); } });
 function kioskStart(target){
   _kioskTarget=(target==='t1')?'t1':'t0';
   window._t1mode=(_kioskTarget==='t1');

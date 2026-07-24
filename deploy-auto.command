@@ -10,6 +10,7 @@ if [ -f "$MASTER" ]; then cp "$MASTER" "$REPO/index.html"; echo "✓ index.html 
 if [ -f outils/modele/Lancer-Ecole-du-Dos.cmd ]; then
   ZTMP="$(mktemp -d)"; ZS="$ZTMP/Ecole-du-Dos-EDD"; mkdir -p "$ZS"
   cp index.html "$ZS/Ecole-du-Dos.html"
+  [ -f mode-emploi.html ] && cp mode-emploi.html "$ZS/mode-emploi.html"
   cp outils/modele/Lancer-Ecole-du-Dos.cmd "$ZS/"
   cp outils/modele/LISEZ-MOI.txt "$ZS/"
   rm -f "$REPO/Ecole-du-Dos-EDD.zip"
@@ -17,6 +18,15 @@ if [ -f outils/modele/Lancer-Ecole-du-Dos.cmd ]; then
   rm -rf "$ZTMP"; echo "✓ ZIP régénéré"
 fi
 
+# Régénère le kit de livraison (PPTX + mode d'emploi + wiki)
+if [ -f Kit_EDD_PowerPoint.pptx ] && [ -f wiki.html ] && [ -f mode-emploi.html ]; then
+  KTMP="$(mktemp -d)"; KS="$KTMP/Kit-Ecole-du-Dos"; mkdir -p "$KS"
+  cp Kit_EDD_PowerPoint.pptx wiki.html mode-emploi.html "$KS/" 2>/dev/null
+  [ -f kit/LISEZ-MOI.txt ] && cp kit/LISEZ-MOI.txt "$KS/"
+  rm -f "$REPO/Kit-Ecole-du-Dos.zip"
+  ( cd "$KTMP" && zip -rqX "$REPO/Kit-Ecole-du-Dos.zip" "Kit-Ecole-du-Dos" )
+  rm -rf "$KTMP"; echo "✓ Kit de livraison régénéré"
+fi
 echo "deploy $(date '+%Y-%m-%d %H:%M:%S')" >> .deploy-log
 find .git -name '*.lock' -delete 2>/dev/null
 if [ ! -d .git ]; then git init -b main >/dev/null; fi
