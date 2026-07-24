@@ -323,7 +323,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22g</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22h</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -505,7 +505,7 @@
       <div class="finalize" style="position:static;top:auto">
         <span style="font-size:12px;color:var(--mut);align-self:center">👤 Le nom du patient s'ajoute au moment de nommer le fichier (seul endroit où il figure).</span>
         <input id="med-email" type="email" placeholder="E-mail médecin physique (interne)">
-        <button class="save" onclick="saveT0Document()">📄 Document T0 (à archiver)</button>
+        <label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);font-weight:700;margin-right:8px"><input type="checkbox" id="stat-excl-t0" onchange="toggleStatExcl(this.checked)">Exclure des statistiques (démo/test)</label><span id="stat-excl-note" style="font-size:12px;color:#c0392b;font-weight:700"></span><button class="save" onclick="saveT0Document()">📄 Document T0 (à archiver)</button>
         <button onclick="mailMedecin()">✉ Envoyer au médecin</button>
         <button onclick="printFiche()">🖨 Imprimer la fiche</button>
       </div>
@@ -513,7 +513,7 @@
   </section>
   <!-- ============ MODULE T1 : TEST DE SORTIE ============ -->
   <section id="view-insights" class="hide">
-    <div class="intro">📊 <b>Insights</b> — analyse de <b>tous</b> tes patients. Dépose ici les documents <b>T0 et T1</b> : tout reste sur cet ordinateur, rien n'est envoyé. Le nom n'apparaît qu'à l'écran (il vient du nom de fichier).</div>
+    <div class="intro">📊 <b>Insights</b> — analyse de <b>tous</b> tes patients. Dépose ici les documents <b>T0 et T1</b> : tout reste sur cet ordinateur, rien n'est envoyé. Le nom n'apparaît qu'à l'écran (il vient du nom de fichier). Depuis la mise à jour, chaque T0/T1 que tu génères s'ajoute <b>automatiquement</b> et anonymement ici (sauf si tu coches « Exclure des statistiques » au moment de la sauvegarde).</div>
     <div class="fit-card">
       <div id="ins-drop" tabindex="0" style="border:2px dashed var(--cyan);border-radius:12px;background:#fff;padding:22px;text-align:center;cursor:pointer">
         <b style="color:var(--teal);font-size:15px">Dépose ici les fichiers T0 / T1</b><br>
@@ -527,7 +527,9 @@
             <option value="o">ODI (incapacité)</option><option value="t">TSK (kinésiophobie)</option>
             <option value="a">HAD — anxiété</option><option value="d">HAD — dépression</option>
           </select></label>
-        <button onclick="insReset()">↺ Vider</button>
+        <button onclick="insReset()">↺ Vider les fichiers déposés</button>
+        <label style="font-size:12px;color:var(--mut);font-weight:700;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="ins-useauto" checked onchange="_insUseAuto=this.checked;renderInsights()">Inclure le registre auto</label>
+        <button onclick="cohortClear()">🗑 Vider le registre auto</button>
       </div>
     </div>
     <div id="ins-out"></div>
@@ -1241,7 +1243,13 @@ function insReset(){ INS={pat:{}}; renderInsights(); }
 function insHandle(list){ var fs=[].slice.call(list||[]); if(!fs.length)return; var n=fs.length,ok=0;
   fs.forEach(function(f){ var r=new FileReader(); r.onload=function(){ if(insIngest(''+r.result,f.name))ok++; if(--n===0){ var i=document.getElementById('ins-info'); if(i)i.textContent='📥 '+ok+' document(s) reconnu(s) · '+Object.keys(INS.pat).length+' patient(s).'; renderInsights(); } };
     r.onerror=function(){ if(--n===0)renderInsights(); }; r.readAsText(f); }); }
-function insCohort(){ var K=[]; Object.keys(INS.pat).forEach(function(k){ var e=INS.pat[k];
+var _insUseAuto=true;
+function insCohort(){ var K=[];
+  if(_insUseAuto){ var C=_cohGet(); Object.keys(C).forEach(function(sid){ var e=C[sid]||{};
+    var t0s=(e.scores&&e.scores.t0)||{a:null,d:null,o:null,t:null};
+    var t1s=(e.t1done&&e.scores&&e.scores.t1)||{a:null,d:null,o:null,t:null};
+    K.push({key:'auto:'+sid,label:'(auto-enregistré)',t0:t0s,t1:t1s,mcid:e.mcid||{},deltas:e.deltas||{},complet:!!e.t1done,auto:true}); }); }
+  Object.keys(INS.pat).forEach(function(k){ var e=INS.pat[k];
   var t0s=(e.t1&&e.t1.scores&&e.t1.scores.t0)|| (e.t0&&e.t0.scores? {a:_insNum(e.t0.scores.a),d:_insNum(e.t0.scores.d),o:_insNum(e.t0.scores.o),t:_insNum(e.t0.scores.t)} : {a:null,d:null,o:null,t:null});
   var t1s=(e.t1&&e.t1.t1done&&e.t1.scores&&e.t1.scores.t1)||{a:null,d:null,o:null,t:null};
   var complet=!!(e.t1&&e.t1.t1done);
@@ -2018,7 +2026,7 @@ function saveT0Document(){
   const blob=new Blob([buildT0Doc()],{type:'text/html;charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name+'.html';
   document.body.appendChild(a); a.click(); a.remove();
-  try{showSaveDone('t0');}catch(_e){}
+  try{cohortPush('t0');}catch(_e){} try{showSaveDone('t0');}catch(_e){}
 }
 
 function printFiche(){
@@ -2163,7 +2171,9 @@ function showSaveDone(kind){
   if(kind==='t0'){ extra='<li><span class="ck">3.</span>Pense au <b>mode patient</b> pour les questionnaires (bouton 👤 dans l\'onglet Questionnaire).</li>'; }
   else if(kind==='rapport'){ title='✅ Rapport 558994 généré'; extra='<li><span class="ck">3.</span>Dans le document : complète le <b>nom du patient</b> et les recommandations, puis clique <b>Valider</b>.</li><li><span class="ck">4.</span>Transmets-le dans les <b>14 jours</b> (obligation légale).</li>'; }
   else if(kind==='close'){ title='🚪 Parcours clôturé'; }
-  var el=document.getElementById('sd-list'); if(el)el.innerHTML=nameOK+teams+extra;
+  var statLine='';
+  if(kind==='t0'||kind==='t1'||kind==='close'){ statLine = _cohExcluded(kind==='t0'?'t0':(kind==='close'?'close':'t1')) ? '<li style="color:#c0392b"><span class="ck">📊</span><b>Exclu des statistiques</b> (démo/test) — n\'entre pas dans Insights.</li>' : '<li style="color:#1a6b45"><span class="ck">📊</span>Ajouté automatiquement aux <b>statistiques</b> (onglet Insights), anonymement.</li>'; }
+  var el=document.getElementById('sd-list'); if(el)el.innerHTML=nameOK+teams+extra+statLine;
   var t=document.getElementById('sd-title'); if(t)t.textContent=title;
   var d=document.getElementById('savedone'); if(d)d.classList.remove('hide');
 }
@@ -2391,9 +2401,40 @@ function getRowValue(key){
   if(t==='flag'){const cb=row.querySelector('input[type=checkbox]'); const nt=row.querySelector('input.fnote'); return (cb&&cb.checked)?{present:true,note:nt?nt.value:''}:undefined;}
 }
 function setv(id,val){const e=document.getElementById(id); if(e&&val!=null&&val!=='')e.value=val;}
+/* ===== Registre statistiques auto (anonyme, local) ===== */
+var _sid=null, _statExcl=false;
+function _edSid(){ if(!_sid){ try{ _sid='S'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); }catch(e){ _sid='S'+Math.round(Math.random()*1e9); } } return _sid; }
+function _syncExclUI(){ try{ ['stat-excl-t0','stat-excl-t1'].forEach(function(id){ var c=document.getElementById(id); if(c)c.checked=_statExcl; }); var b=document.getElementById('stat-excl-note'); if(b)b.textContent=_statExcl?'⚠ Ce passage sera EXCLU des statistiques (démo).':''; }catch(e){} }
+function toggleStatExcl(v){ _statExcl=!!v; _syncExclUI(); }
+function _cohGet(){ try{ return JSON.parse(localStorage.getItem('edd_cohort')||'{}')||{}; }catch(e){ return {}; } }
+function _cohSet(o){ try{ localStorage.setItem('edd_cohort', JSON.stringify(o)); }catch(e){} }
+function cohortClear(){ if(!confirm('Vider le registre automatique des statistiques ?\n\nLes documents T0/T1 déjà enregistrés sur Teams NE sont pas touchés — tu pourras toujours les redéposer dans Insights.'))return; _cohSet({}); try{ if(document.getElementById('view-insights')&&!document.getElementById('view-insights').classList.contains('hide'))renderInsights(); }catch(e){} }
+function _cohExcluded(kind){ return !!(_statExcl || (kind!=='t0' && T0 && T0.statExcl)); }
+function _cohSid(kind){ return (kind==='t0') ? _edSid() : ((T0&&T0.sid)|| _edSid()); }
+function cohortPush(kind){
+  try{
+    var sid=_cohSid(kind); if(!sid) return;
+    var C=_cohGet();
+    if(_cohExcluded(kind)){ if(C[sid]){ delete C[sid]; _cohSet(C); } return; }
+    var entry;
+    if(kind==='t0'){
+      var p=t0DataAnon(), sc=p.scores||{}, N=function(x){var v=parseFloat(x);return isNaN(v)?null:v;};
+      entry={v:1, sid:sid, phase:'T1', t1done:false, _partial:true, dateT0:(p.date||null), dateT1:null,
+        scores:{t0:{a:N(sc.a),d:N(sc.d),o:N(sc.o),t:N(sc.t)}, t1:{a:null,d:null,o:null,t:null}},
+        deltas:{}, mcid:{}, motif:null};
+    } else {
+      entry=t1DataAnon(kind==='t1'); try{ delete entry.dossier; }catch(e){} entry.sid=sid;
+    }
+    var prev=C[sid];
+    if(prev && entry._partial && (prev.t1done || (prev.scores&&prev.scores.t1&&prev.scores.t1.o!=null))){
+      prev.scores.t0=entry.scores.t0; prev.dateT0=entry.dateT0||prev.dateT0; _cohSet(C); return; }
+    C[sid]=entry; _cohSet(C);
+    try{ if(document.getElementById('view-insights')&&!document.getElementById('view-insights').classList.contains('hide'))renderInsights(); }catch(e){}
+  }catch(e){}
+}
 function serializeState(){
   const form={}; Object.keys(ANAMBYKEY).forEach(k=>{const v=getRowValue(k); if(v!==undefined)form[k]=v;});
-  return {v:1, ts:Date.now(), form:form, marks:marks, mid:mid,
+  return {v:1, ts:Date.now(), sid:_edSid(), statExcl:_statExcl, form:form, marks:marks, mid:mid,
     fit:{age:gv('fAge'),poids:gv('fPoids'),W:gv('fW'),repos:gv('fRepos'),sex:(document.querySelector('input[name=fSex]:checked')||{}).value||''},
     scores:{a:gv('sHADa'),d:gv('sHADd'),o:gv('sODI'),t:gv('sTSK')},
     q:(typeof QRESP!=='undefined'?QRESP:null),
@@ -2457,10 +2498,10 @@ function loadT0(e){ const f=e.target.files[0]; if(!f)return; try{ _patLabel=_lab
     if(!data||!data.form){ if(li){li.style.color='#c0392b'; li.textContent='⚠ Pas de données dans ce fichier — charge le HTML T0 (porteur des données), pas le PDF.';} return; }
     var hasWork=false; try{hasWork=!!readField('probleme');}catch(_e){}
     if(hasWork && !confirm('Charger ce T0 va PRÉ-REMPLIR tout le dashboard (anamnèse, body chart, scores, effort, planétaire) avec les données T0 et écraser la saisie en cours. Continuer ?')){ if(e&&e.target)e.target.value=''; return; }
-    T0=data; T1={evo:{},evoC:{},obj:{},ast:{},astC:{},sat:{},bcEvo:{},motif:'',motifCom:''}; t1Marks=JSON.parse(JSON.stringify((data.marks)||[])); t1mid=t1Marks.reduce(function(a,x){return Math.max(a,x.id||0);},0); _t1sym='douleur';
+    T0=data; try{ if(data.sid)_sid=data.sid; _statExcl=!!data.statExcl; }catch(_e){} T1={evo:{},evoC:{},obj:{},ast:{},astC:{},sat:{},bcEvo:{},motif:'',motifCom:''}; t1Marks=JSON.parse(JSON.stringify((data.marks)||[])); t1mid=t1Marks.reduce(function(a,x){return Math.max(a,x.id||0);},0); _t1sym='douleur';
     try{ restoreState(data); if(typeof updateStepDots==='function')updateStepDots(); if(document.getElementById('ref-planet'))renderRefPanel(); if(window._ready)autosave(); }catch(err){}
     if(li){li.style.color='#1a6b45'; li.textContent='✓ T0 chargé — dashboard pré-rempli (dossier '+((T0.fin&&T0.fin.dossier)||'—')+'). Consulte chaque onglet (état T0) et complète le T1.';}
-    renderT1(); if(e&&e.target)e.target.value=''; };
+    renderT1(); try{_syncExclUI();}catch(_e){} if(e&&e.target)e.target.value=''; };
   r.readAsText(f);
 }
 function setT1(g,k,v){ if(!T1[g])T1[g]={}; T1[g][k]=v; }
@@ -2667,7 +2708,7 @@ function renderT1(){
     <label style="display:block;margin-top:10px;font-size:12px;font-weight:700;color:var(--green)">Ce qui a le plus aidé<textarea onchange="setT1('sat','aide',this.value)" style="width:100%;min-height:36px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:12px">${esc((T1.sat&&T1.sat.aide)||'')}</textarea></label>
     <label style="display:block;margin-top:8px;font-size:12px;font-weight:700;color:var(--green)">Ce qu'on pourrait améliorer<textarea onchange="setT1('sat','ameliorer',this.value)" style="width:100%;min-height:36px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:12px">${esc((T1.sat&&T1.sat.ameliorer)||'')}</textarea></label>
   </div>`;
-  h+=`<div class="finalize"><span class="fl">Finaliser T1 :</span><button class="save" onclick="saveT1Document()">📄 Document T1 (comparatif)</button></div>`;
+  h+=`<div class="finalize"><span class="fl">Finaliser T1 :</span><label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);font-weight:700;margin-right:8px"><input type="checkbox" id="stat-excl-t1" ${_statExcl?'checked':''} onchange="toggleStatExcl(this.checked)">Exclure des statistiques (démo/test)</label><button class="save" onclick="saveT1Document()">📄 Document T1 (comparatif)</button></div>`;
   document.getElementById('t1-body').innerHTML=h; renderT1BC(); renderT1BCEvo(); t1Effort();
 }
 function _t1delta(t0,t1,kind){
@@ -2705,7 +2746,7 @@ function t1DataAnon(done){
   var w0=(eff.t0!=null)?eff.t0:null, w1=(eff.t1!=null)?eff.t1:null;
   var f0=(T0&&T0.form)||{}, ft=(T0&&T0.fit)||{};
   var out={
-    v:1, phase:'T1', t1done:!!done,
+    v:1, phase:'T1', t1done:!!done, sid:((T0&&T0.sid)||null),
     dossier:((T0&&T0.fin&&T0.fin.dossier)||''),
     motif:(T1.motif||(done?T1_MOTIFS[0]:T1_MOTIFS[6])),
     motif_com:(T1.motifCom||''),
@@ -2988,7 +3029,7 @@ function saveT1Close(){
   if(name===null)return; name=(name.trim()||def).replace(/\.html?$/i,'');
   var blob=new Blob([buildT1CloseDoc()],{type:'text/html;charset=utf-8'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name+'.html'; document.body.appendChild(a); a.click(); a.remove();
-  try{ showToast('🚪 Parcours clôturé — motif tracé'); }catch(_e){}
+  try{cohortPush('close');}catch(_e){} try{ showToast('🚪 Parcours clôturé — motif tracé'); }catch(_e){}
   try{showSaveDone('close');}catch(_e){}
 }
 function buildT1Doc(){
@@ -3045,7 +3086,7 @@ function saveT1Document(){
   if(name===null)return; name=(name.trim()||def).replace(/\.html?$/i,'');
   const blob=new Blob([buildT1Doc()],{type:'text/html;charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name+'.html'; document.body.appendChild(a); a.click(); a.remove();
-  try{showSaveDone('t1');}catch(_e){}
+  try{cohortPush('t1');}catch(_e){} try{showSaveDone('t1');}catch(_e){}
 }
 /* Anti-cache périmé : retire tout service worker / cache de l'origine qui servirait une vieille version (prend effet au rechargement suivant). */
 try{ if('serviceWorker' in navigator){ navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}); } if(window.caches&&caches.keys){ caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}); } }catch(e){}
