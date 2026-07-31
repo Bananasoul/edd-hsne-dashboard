@@ -323,7 +323,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22h</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22i</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -585,7 +585,7 @@
   </div>
 </main>
 <script type="text/plain" id="plaud-tpl">
-# Template PLAUD — Anamnèse École du Dos (sortie JSON)
+# Template PLAUD — Anamnèse École du Dos (sortie JSON)  ·  v2 (2026-07-24)
 
 > **À coller dans PLAUD** comme template de note. PLAUD applique ce prompt à la transcription de l'entretien et produit **uniquement** le bloc JSON ci-dessous. Tu récupères ce texte et tu le colles dans le Dashboard EDD → onglet **Anamnèse guidée** → **⇪ Importer transcript PLAUD** → **Remplir le formulaire**. Le remplissage est 100 % local.
 
@@ -593,69 +593,34 @@
 
 ## PROMPT (à copier tel quel dans le champ « instructions / template » de PLAUD)
 
-Tu es un assistant clinique en kinésithérapie (lombalgie / École du Dos, hôpital bilingue FR–DE). À partir de la **transcription d'un entretien d'anamnèse**, tu produis des **données structurées**, sans rien inventer.
+Tu es un assistant clinique en kinésithérapie (lombalgie / École du Dos, hôpital bilingue FR–DE). À partir de la **transcription d'un entretien d'anamnèse**, tu produis des **données structurées** fidèles au patient. Ton objectif : **remplir le MAXIMUM de cases utiles** sans jamais inventer.
 
 CONTEXTE DE LA TRANSCRIPTION (important — lis bien)
 - La transcription est **horodatée et diarisée** (lignes du type `00:01:05 Nom`).
-- Le **thérapeute** est **Philippe** (ou « Philippe Banaszak »). Le **patient** est l'autre/les autres interlocuteur(s) (souvent étiquetés « Speaker 2 », « Speaker 3 », ou un nom). **Tu extrais ce que dit le PATIENT** ; n'attribue pas au patient les explications ou hypothèses du thérapeute (sauf le diagnostic/prescripteur qu'il peut citer, ex. « vous êtes passé chez Docteur Leroy »).
-- **Ignore le préambule** : au début, le thérapeute explique le programme (36 séances, questionnaires sur tablette, test vélo/condition physique, consentement). Ce n'est PAS une donnée clinique — ne le code pas.
-- La transcription est **automatique** : elle contient des **erreurs (ASR)** et du **mélange français/allemand** (le patient ou le thérapeute glisse des mots allemands en plein français : « ISG », « Ausfallschritt », « Bereich »…). **Interprète le sens**, corrige les mots manifestement déformés, et n'écris **jamais** un mot déformé dans la sortie : reformule en **français clinique propre**.
-- Les **scores chiffrés (EVA, ODI, etc.) sont rarement énoncés à l'oral** (ils sont faits sur tablette à part). Donc `eva_*` reste presque toujours `null` — ne mets un chiffre que s'il est **explicitement** dit (ex. « 4 à 5 » → 5).
+- Le **thérapeute** est **Philippe** (ou « Philippe Banaszak »). Le **patient** est l'autre/les autres interlocuteur(s) (souvent « Speaker 2/3 », ou un nom). **Tu extrais ce que dit le PATIENT** ; n'attribue pas au patient les hypothèses du thérapeute (sauf un diagnostic/prescripteur qu'il cite, ex. « vous êtes passé chez Docteur Leroy »).
+- **Ignore le préambule** logistique (36 séances, questionnaires sur tablette, test vélo, consentement) : ce n'est PAS une donnée clinique.
+- La transcription est **automatique** : elle contient des **erreurs (ASR)** et un **mélange français/allemand** (« ISG », « Ausfallschritt », « Bereich »…). **Interprète le sens**, corrige les mots déformés, et n'écris **jamais** un mot déformé : reformule en **français clinique propre**.
+- Les **scores chiffrés (EVA, ODI…) sont faits sur tablette à part** : n'invente aucun chiffre.
 
 RÈGLES IMPÉRATIVES
-1. **N'invente jamais.** Si une information n'est pas dite → `null` (ou `[]` pour les listes, `""` pour les notes).
-2. **Gère les négations** : « pas de fourmillements », « je dors bien », « aucune irradiation » → encode l'ABSENCE avec l'option correspondante (ex. `"Absente"`), pas la présence.
-3. **Utilise EXACTEMENT les libellés autorisés** ci-dessous (texte identique, accents et symboles compris). Champs « liste » → tableau de libellés.
-4. **FR/DE** : mappe l'allemand et les mots allemands isolés vers les libellés FR autorisés (voir lexique).
-5. **Côté gauche/droite** (« linke Seite », « du côté droit ») : ce n'est pas dans les libellés `localisation` → mets-le dans la note du champ texte concerné (ex. `probleme`) ou `resume`.
-6. **Sortie = UNIQUEMENT le JSON ci-dessous**, complété. Aucun texte, aucune explication, aucun bloc de code avant ou après.
-7. **Guillemets dans les valeurs** : à l'intérieur d'un texte, n'utilise **jamais** le guillemet droit `"` (il casse le JSON). Pour citer le patient, emploie des guillemets typographiques « … » ou ' … '. Tout guillemet droit résiduel doit être échappé `\"`. (Vaut surtout pour l'allemand : remplace „ … " par « … ».)
+1. **N'invente jamais.** Info non dite → `null` (ou `[]` pour les listes, `""` pour les notes, `false` pour les booléens uniquement si l'absence est affirmée).
+2. **Sois sensible : ne laisse pas une case vide si l'information existe quelque part** dans l'entretien, même dite indirectement, plus tard, ou avec d'autres mots. Balaie TOUTE la transcription pour CHAQUE champ, pas seulement le passage évident. Un même propos peut renseigner plusieurs champs (ex. « je n'ose plus jardiner depuis que le médecin a parlé d'usure » → `evitement` + `objectifs` + `imagerie_croyance` + `yf_A`).
+3. **Gère les négations** : « pas de fourmillements », « je dors bien », « aucune irradiation » → encode l'ABSENCE (ex. body_chart sans ce symptôme ; ne coche pas un red flag absent).
+4. **Utilise EXACTEMENT les libellés autorisés** ci-dessous (texte identique, accents/symboles compris). L'import est tolérant aux synonymes, mais **préfère toujours le libellé exact**.
+5. **FR/DE** : mappe l'allemand et les mots isolés vers les libellés FR (voir lexique).
+6. **Champs d'hypothèse clinique** (`mecanisme`, `patterns`, `avoid_persist`, `planetes`) : propose la **classification la plus probable au vu des indices**, même incertaine (le kiné validera). Mets `null`/`[]`/`poids:0` seulement si vraiment aucun indice.
+7. **Sortie = UNIQUEMENT le JSON ci-dessous**, complété. Aucun texte, aucune explication, aucun bloc de code avant ou après.
+8. **Guillemets dans les valeurs** : n'emploie **jamais** le guillemet droit `"` à l'intérieur d'un texte (il casse le JSON). Cite le patient avec « … » ou ' … '.
 
-LEXIQUE DE → FR & ASR (ce que les patients disent → libellé/champ)
-- Qualité de douleur : Brennen → "Brûlure" · Stechen → "Élancement" · Ziehen → "Tiraillement" · Schwere/schwer → "Pesanteur" · Krampf → "Crampe" · Stromschlag / « Blitz » / « blitzartig » / « ein Zug der durch die Wirbelsäule schießt » → "Choc élec."
-- Paresthésies : Kribbeln → "Fourmillements" · Taubheit / taub / « eingeschlafen » → "Engourdissement" · « keine » → "Absentes"
-- Raideur : « morgens steif », « ich muss mich erst einlaufen », « se dérouiller le matin » → `raideur` ("Moins/Plus de 30 min" selon la durée dite)
-- Rythme 24 h : « permanenter Schmerz » / « tout le temps » → "Constant" · « morgens » → "Matin +" · « abends » → "Soir +" · « nachts » → "Nuit" · douleur le lendemain de l'effort → "Effort différé"
-- Sommeil : Schlaf gut / « je dors bien » → "Normal 7-8h" · « nachts wach » / réveils → "Fragmenté" · position qui réveille → "Position douloureuse"
-- Anatomie/abréviations : ISG → articulation sacro-iliaque · Bandscheibe → disque/hernie · Wirbelsäule → colonne · Ausfallschritt → fente (exercice) · Bereich → zone/région · « linke/rechte Seite » → côté gauche/droit.
-- Imagerie : MRT → "IRM" · Röntgen → "Radio".
-- Médecin cité par le thérapeute (« passé chez Docteur X ») → `diagnostic` ou `resume` (pas de champ dédié).
-
-INDICES PAR CHAMP (rappels)
-- `probleme` : la plainte avec les mots du patient (+ côté si précisé).
-- `provocation` / `soulagement` : « ça empire/soulage quand… » (assis, flexion, charges, voiture / mouvement, chaleur, marche).
-- `pattern` : « je n'ose plus / j'évite » → "Évitement" · « je ne m'arrête jamais, je force » → "Sur-activité".
-- `representations` : ce que le PATIENT croit (« mon dos est usé », « j'ai peur que ça empire avec l'âge »).
-- `imagerie_croyance` : ce que le patient a **retenu/déduit** de ses imageries (mots marquants : « hernie », « usure », « arthrose »), et l'inquiétude/évitement associés — distinct du résultat médical objectif (`diagnostic`).
-- `yf_*` : capte la phrase du patient qui révèle le facteur (anxiété, peur du mouvement, conflit/travail, stress, entourage).
-- `objectifs` : « je voudrais pouvoir / reprendre… » (concret).
-- `ci_test_effort` : **précaution/contre-indication au test d'effort sur vélo** — note courte si présent (trouble du rythme/palpitations, bêtabloquant, désaturation ou problème pulmonaire, anticoagulant, HTA non contrôlée, dyspnée d'effort), sinon `null`. Important : le test ergomètre fait partie du protocole 558994.
-
-LIBELLÉS AUTORISÉS (n'utilise rien d'autre pour ces champs)
-- `statut` : "Actif" | "AT / Reha" | "Retraité" | "Chômage"
-- `contexte_vie` : "Seul(e)" | "Couple" | "Famille"
-- `localisation` (liste) : "Cervicale" | "Dorsale" | "Lombaire" | "Sacrée" | "Bilatéral"
-- `irradiation` (liste) : "Absente" | "Fesse" | "Cuisse" | "Sous le genou" | "Au-dessus du genou" | "Pied" | "Bras"
-- `origine` : "Traumatique" | "Insidieux" | "Post-op"
-- `raideur` : "Absente" | "Moins de 30 min" | "Plus de 30 min (⚠)"
-- `schema24h` (liste) : "Matin +" | "Soir +" | "Nuit" | "Constant" | "Effort différé"
-- `sommeil` (liste) : "Normal 7-8h" | "Fragmenté" | "Position douloureuse"
-- `qualite` (liste) : "Brûlure" | "Élancement" | "Pesanteur" | "Tiraillement" | "Crampe" | "Choc élec."
-- `paresthesies` (liste) : "Absentes" | "Fourmillements" | "Engourdissement"
-- `pattern` : "Évitement" | "Sur-activité" | "Mixte"
-- `imagerie` (liste) : "Radio" | "IRM" | "CT / scanner" | "EMG" | "Scintigraphie" | "Échographie" | "Aucune"
-- `traitements` (liste) : "Kiné" | "Ostéo" | "Chir. / OP" | "Autre"
-- `red_flags` (liste) : "Perte de poids" | "Fièvre" | "Douleur nocturne" | "Déficit neuro" | "Trauma récent" | "ATCD cancer" | "Corticoïdes" | "Âge"
-- `cauda` (liste) : "Rétention/incontinence urinaire" | "Incontinence fécale" | "Anesthésie en selle"
-- `avoid_persist` : "Évitant (avoider)" | "Persistant (persister)" | "Mixte" — profil comportemental face à la douleur
-- `patterns` (liste) : "Sensibilisation centrale" | "Dérangement / discal" | "Contrôle moteur" | "Articulaire (facettaire / SI)" | "Myofascial" | "Radiculaire" | "Non spécifique"
-- `cours` : "Amélioration" | "Stable" | "Aggravation" | "Fluctuant"
-- `mecanisme` : "Nociceptif" | "Neuropathique" | "Central" | "Mixte" — CLASSE selon les indices du patient : Nociceptif (douleur proportionnelle, mécanique, localisée, calme au repos) · Neuropathique (trajet nerveux, brûlure/décharge, déficit sensitivo-moteur, ATCD neuro) · Central (disproportionnée, diffuse, hypersensibilité/allodynie, nombreux drapeaux jaunes) [Nijs & Smart 2010]. Mets `null` si trop incertain.
-- `processing` : "Adapté" | "Non-adapté" — Adapté = réponse proportionnée + croyances/comportement fonctionnels ; Non-adapté = évitement, catastrophisme, hypervigilance, sur-protection.
-- `infiltrations`, `antalgiques` : `true` / `false` / `null`
-- `eva_repos`, `eva_activite`, `eva_pire` : entier 0–10 **uniquement si un chiffre est énoncé**, sinon `null`
-- `yf_*` (drapeaux jaunes) : courte **note** texte (ce que le patient a dit) si le facteur est présent, sinon `""`
-- champs libres (`metier`, `sport`, `probleme`, `diagnostic`, `debut`, `provocation`, `soulagement`, `antecedents`, `medication`, `traitements_detail`, `representations`, `objectifs`, `hobbies`, `attentes`, `evitement`, `examens`, `charge`, `schema_clinique`, `resume`) : texte court fidèle au patient.
+LEXIQUE DE → FR & ASR (ce que les patients disent → champ)
+- Qualité (→ note body_chart) : Brennen → brûlure · Stechen → élancement · Ziehen → tiraillement · Schwere → pesanteur · Krampf → crampe · Stromschlag/« Blitz » → choc électrique.
+- Paresthésies (→ body_chart) : Kribbeln → fourmillement · Taubheit/taub/« eingeschlafen » → engourdissement · « keine » → absentes.
+- Raideur : « morgens steif », « se dérouiller le matin » → note dans `schema_clinique`/`s24.matin` (durée si dite).
+- Rythme 24 h (→ `s24`) : « permanenter Schmerz »/« tout le temps » → toutes cases · « morgens » → matin · « abends » → soir · « nachts » → nuit · douleur le lendemain de l'effort → note « effort différé » dans `s24.soir`/`schema_clinique`.
+- Sommeil (→ `s24.nuit.com` + `schema_clinique`) : « je dors bien » → RAS · « nachts wach »/réveils → fragmenté · position qui réveille → à noter.
+- Anatomie : ISG → sacro-iliaque · Bandscheibe → disque/hernie · Wirbelsäule → colonne · Ausfallschritt → fente · Bereich → zone · « linke/rechte Seite » → côté gauche/droit.
+- Imagerie : MRT → « IRM » · Röntgen → « Radio » · CT/Scanner → « CT / scanner ».
+- Bêtabloquants (→ `betabloquant:true`) : bisoprolol/Concor, aténolol/Ténormine, métoprolol/Seloken, nébivolol/Nébilet/Temerit, carvédilol/Kredex, propranolol, sotalol — ou le mot « bêtabloquant ».
 
 GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
 
@@ -663,44 +628,33 @@ GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
 {
   "metier": null,
   "statut": null,
-  "contexte_vie": null,
+  "statut_com": null,
+  "hobbies": null,
   "sport": null,
+  "sport_freq": null,
 
   "probleme": null,
-  "localisation": [],
-  "irradiation": [],
   "diagnostic": null,
-
   "debut": null,
   "origine": null,
-  "raideur": null,
-  "schema24h": [],
-  "sommeil": [],
-  "qualite": [],
-  "paresthesies": [],
-
-  "eva_repos": null,
-  "eva_activite": null,
-  "eva_pire": null,
+  "cours": null,
 
   "provocation": null,
   "soulagement": null,
-  "pattern": null,
+  "evitement": null,
 
   "antecedents": null,
-  "ci_test_effort": null,
+  "examens": null,
   "imagerie": [],
   "imagerie_croyance": null,
-  "infiltrations": null,
   "medication": null,
-  "antalgiques": null,
-  "traitements": [],
-  "traitements_detail": null,
+  "betabloquant": null,
+
+  "objectifs": null,
+  "attentes": null,
+  "charge": null,
 
   "red_flags": [],
-  "cauda": [],
-
-  "representations": null,
 
   "yf_A": "",
   "yf_B": "",
@@ -710,20 +664,11 @@ GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
   "yf_W": "",
   "yf_S": "",
 
-  "objectifs": null,
-  "resume": null,
-
-  "hobbies": null,
-  "attentes": null,
-  "cours": null,
-  "evitement": null,
-  "examens": null,
-  "charge": null,
   "mecanisme": null,
-  "processing": null,
-  "schema_clinique": null,
   "avoid_persist": null,
   "patterns": [],
+  "schema_clinique": null,
+
   "s24": { "nuit": {"on":false,"com":null}, "matin": {"on":false,"com":null}, "journee": {"on":false,"com":null}, "soir": {"on":false,"com":null} },
   "evolution": { "events": [] },
   "iop": { "input": {"on":false,"adapt":null,"com":null}, "output": {"on":false,"adapt":null,"com":null}, "processing": {"on":false,"adapt":null,"com":null} },
@@ -743,79 +688,90 @@ GABARIT JSON À COMPLÉTER (renvoie cet objet, complété) :
 }
 ```
 
-### `limitations_fn` · `points_cles` · `asterisques` — pour préparer le test de sortie T1
-Trois listes courtes (chaînes), dans les **mots du patient** quand c'est possible. Elles servent à re-questionner précisément au T1.
-- `limitations_fn` : **activités/gestes précis limités** (1 par entrée) — ex. « monter les escaliers sans la rampe », « rester assis plus de 20 min », « dormir une nuit complète », « se pencher pour le jardinage », « se relever d'une chaise ». → au T1 on redemande chaque item. Formule-les **concrets et mesurables** (réévaluables au T1).
-- `points_cles` : **points marquants** du tableau à revoir (ex. « faiblesse jambe droite », « peur du fauteuil roulant », « céphalées fréquentes »).
-- `asterisques` : **signes comparables objectifs** à recontrôler au T1 (ex. « flexion lombaire limitée à mi-cuisse », « Lasègue droit + à 45° », « force quadriceps D 4/5 », « passage assis→debout sans appui impossible »).
+INDICES PAR CHAMP (où chercher dans l'entretien — remplis chacun s'il y a la moindre info)
+- `metier` : profession, poste, ce qu'il fait de ses journées. `statut_com` : précision sur la situation pro (mi-temps, arrêt, reclassement, indépendant…).
+- `statut` (choisis 1) : "Actif" | "AT (accident de travail)" | "Maladie" | "Invalidité" | "Retraité / pensionné" | "Chômage".
+- `hobbies` : loisirs, activités qui comptent pour lui. `sport` : sport(s) pratiqués. `sport_freq` : fréquence/volume (« 2× par semaine », « tous les jours 30 min »).
+- `probleme` : la plainte avec ses mots (+ côté G/D si précisé). `diagnostic` : ce qu'un médecin a posé/dit (+ prescripteur cité).
+- `debut` : depuis quand + circonstance déclenchante (« en soulevant un carton il y a 3 mois »). `origine` (1) : "Progressif / insidieux" | "Spontané" | "Traumatique" | "Post-opératoire".
+- `cours` (1) : "Amélioration" | "Stable" | "Aggravation" | "Fluctuant" (tendance globale depuis le début).
+- `provocation` : ce qui déclenche/aggrave (assis prolongé, flexion, charges, voiture, toux…). `soulagement` : ce qui calme (marche, mouvement, chaleur, allongé, changement de position…).
+- `evitement` : activités qu'il n'ose plus / a arrêtées par peur (distinct de ce qui est physiquement impossible).
+- `antecedents` : épisodes antérieurs, chirurgies, autres pathologies, traitements passés (kiné/ostéo/infiltrations/opérations).
+- `examens` : examens/tests déjà réalisés (clinique, avis spécialiste) et **ce que le patient en a compris**. `imagerie` (liste, coche) : "Radio" | "IRM" | "CT / scanner" | "EMG" | "Scintigraphie" | "Échographie" | "Aucune".
+- `imagerie_croyance` : ce que le patient a **retenu** de ses imageries (« hernie », « usure », « arthrose ») et l'inquiétude associée.
+- `medication` : médicaments actuels (antalgiques, AINS, myorelaxants, anticoagulants, **bêtabloquants**…). `betabloquant` : `true` si un bêtabloquant est nommé (voir lexique), sinon `null`.
+- `objectifs` : « je voudrais pouvoir / reprendre… » (concret, réévaluable au T1). `attentes` : ce qu'il attend du programme / ses craintes vis-à-vis des soins.
+- `charge` : contraintes physiques (travail/quotidien) : port de charges, postures, station debout/assise prolongée, cadence.
+- `red_flags` (liste, coche seulement si évoqué) : "Perte de poids involontaire" | "Fièvre / sueurs nocturnes" | "Douleur nocturne" | "Déficit neuro" | "Trauma récent" | "ATCD cancer" | "Corticoïdes au long cours" | "1er épisode <20 / >55 ans". ⚠ Un syndrome de la queue de cheval (rétention/incontinence, anesthésie en selle) → coche "Déficit neuro" **et** note-le dans `schema_clinique`.
+- `yf_*` (drapeaux jaunes — courte **note** de la phrase du patient si présent, sinon `""`) :
+  - `yf_A` Attitudes/croyances (« mon dos est usé/fragile »)  ·  `yf_B` Comportements (évitement ou sur-activité)  ·  `yf_D` Diagnostic/messages reçus marquants ou contradictoires  ·  `yf_E` Émotions (anxiété, découragement)  ·  `yf_F` Famille/entourage (sur-protection, incompréhension)  ·  `yf_W` Travail (conflit, peur de ne pas reprendre)  ·  `yf_S` Stress/sommeil.
+- `mecanisme` (1, best-effort) : "Nociceptif" (proportionnel, mécanique, localisé, calme au repos) | "Neuropathique" (trajet nerveux, brûlure/décharge, déficit) | "Central" (disproportionné, diffus, hypersensibilité, nombreux drapeaux jaunes) | "Mixte" [Nijs & Smart 2010].
+- `avoid_persist` (1, best-effort) : "Évitant (avoider)" (peur, il n'ose plus) | "Persistant (persister)" (il force, ne s'arrête jamais) | "Mixte".
+- `patterns` (liste, best-effort) : "Sensibilisation centrale" | "Dérangement / discal" | "Contrôle moteur" | "Articulaire (facettaire / SI)" | "Myofascial" | "Radiculaire" | "Non spécifique".
+- `schema_clinique` : ta **synthèse courte** du raisonnement (mécanisme dominant + arguments-clés + ce qui reste à confirmer). Y verser aussi le résumé général, les infos qui n'ont pas de case dédiée (raideur/durée, sommeil, contexte de vie), et tout élément critique.
+
+### `s24` — rythme sur 24 h (nuit / matin / journée / soir)
+Pour chaque moment : `on:true` si la douleur y est présente/marquée, + `com` court (ce que dit le patient). Ex. raideur matinale → `matin.on:true`, `matin.com:"raideur ~20 min au réveil"` ; réveils nocturnes → `nuit.on:true`.
+
+### `evolution` — points de bascule dans le temps
+`events` = liste d'objets `{ "quand": "...", "sens": "▲" | "▼", "com": "..." }` (▲ = aggravation, ▼ = amélioration). Ex. `{"quand":"il y a 2 semaines","sens":"▲","com":"rechute après déménagement"}`. Vide si le patient ne décrit pas de bascule.
+
+### `iop` — traitement de l'information douleur (INPUT / OUTPUT / PROCESSING)
+Pour chaque axe : `on:true` s'il y a un indice, `adapt:"adapté"|"non-adapté"`, `com` court.
+- `input` = nociception/tissu (mécanique, proportionnel = adapté ; disproportionné/hypersensible = non-adapté).
+- `output` = réponses (motrices/végétatives/protection ; sur-protection, gainage constant = non-adapté).
+- `processing` = croyances/attention/émotion (catastrophisme, hypervigilance = non-adapté).
+
+### `limitations_fn` · `points_cles` · `asterisques` — préparer le T1
+Trois listes courtes, dans les **mots du patient** :
+- `limitations_fn` : activités/gestes précis limités, **concrets et mesurables** (« rester assis > 20 min », « monter les escaliers sans la rampe », « dormir une nuit complète »).
+- `points_cles` : points marquants à revoir (« faiblesse jambe droite », « peur du fauteuil roulant »).
+- `asterisques` : signes comparables objectifs à recontrôler (« flexion limitée à mi-cuisse », « passage assis→debout sans appui impossible »).
 ```json
-"limitations_fn": ["monter les escaliers sans s'aider des mains", "rester debout de 10h à 17h", "se relever d'une chaise sans les bras"],
+"limitations_fn": ["rester assis plus de 20 minutes", "monter les escaliers sans s'aider des mains"],
 "points_cles": ["faiblesse du membre inférieur droit", "peur de finir en fauteuil roulant"],
-"asterisques": ["montée d'escalier : s'aide de la rampe", "passage assis→debout : appui des bras nécessaire"]
+"asterisques": ["passage assis→debout : appui des bras nécessaire"]
 ```
 
-### `planetes` — modèle planétaire pondéré (hypothèse de raisonnement clinique)
-Pour chaque sphère, estime son **importance** dans le tableau du patient via `poids` (entier 0–3) et liste les `arguments` (éléments du discours/anamnèse qui la soutiennent). 0 = non impliquée · 1 = faible · 2 = moyenne · 3 = dominante. N'invente rien : `poids` 0 et `arguments` vide si rien ne le suggère.
-Appuie-toi sur les **questions discriminantes** : on/off + raideur < 30 min → articulaire ; brûlure/décharge + dermatome + paresthésies → neurogénique ; profond/diffus/référé non-dermatomal → myofascial ; instabilité/déficit de gainage → contrôle moteur ; douleur disproportionnée/diffuse/imprévisible → sensibilisation centrale (douleur) ; croyances/peur/travail/entourage → psychosocial.
-- `articulaire` : raideur/blocage segmentaire, douleur en fin d'amplitude, schéma capsulaire.
-- `myofascial` : tension/trigger points, douleur musculaire, contractures.
-- `neurogenique` : irradiation radiculaire, paresthésies, signes neuro, mécanosensibilité nerveuse.
-- `controle_moteur` : déficit de stabilité/gainage, peur de bouger le segment, mauvais contrôle du mouvement.
-- `douleur` : mécanismes de la douleur / sensibilisation centrale (douleur diffuse, disproportionnée, allodynie, chronicité).
-- `psychosocial` : facteurs psychologiques **et environnementaux** (stress, anxiété, croyances, travail, entourage) — drapeaux jaunes marquants.
+### `planetes` — modèle planétaire pondéré (hypothèse de raisonnement, best-effort)
+Pour chaque sphère : `poids` 0–3 (0 non impliquée · 1 faible · 2 moyenne · 3 dominante) + `arguments` (éléments du discours qui la soutiennent).
+- `articulaire` : raideur/blocage segmentaire, douleur en fin d'amplitude · `myofascial` : tension/trigger points, contractures · `neurogenique` : irradiation radiculaire, paresthésies, signes neuro · `controle_moteur` : déficit de gainage/stabilité, peur de bouger le segment · `douleur` : sensibilisation centrale (diffus, disproportionné, allodynie, chronicité) · `psychosocial` : stress, anxiété, croyances, travail, entourage.
 ```json
 "planetes": {
-  "neurogenique":  { "poids": 3, "arguments": ["irradiation jusqu'au pied", "fourmillements", "Lasègue +"] },
+  "neurogenique":  { "poids": 3, "arguments": ["irradiation jusqu'au pied", "fourmillements"] },
   "psychosocial":  { "poids": 2, "arguments": ["peur de bouger", "conflit au travail"] },
   "articulaire":   { "poids": 1, "arguments": ["raideur matinale lombaire"] }
 }
 ```
 
-### `body_chart` — repères corporels (énoncés clairement pendant l'entretien)
-Tableau d'objets. Le dashboard place automatiquement un repère sur la silhouette (face avant ou arrière selon la zone) à partir de la **zone** + du **côté**. Chaque objet :
+### `body_chart` — repères corporels (chaque zone symptomatique énoncée)
+Tableau d'objets. Le dashboard place le repère automatiquement (face avant/arrière selon la zone) à partir de `zone` + `side`.
 ```json
-{ "zone": "lombaire", "side": "centre", "symptome": "Douleur", "note": "en barre, irradie jusqu'à la fesse gauche" }
+{ "zone": "lombaire", "side": "centre", "symptome": "Douleur", "note": "en barre, irradie vers la fesse gauche" }
 ```
-- `side` : "G" (gauche), "D" (droite), "centre", ou "bilatéral" (→ 2 repères). **Référence = position anatomique** (gauche/droite du patient).
+- `side` : "G" | "D" | "centre" | "bilatéral" (→ 2 repères). Référence = position anatomique du patient.
 - `symptome` : "Douleur" | "Brûlure" | "Élancement" | "Fourmillement" | "Engourdissement" | "Raideur" | "Pesanteur".
 - `note` : précisions (jusqu'où ça descend, partie du pied, intensité…).
-- `zone` — utilise un de ces mots (l'import est tolérant aux synonymes) :
-  - **Dos (arrière)** : nuque · cervicale · trapèze · omoplate · dorsal (milieu du dos) · lombaire (bas du dos) · ceinture (bande lombaire) · sacrum · fesse · cuisse postérieure · creux poplité · mollet · talon
-  - **Avant** : épaule · thorax · abdomen · bras · coude · avant-bras · main · aine · cuisse · genou · jambe (tibia) · cheville · pied
-- Crée **un objet par zone douloureuse/symptomatique énoncée**. Exemple : douleur lombaire en barre + irradiation fesse→mollet gauche + fourmillements pied droit =
+- `zone` (import tolérant aux synonymes) :
+  - **Dos (arrière)** : nuque · cervicale · trapèze · omoplate · dorsal · lombaire · ceinture · sacrum · fesse · cuisse postérieure · creux poplité · mollet · talon
+  - **Avant** : épaule · thorax · abdomen · bras · coude · avant-bras · main · aine · cuisse · genou · jambe · cheville · pied
+- **Un objet par zone.** Ex. lombaire en barre + irradiation fesse→mollet gauche + fourmillements pied droit :
 ```json
 "body_chart": [
   {"zone":"lombaire","side":"centre","symptome":"Douleur","note":"en barre"},
-  {"zone":"fesse","side":"G","symptome":"Douleur","note":"début d'irradiation"},
+  {"zone":"fesse","side":"G","symptome":"Douleur","note":"irradiation"},
   {"zone":"mollet","side":"G","symptome":"Douleur","note":"l'irradiation s'arrête au mollet"},
   {"zone":"pied","side":"D","symptome":"Fourmillement","note":"dos du pied"}
 ]
 ```
 
-RAPPEL DES DRAPEAUX JAUNES (pour `yf_*`)
-- `yf_A` Attitudes & croyances (ex. « mon dos est usé/fragile »)
-- `yf_B` Comportements (évitement ou sur-activité)
-- `yf_D` Diagnostic / messages reçus marquants ou contradictoires
-- `yf_E` Émotions (anxiété, découragement…)
-- `yf_F` Famille & entourage (sur-protection, incompréhension)
-- `yf_W` Travail (conflit, peur de ne pas reprendre)
-- `yf_S` Stress / sommeil
-
 ---
 
 ## Comment l'utiliser (rappel terrain)
-1. Dashboard ouvert pendant l'entretien (questions guidées + body chart).
-2. Entretien enregistré sur PLAUD.
-3. Dans PLAUD : appliquer **ce template** → obtenir le JSON.
-4. Copier le JSON → Dashboard → **⇪ Importer transcript PLAUD** → coller → **Remplir le formulaire**. Le formulaire **et** le body chart se remplissent (les repères se placent automatiquement à partir de `body_chart`).
-5. **Relire / corriger** les champs (surlignés en vert) et ajuster les repères au besoin.
-6. **Finaliser** : saisir le **Nom du patient** (qui ne figurera que sur le fichier enregistré) + N° dossier, puis :
-   - **💾 Enregistrer (avec nom)** → fichier HTML local (seul document nominatif) ;
-   - **✉ Envoyer au médecin** → brouillon mail interne **sans le nom** (identifié par n° dossier) ;
-   - **🖨 Imprimer la fiche** → puis coller la **vignette mutuelle** (emplacement prévu).
+1. Dashboard ouvert pendant l'entretien (questions guidées + body chart). 2. Entretien enregistré sur PLAUD. 3. Dans PLAUD : appliquer **ce template** → obtenir le JSON. 4. Copier le JSON → Dashboard → **⇪ Importer transcript PLAUD** → coller → **Remplir le formulaire** (le formulaire ET le body chart se remplissent). 5. **Relire / corriger** les champs surlignés en vert. 6. **Finaliser** : nommer le fichier avec le nom du patient (seul endroit nominatif) + n° dossier.
 
-> Note de cohérence : ces libellés sont **identiques** à ceux du dashboard. Si tu ajoutes une option dans le dashboard, ajoute-la aussi ici (et inversement), sinon l'import ne cochera pas la case correspondante.
-
+> Cohérence : ces libellés sont **identiques** à ceux du dashboard. Si tu ajoutes une option dans le dashboard, ajoute-la aussi ici (et inversement), sinon l'import ne cochera pas la case.
 </script>
 <div id="print-area"></div>
 <footer>Outil interne d'aide à la consultation et à l'éducation — École du Dos, HSNE Eupen. Contenu adapté des supports EDD (cadre biopsychosocial ; influences O'Sullivan, Moseley &amp; Butler, Louw, Lehman). Document de travail, non contractuel.</footer>
@@ -1611,6 +1567,101 @@ function parseTranscript(txt){
 }
 function inorm(x){return (x==null?'':(''+x)).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
 function htmlDecode(s){ if(s==null)return ''; const t=document.createElement('textarea'); t.innerHTML=(''+s); return t.value; }
+/* ===== PLAUD v2 : tolérance import (alias de clés + synonymes d'options) ===== */
+var KEYALIAS={
+  profession:'metier', travail:'metier', activite_pro:'metier', job:'metier', poste:'metier',
+  loisirs:'hobbies', hobby:'hobbies', loisir:'hobbies',
+  activite_physique:'sport', sports:'sport', activite_sportive:'sport',
+  frequence_sport:'sport_freq', sport_frequence:'sport_freq', freq_sport:'sport_freq', frequence:'sport_freq',
+  statut_commentaire:'statut_com', statut_note:'statut_com', situation_pro:'statut_com', situation_pro_com:'statut_com',
+  plainte:'probleme', plainte_principale:'probleme', motif:'probleme', douleur_principale:'probleme', motif_consultation:'probleme',
+  dx:'diagnostic', diagnostic_medical:'diagnostic',
+  objectif:'objectifs', buts:'objectifs', but:'objectifs', goals:'objectifs',
+  attente:'attentes', craintes:'attentes',
+  onset:'debut', debut_douleur:'debut', apparition:'debut', anciennete:'debut',
+  facteurs_aggravants:'provocation', aggravation:'provocation', aggravants:'provocation', pire_quand:'provocation', declencheurs:'provocation',
+  facteurs_soulageants:'soulagement', soulageants:'soulagement', soulage:'soulagement', mieux_quand:'soulagement', calme:'soulagement',
+  evitement_com:'evitement', evitements:'evitement', kinesiophobie:'evitement', activites_evitees:'evitement',
+  imagerie_interpretation:'imagerie_croyance', croyance_imagerie:'imagerie_croyance', representation_imagerie:'imagerie_croyance',
+  examens_complementaires:'examens', examens_cliniques:'examens', tests:'examens', bilan:'examens',
+  atcd:'antecedents', antecedent:'antecedents', antecedents_medicaux:'antecedents', histoire:'antecedents', anamnese:'antecedents',
+  medicaments:'medication', traitement_medic:'medication', medicaments_actuels:'medication', antalgiques:'medication', traitements:'medication', traitements_detail:'medication',
+  charge_travail:'charge', contraintes:'charge', charge_physique:'charge', contraintes_physiques:'charge',
+  raisonnement:'schema_clinique', raisonnement_clinique:'schema_clinique', hypothese:'schema_clinique', synthese_clinique:'schema_clinique', synthese:'schema_clinique', resume:'schema_clinique', conclusion:'schema_clinique',
+  evolution_cours:'cours', tendance:'cours', evolution_globale:'cours', evolution_generale:'cours',
+  origine_douleur:'origine', mode_installation:'origine', installation:'origine', mode_debut:'origine',
+  mecanisme_douleur:'mecanisme', mecanisme_dominant:'mecanisme', type_douleur:'mecanisme', mecanisme_predominant:'mecanisme',
+  profil:'avoid_persist', profil_comportemental:'avoid_persist', avoider_persister:'avoid_persist', comportement:'avoid_persist',
+  drapeaux_rouges:'red_flags', red_flag:'red_flags', redflags:'red_flags', rf:'red_flags',
+  imageries:'imagerie', examen_imagerie:'imagerie', imagerie_realisee:'imagerie',
+  hypotheses:'patterns', patterns_cliniques:'patterns', schema_pattern:'patterns', pattern_clinique:'patterns',
+  betabloquants:'betabloquant', beta_bloquant:'betabloquant', beta_bloquants:'betabloquant', bblock:'betabloquant', beta_bloquer:'betabloquant',
+  representations:'yf_A', croyances:'yf_A', representation:'yf_A'
+};
+var ENUMSYN={
+  statut:{'Actif':['actif','travaille','en activite','emploi','arbeitet'],
+          'AT (accident de travail)':['at','accident de travail','accident du travail','reha','arbeitsunfall','accident travail'],
+          'Maladie':['maladie','arret maladie','malade','en arret','krank','krankschreibung'],
+          'Invalidite':['invalidite','invalide','invaliditat','handicap'],
+          'Retraite / pensionne':['retraite','pension','pensionne','pensionnee','rente','rentner','en retraite'],
+          'Chomage':['chomage','chomeur','sans emploi','arbeitslos']},
+  origine:{'Progressif / insidieux':['insidieux','progressif','graduel','petit a petit','lentement','schleichend'],
+           'Spontane':['spontane','sans raison','du jour au lendemain','sans cause','plotzlich'],
+           'Traumatique':['traumatique','trauma','chute','accident','faux mouvement','faux geste','choc','effort brusque'],
+           'Post-operatoire':['post op','postop','postoperatoire','apres operation','apres chirurgie','apres op','post chirurgical']},
+  cours:{'Amelioration':['amelioration','mieux','ameliore','en amelioration','va mieux','besser'],
+         'Stable':['stable','pareil','inchange','identique','stationnaire','gleich'],
+         'Aggravation':['aggravation','pire','empire','aggrave','de plus en plus','schlechter'],
+         'Fluctuant':['fluctuant','variable','en dents de scie','bons et mauvais jours','ca va ca vient','wechselhaft']},
+  avoid_persist:{'Evitant (avoider)':['evitant','avoider','evitement','kinesiophobe','peur de bouger','n ose plus','protege','evite'],
+                 'Persistant (persister)':['persistant','persister','suractif','sur activite','force','ne s arrete jamais','pousse trop','endurant'],
+                 'Mixte':['mixte','les deux','alternance']},
+  mecanisme:{'Nociceptif':['nociceptif','mecanique','proportionnel','localise','tissulaire'],
+             'Neuropathique':['neuropathique','radiculaire','trajet nerveux','brulure','decharge','nerf','dermatome'],
+             'Central':['central','centralise','sensibilisation','sensibilisation centrale','diffus','disproportionne','allodynie','hypersensible'],
+             'Mixte':['mixte']},
+  red_flags:{'1er episode <20 / >55 ans':['age','moins de 20','plus de 55','premier episode','1er episode','tres jeune','age avance'],
+             'Perte de poids involontaire':['perte de poids','amaigrissement','maigri','perdu du poids'],
+             'Fievre / sueurs nocturnes':['fievre','sueurs nocturnes','sueurs','temperature','frissons'],
+             'Douleur nocturne':['douleur nocturne','reveille la nuit','mal la nuit','nuit'],
+             'Deficit neuro':['deficit neuro','faiblesse','paralysie','perte de force','cauda','queue de cheval','anesthesie en selle','incontinence','retention urinaire'],
+             'Trauma recent':['trauma recent','chute recente','accident recent','trauma'],
+             'ATCD cancer':['cancer','antecedent cancer','oncologique','tumeur','neoplasie'],
+             'Corticoides au long cours':['corticoides','cortisone','corticotherapie','corticoide']},
+  imagerie:{'IRM':['irm','mrt','mri','resonance magnetique','resonance'],
+            'Radio':['radio','rx','rontgen','radiographie'],
+            'CT / scanner':['ct','scanner','tdm','scan','tomodensitometrie'],
+            'EMG':['emg','electromyogramme','electroneuromyographie','enmg'],
+            'Scintigraphie':['scintigraphie','scinti'],
+            'Echographie':['echographie','echo','ultrason'],
+            'Aucune':['aucune','pas d imagerie','rien','aucun examen']},
+  patterns:{'Sensibilisation centrale':['sensibilisation centrale','central','hypersensibilite','allodynie','sensibilisation'],
+            'Derangement / discal':['derangement','discal','disque','hernie','protrusion','directionnel','mckenzie'],
+            'Controle moteur':['controle moteur','instabilite','gainage','deficit de stabilite','stabilite'],
+            'Articulaire (facettaire / SI)':['articulaire','facettaire','facette','sacro iliaque','sacro-iliaque','isg','zygapophysaire'],
+            'Myofascial':['myofascial','musculaire','trigger','contracture','tension musculaire'],
+            'Radiculaire':['radiculaire','radiculopathie','racine nerveuse','sciatique','cruralgie'],
+            'Non specifique':['non specifique','aspecifique','commune','non specific','lombalgie commune']}
+};
+function _enumCanon(key,val){
+  var S=ENUMSYN[key]; if(!S||val==null)return null;
+  var nv=inorm(val); if(!nv)return null; var pad=' '+nv+' '; var best=null;
+  Object.keys(S).forEach(function(opt){ S[opt].forEach(function(syn){
+    var ns=inorm(syn); if(!ns)return; var hit=false;
+    if(pad.indexOf(' '+ns+' ')>=0) hit=true;
+    else if(ns.length>=5 && (nv.indexOf(ns)>=0||ns.indexOf(nv)>=0)) hit=true;
+    if(hit && (!best || ns.length>best.len)) best={opt:opt,len:ns.length};
+  });});
+  return best?best.opt:null;
+}
+function _betaAuto(){
+  var row=document.querySelector('.row[data-key="betabloquant"]'); if(!row)return;
+  var already=[].slice.call(row.querySelectorAll('input')).some(function(i){return i.checked;}); if(already)return;
+  var med=''; try{ med=(readField('medication')||''); }catch(e){}
+  var t=inorm(med); if(!t)return; var pad=' '+t+' ';
+  var beta=['bisoprolol','concor','atenolol','tenormine','metoprolol','seloken','nebivolol','nebilet','temerit','carvedilol','kredex','propranolol','sotalol','sotalex','labetalol','betabloquant','beta bloquant','betablocker'];
+  if(beta.some(function(b){ return pad.indexOf(' '+b+' ')>=0 || (b.length>=6 && t.indexOf(b)>=0); })) setRow('betabloquant',true);
+}
 function setRow(key,val){
   const it=ANAMBYKEY[key]; if(!it)return false;
   const row=document.querySelector('.row[data-key="'+key+'"]'); if(!row)return false;
@@ -1634,7 +1685,9 @@ function setRow(key,val){
     mark(); return true;
   }
   if(t==='radio'||t==='check'){
-    const vals=(Array.isArray(val)?val:[val]).filter(x=>x!=null&&x!=='').map(inorm);
+    let _rawv=(Array.isArray(val)?val:[val]).filter(x=>x!=null&&x!=='');
+    _rawv=_rawv.map(function(x){ return _enumCanon(key,x)||x; });
+    const vals=_rawv.map(inorm);
     if(!vals.length)return false; let any=false;
     row.querySelectorAll('.opt').forEach(l=>{
       const lt=inorm(l.textContent);
@@ -1659,7 +1712,7 @@ function fillForm(raw){
   if(data&&data.yellow_flags&&typeof data.yellow_flags==='object'){
     Object.keys(data.yellow_flags).forEach(L=>{ if(setRow('yf_'+L,data.yellow_flags[L]))filled++; });
   }
-  Object.keys(data||{}).forEach(k=>{ if(ANAMBYKEY[k]&&setRow(k,get(data[k])))filled++; });
+  Object.keys(data||{}).forEach(k=>{ let rk=KEYALIAS[k]||KEYALIAS[(''+k).toLowerCase()]||k; if(ANAMBYKEY[rk]&&setRow(rk,get(data[k])))filled++; });
   return {filled};
 }
 function doImport(){
@@ -1667,6 +1720,7 @@ function doImport(){
   const raw=parseTranscript(document.getElementById('import-text').value);
   if(!raw){rep.style.color='#c0392b';rep.textContent='⚠ JSON illisible — vérifie le format du template.';return;}
   const r=fillForm(raw);
+  try{ _betaAuto(); }catch(_e){}
   const data=(raw&&raw.champs&&typeof raw.champs==='object')?raw.champs:raw;
   const bc = raw.body_chart || data.body_chart;
   let nbc=0; if(Array.isArray(bc)) nbc=importBodyChart(bc);
