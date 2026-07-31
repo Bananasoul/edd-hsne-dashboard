@@ -203,7 +203,8 @@
   #view-anam .obq{font-size:11px;color:var(--teal);cursor:help}
   #view-anam .obin textarea{width:100%;min-height:78px;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:inherit;font-size:15px;line-height:1.5}
   #view-anam .obin input[type=text],#view-anam .obin input:not([type]){width:100%;font-size:15px;padding:8px 10px;min-height:42px}
-  #view-anam .obin input.fnote{min-height:40px}
+  #view-anam .obin textarea.fnote{min-height:52px;font-size:14.5px;line-height:1.45;resize:vertical}
+  #view-anam .obin textarea{overflow:auto;resize:vertical}
   #view-t1 textarea{font-size:14.5px!important;min-height:62px!important;line-height:1.45;padding:8px 10px!important}
   #view-t1 input[type=text]{font-size:14px}
   #view-anam .ogrid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
@@ -323,7 +324,7 @@
     <div>
       <div class="brand">ST. NIKOLAUS HOSPITAL <span style="color:var(--sky)">EUPEN</span></div>
       <h1>École du Dos — Dashboard de consultation</h1>
-      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22i</b></div>
+      <div class="sub">Bilan T0 · outil interne hors-ligne · <b style="color:var(--sky)">build 2026-07-22j</b></div>
     </div>
   </div>
   <div class="stepper">
@@ -912,7 +913,7 @@ function inputHTML(it,key){
   if(t==='bool') return `<div class="opts"><label class="opt"><input type="radio" name="${key}">Oui</label><label class="opt"><input type="radio" name="${key}">Non</label></div>`;
   if(t==='radio') return `<div class="opts">`+it.opt.map(o=>`<label class="opt"><input type="radio" name="${key}">${o}</label>`).join('')+`</div>`;
   if(t==='check') return `<div class="opts">`+it.opt.map(o=>`<label class="opt"><input type="checkbox">${o}</label>`).join('')+`</div>`;
-  if(t==='flag') return `<div class="opts"><label class="opt"><input type="checkbox">Présent</label></div><input type="text" class="fnote" placeholder="Note…">`;
+  if(t==='flag') return `<div class="opts"><label class="opt"><input type="checkbox">Présent</label></div><textarea class="fnote" rows="2" placeholder="Note…"></textarea>`;
   return `<textarea rows="${it.big?7:3}" placeholder="Réponse…"></textarea>`;
 }
 var DOMAINS={
@@ -1701,7 +1702,7 @@ function setRow(key,val){
     else if(val!=null&&(''+val).trim()!==''&&!/^(non|false|0)$/i.test(''+val)){present=true;note=(''+val);}
     if(!present)return false;
     const cb=row.querySelector('input[type=checkbox]'); if(cb)cb.checked=true;
-    const nt=row.querySelector('input.fnote'); if(nt&&note)nt.value=htmlDecode(note); mark(); return true;
+    const nt=row.querySelector('.fnote'); if(nt&&note)nt.value=htmlDecode(note); mark(); return true;
   }
   return false;
 }
@@ -1730,7 +1731,9 @@ function doImport(){
     const e=document.getElementById('ref-planet-editor'); if(e)e.innerHTML=planetEditorHTML(); refreshPlanet(); }
   const _arr=x=>Array.isArray(x)?x.filter(Boolean):(x?[''+x]:[]);
   extraT0.limitations_fn=_arr(data.limitations_fn||raw.limitations_fn); extraT0.points_cles=_arr(data.points_cles||raw.points_cles); extraT0.asterisques=_arr(data.asterisques||raw.asterisques);
-  if(data.s24||raw.s24)extraT0.s24=data.s24||raw.s24; var _ev=data.evolution||raw.evolution||data.evo||raw.evo; if(_ev)extraT0.evo=_ev; if(data.iop||raw.iop)extraT0.iop=data.iop||raw.iop; try{renderS24();renderEvo();renderIOP();}catch(_e){}
+  if(data.s24||raw.s24)extraT0.s24=data.s24||raw.s24; var _ev=data.evolution||raw.evolution||data.evo||raw.evo; if(_ev)extraT0.evo=_ev; var _iopIn=data.iop||raw.iop; if(_iopIn&&typeof _iopIn==='object'){ Object.keys(_iopIn).forEach(function(kk){ var v=_iopIn[kk]; if(v&&typeof v==='object'&&v.adapt!=null){ var a=(''+v.adapt).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); v.adapt=(a==='adapte')?'adapte':((a.indexOf('non')===0||a.indexOf('inad')===0)?'nonadapte':''); } }); extraT0.iop=_iopIn; } try{renderS24();renderEvo();renderIOP();}catch(_e){}
+  try{ if(document.getElementById('ref-cif'))renderRefPanel(); }catch(_e){}
+  try{ _agAll(); }catch(_e){}
   const nextra=extraT0.limitations_fn.length+extraT0.points_cles.length+extraT0.asterisques.length;
   rep.style.color='var(--green)';
   rep.textContent='✓ '+r.filled+' champ(s) rempli(s)'+(nbc?' · '+nbc+' repère(s) body chart':'')+(nplan?' · '+nplan+' sphère(s)':'')+(nextra?' · '+nextra+' élément(s) T1':'')+' — vérifie et complète.';
@@ -1745,7 +1748,7 @@ const ZONES={
   ceinture:{v:'back',y:190,xC:100,xL:78,xR:122}, sacrum:{v:'back',y:214,xC:100},
   fesse:{v:'back',y:228,xL:74,xR:126}, cuisse_post:{v:'back',y:300,xL:78,xR:122},
   creux_poplite:{v:'back',y:348,xL:82,xR:118}, mollet:{v:'back',y:372,xL:80,xR:120}, talon:{v:'back',y:404,xL:74,xR:126},
-  epaule:{v:'front',y:95,xL:64,xR:136}, thorax:{v:'front',y:120,xC:100}, abdomen:{v:'front',y:152,xC:100},
+  visage:{v:'front',y:58,xC:100,xL:92,xR:108}, epaule:{v:'front',y:95,xL:64,xR:136}, thorax:{v:'front',y:120,xC:100}, abdomen:{v:'front',y:152,xC:100},
   bras:{v:'front',y:150,xL:46,xR:154}, coude:{v:'front',y:196,xL:40,xR:160}, avant_bras:{v:'front',y:215,xL:40,xR:160},
   main:{v:'front',y:238,xL:46,xR:154}, aine:{v:'front',y:250,xL:86,xR:114}, cuisse_ant:{v:'front',y:300,xL:80,xR:120},
   genou:{v:'front',y:348,xL:82,xR:118}, jambe:{v:'front',y:372,xL:82,xR:118}, cheville:{v:'front',y:400,xL:78,xR:122}, pied:{v:'front',y:416,xL:74,xR:126}
@@ -1795,6 +1798,7 @@ function addDerm(side,root){
   renderPins(); renderList();
 }
 const ZONESYN=[
+  [/visage|\bface\b|joue|machoire|m\u00e2choire|mandibul|temporo|trijum|\btempe\b|facial/,'visage'],
   [/nuque|\bcou\b/,'nuque'],[/cervical/,'cervicale'],[/trapeze|trapèze/,'trapeze'],[/omoplate|scapula/,'omoplate'],
   [/entre les omoplates|milieu du dos|dorsal|thoracique post/,'dorsal'],
   [/ceinture|bande lombaire|barre lombaire/,'ceinture'],[/lombaire|bas du dos|\breins?\b|lombal/,'lombaire'],
@@ -1843,6 +1847,9 @@ function importBodyChart(arr){
 }
 
 /* ====================== FINALISER : enregistrer / mail / imprimer ====================== */
+function _agTA(ta){ if(!ta||ta.tagName!=='TEXTAREA')return; try{ ta.style.height='auto'; var h=ta.scrollHeight; if(h)ta.style.height=Math.min(h+2,360)+'px'; }catch(e){} }
+function _agAll(){ try{ document.querySelectorAll('#view-anam textarea').forEach(_agTA); }catch(e){} }
+try{ document.addEventListener('input',function(e){ if(e.target&&e.target.tagName==='TEXTAREA'&&e.target.closest&&e.target.closest('#view-anam'))_agTA(e.target); },true); }catch(e){}
 const NL=String.fromCharCode(10);
 function gv(id){return (document.getElementById(id)||{}).value||'';}
 function esc(s){return (s==null?'':(''+s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -1856,7 +1863,7 @@ function collectAnswers(){
       if(t==='text'){val=(row.querySelector('textarea')||{}).value||'';}
       else if(t==='scale'){const r=row.querySelector('input[type=range]'); val=(r&&+r.value>0)?(r.value+'/10'):'';}
       else if(t==='bool'||t==='radio'||t==='check'){val=[...row.querySelectorAll('.opt')].filter(l=>l.querySelector('input').checked).map(l=>l.textContent.trim()).join(', ');}
-      else if(t==='flag'){const cb=row.querySelector('input[type=checkbox]'),nt=row.querySelector('input.fnote'); if(cb&&cb.checked)val='Présent'+(nt&&nt.value?(' — '+nt.value):'');}
+      else if(t==='flag'){const cb=row.querySelector('input[type=checkbox]'),nt=row.querySelector('.fnote'); if(cb&&cb.checked)val='Présent'+(nt&&nt.value?(' — '+nt.value):'');}
       if(val&&(''+val).trim()!=='')fields.push({label:it.f,val:val});
     });
     if(fields.length)out.push({sec:s.sec,fields:fields});
@@ -1943,12 +1950,15 @@ function _icf(){
   function box(title,items,color){ const list=items.filter(function(x){return x&&(''+x).trim()!=='';}); if(!list.length)return '<div style="border:1px solid #dde5ef;border-top:3px solid '+color+';border-radius:8px;padding:8px 10px;background:#fafcfe;opacity:.55"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:'+color+';font-weight:800">'+title+'</div><div style="font-size:11px;color:#9aa3af">—</div></div>';
     return '<div style="border:1px solid #dde5ef;border-top:3px solid '+color+';border-radius:8px;padding:8px 10px;background:#fff"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:'+color+';font-weight:800;margin-bottom:3px">'+title+'</div><div style="font-size:11.5px;color:#1a1a2e">'+list.map(esc).join('<br>')+'</div></div>'; }
   const yf=function(k){const v=getRowValue(k); return (v&&v.note)?v.note:'';};
+  function _symLab(k){ var f=(typeof SYMPTOMS!=='undefined')?SYMPTOMS.find(function(s){return s.k===k;}):null; return f?String(f.label).split(' ')[0]:'Douleur'; }
   const sante=readField('diagnostic')||readField('probleme')||'—';
-  const defic=[ (readField('localisation')?'Douleur : '+readField('localisation'):''), (readField('qualite')?'Qualité : '+readField('qualite'):''), (readField('paresthesies')&&readField('paresthesies')!=='Absentes'?'Paresthésies : '+readField('paresthesies'):''), (readField('red_flags')?'⚠ '+readField('red_flags'):'') ];
-  const limit=[ readField('provocation') ];
-  const partic=[ (readField('statut')?'Statut : '+readField('statut'):''), readField('objectifs') ];
-  const env=[ (readField('contexte_vie')?'Vie : '+readField('contexte_vie'):''), yf('yf_W'), yf('yf_F') ];
-  const perso=[ readField('representations'), (gv('sTSK')?'Kinésiophobie (TSK '+gv('sTSK')+')':''), yf('yf_A'), yf('yf_E') ];
+  var bc=[]; try{ (marks||[]).forEach(function(m){ var z=String(m.note||'').split(' · ')[0]; var t=_symLab(m.k)+(z?(' : '+z):''); if(bc.indexOf(t)<0)bc.push(t); }); }catch(e){}
+  const defic=bc.slice(0,6).concat([ (readField('red_flags')?'⚠ Drapeaux rouges : '+readField('red_flags'):''), (readField('mecanisme')?'Mécanisme : '+readField('mecanisme'):'') ]);
+  var lim=[]; try{ (extraT0.limitations_fn||[]).forEach(function(x){ if(x)lim.push(x); }); }catch(e){}
+  const limit=[ (readField('provocation')?'Aggravé par : '+readField('provocation'):''), (readField('evitement')?'Évite : '+readField('evitement'):'') ].concat(lim.slice(0,5));
+  const partic=[ (readField('statut')?'Statut : '+readField('statut'):''), (readField('objectifs')?'Objectifs : '+readField('objectifs'):''), (readField('attentes')?'Attentes : '+readField('attentes'):''), readField('hobbies'), readField('sport') ];
+  const env=[ (readField('charge')?'Charge : '+readField('charge'):''), yf('yf_W'), yf('yf_F'), yf('yf_D') ];
+  const perso=[ (readField('avoid_persist')?'Profil : '+readField('avoid_persist'):''), yf('yf_A'), yf('yf_E'), yf('yf_S'), (readField('imagerie_croyance')?'Croyance imagerie : '+readField('imagerie_croyance'):''), (gv('sTSK')?'Kinésiophobie (TSK '+gv('sTSK')+')':'') ];
   let h='<div class="sec">🌐 Modèle CIF — adapté au patient</div>';
   h+='<div style="text-align:center;margin:6px 0"><span style="display:inline-block;background:#001636;color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700">🏥 Problème de santé : '+esc(sante)+'</span></div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:6px 0">'+box('🩺 Déficiences (fonctions / structures)',defic,'#c0392b')+box('🚶 Limitations d\'activité',limit,'#d35400')+box('👥 Restrictions de participation',partic,'#1e6580')+'</div>';
@@ -2452,7 +2462,7 @@ function getRowValue(key){
   if(t==='bool'){const c=[...row.querySelectorAll('.opt')].find(l=>l.querySelector('input').checked); return c?/oui/i.test(c.textContent):undefined;}
   if(t==='radio'){const c=[...row.querySelectorAll('.opt')].find(l=>l.querySelector('input').checked); return c?c.textContent.trim():undefined;}
   if(t==='check'){const a=[...row.querySelectorAll('.opt')].filter(l=>l.querySelector('input').checked).map(l=>l.textContent.trim()); return a.length?a:undefined;}
-  if(t==='flag'){const cb=row.querySelector('input[type=checkbox]'); const nt=row.querySelector('input.fnote'); return (cb&&cb.checked)?{present:true,note:nt?nt.value:''}:undefined;}
+  if(t==='flag'){const cb=row.querySelector('input[type=checkbox]'); const nt=row.querySelector('.fnote'); return (cb&&cb.checked)?{present:true,note:nt?nt.value:''}:undefined;}
 }
 function setv(id,val){const e=document.getElementById(id); if(e&&val!=null&&val!=='')e.value=val;}
 /* ===== Registre statistiques auto (anonyme, local) ===== */
@@ -2503,7 +2513,7 @@ function restoreState(s){
   if(s.q&&typeof QRESP!=='undefined'){QDEFS.forEach(dq=>{if(Array.isArray(s.q[dq.id]))QRESP[dq.id]=s.q[dq.id];}); renderQ();}
   if(s.fin){setv('pat-nom',s.fin.nom);setv('pat-prenom',s.fin.prenom);setv('pat-dossier',s.fin.dossier);setv('med-email',s.fin.email);}
   if(s.planetes&&typeof s.planetes==='object'){planetData=s.planetes; const e=document.getElementById('ref-planet-editor'); if(e)e.innerHTML=planetEditorHTML(); refreshPlanet();}
-  if(s.extra&&typeof s.extra==='object')extraT0=s.extra; try{renderROM();renderS24();renderEvo();renderIOP();renderRefPanel();}catch(_e){}
+  if(s.extra&&typeof s.extra==='object')extraT0=s.extra; try{renderROM();renderS24();renderEvo();renderIOP();renderRefPanel();}catch(_e){} try{_agAll();}catch(_e){}
 }
 let _saveTimer=null;
 function autosave(){ if(!window._ready)return;
